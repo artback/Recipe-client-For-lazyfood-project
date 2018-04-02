@@ -1,0 +1,32 @@
+<div class="container">
+<div class="row">
+        <div class="pic col-md-2">
+            <div class="box">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ingredients</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ing of table">
+                            <td>{{ing.amount}} {{ing.ing}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="pic col-md-4">
+            <img class="big-pic img-thumbnail" src={{recipe.picture}} alt="picture">
+        </div>
+        <div class="pic col-md-4">
+            <h1 class="hvr-underline-from-center">{{recipe.name}}</h1>
+            <p class='description'>{{recipe.description}}</p>
+        </div>
+        <div class="col-md-6">
+            <div class="well hvr-border-fade">
+                <p>{{recipe.instruction}}</p>
+            </div>
+        </div>
+</div>
+</div>

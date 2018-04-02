@@ -1,15 +1,14 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "ng4fbbootstrap"
+    "name": "la"
   },
   "apps": [
     {
       "root": "src",
       "outDir": "dist",
       "assets": [
-        "assets",
-        "favicon.ico"
+        "assets"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -20,8 +19,8 @@
       "prefix": "app",
       "styles": [
         "styles.css"
+
       ],
-      "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

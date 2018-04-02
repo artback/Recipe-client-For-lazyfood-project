@@ -1,0 +1,27 @@
+
+.mealBox{
+    padding-top: 5vh;
+}
+
+body{
+    background-color: #ECECEC;
+    font-family: 'Comfortaa', cursive;
+
+}
+
+.author-text{
+    color:#898989;
+    font-style: italic;
+}
+
+.wrap{
+    padding-top: 175px;
+}
+
+.foodbase-pic{
+    padding-bottom: 5vh;
+}
+
+i{
+    float:right;
+}

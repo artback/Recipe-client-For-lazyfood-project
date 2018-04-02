@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("../node_modules/font-awesome/css/font-awesome.css");
+@import url("../node_modules/bootstrap/dist/css/bootstrap.min.css");
+@import url("../node_modules/hover.css");
+
+.mealBox{
+  padding-top: 5vh;
+}
+
+body{/
+  background-color: #ECECEC;
+  font-family: 'Comfortaa', cursive;
+
+}
+
+.author-text{
+  color:#898989;
+  font-style: italic;
+}
+
+.wrap{
+  padding-top: 175px;
+}
+
+.foodbase-pic{
+  padding-bottom: 5vh;
+}
+
+i{
+  float:right;
+}
+
+
+.start{
+  background-image: url("./assets/background.jpg");
+  height: 100vh;
+  background-size: 100% 100%;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
