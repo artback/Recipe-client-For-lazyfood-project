@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, Injectable, OnInit} from '@angular/core';
 import {RecipeService} from './recipe.service';
+import {Globals} from './globals';
 
 @Component({
   selector: 'app-home',
@@ -7,17 +8,20 @@ import {RecipeService} from './recipe.service';
   styleUrls: ['../css/home.css']
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   private author: String;
   table;
-  constructor(public recipeService: RecipeService) {
+  constructor(public recipeService: RecipeService, public globals: Globals) {
     this.getRecipes();
+  }
+  ngOnInit() {
+   this.globals.isHome = true;
+   this.globals.addrecipe = !this.globals.isLoggedIn;
   }
   getRecipes(): void {
     const promise = this.recipeService.getTable();
     promise.then(function (data) {
       this.table = data.data;
-      console.log(data.data);
     });
   }
   removeRecipe(id): void {
@@ -32,5 +36,4 @@ export class HomeComponent {
       }
     });
   }
-
 }

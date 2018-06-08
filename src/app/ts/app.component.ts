@@ -10,6 +10,5 @@ import {RecipeService} from './recipe.service';
 export class AppComponent {
   title = 'lazy client';
   constructor(public recipeService: RecipeService) {
-
   }
 }

@@ -2,21 +2,30 @@
   padding-top: 5vh;
 }
 #lazy-navbar{
-  padding-left: 10px;
-  padding-right: 20px;
+  margin-left: 10px;
+  margin-right: 20px;
   height: 100%;
 }
 .navbar-right{
-  min-height:30px;
-  margin-top: 20px;
+  min-height:35px;
+  margin-top: 15px;
+  margin-right: -20px;
 }
+
 .author-text{
   color:#898989;
   font-style: italic;
 }
-
+.a{
+  text-align:center;
+}
 .wrap{
   padding-top: 175px;
+}
+.navbar-nav{
+  margin-top: 15px;
+  height: 35px;
+  margin-left: 10px;
 }
 i{
   float:right;
@@ -53,7 +62,7 @@ i{
   left: 50%;
   right: 50%;
   bottom: 0;
-  background: #bbda55;
+  background: #800080;
   height: 4px;
   -webkit-transition-property: left, right;
   transition-property: left, right;

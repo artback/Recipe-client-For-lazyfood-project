@@ -1,29 +1,33 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RecipeService} from './recipe.service';
 import {Globals} from './globals';
+import {Cookie} from 'ng2-cookies';
 @Component({
   selector: 'app-header',
   templateUrl: '../template/header.html',
   styleUrls: ['../css/header.css']
 })
 
-export class HeaderComponent {
-  private name: String ;
+export class HeaderComponent{
+  private name: String;
   private password: String;
-  private isLoggedIn: boolean;
-  private isHome: boolean;
-  constructor(public recipeService: RecipeService, private globals: Globals) {
-  this.isHome = globals.isHome;
-  this.isLoggedIn = globals.isLoggedIn;
+  constructor(public recipeService: RecipeService, public globals: Globals) {
+
   }
   logout(): void {
     this.globals.isLoggedIn = false;
     this.globals.user = '';
-    this.globals.isHome = false;
     this.globals.pass = '';
+    Cookie.set('username', '');
+    Cookie.set('password', '');
+  }
+  submit(modal): void {
+   modal.hide();
+   this.createUser();
   }
   createUser(): void {
     this.recipeService.createUser(this.name, this.password);
   }
+
 
 }

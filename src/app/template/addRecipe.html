@@ -1,54 +1,51 @@
 <div class="container addRecipe" >
-    <h2 style="text-align:center;">Add recipe to FoodBase</h2>
-    <div class="inputBox col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2">
-        <form>
+  <form>
+  <div class="fieldBox">
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="Leave a comment"></textarea>
+    </mat-form-field>
+  </div>
+    <div id="recipeform" class="inputBox col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2">
             <div class="form-group-sm">
-                <div class="fieldBox">
-                    <label class="hvr-underline-from-center">Name</label>
-                    <input class="form-control" [(ngModel)]="name" type="text"><br/>
-                </div>
 
                 <div class="fieldBox">
-                    <label class="hvr-underline-from-center">Category</label>
+                    <label class="">Category</label>
                     <select class="form-control" [(ngModel)]="categoryID">
                         <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
                     </select><br/>
                 </div>
 
                 <div class="fieldBox">
-                    <label class="hvr-underline-from-center">Description</label>
+                    <label >Description</label>
                     <input class="form-control" [(ngModel)]="description" type="text"><br/>
                 </div>
 
                 <div class="fieldBox">
-                    <label class="hvr-underline-from-center">Instruction</label>
+                    <label >Instruction</label>
                     <input class="form-control" [(ngModel)]="instruction" type="text"><br/>
                 </div>
 
                 <div class="fieldBox">
-                    <label class="hvr-underline-from-center">Picture</label>
-                    <input class="form-control" [(ngModel)]="picture" type="text"><br/>
                     <input class="btn" (click)="addRecipe()" type="submit" value="Add recipe"/>
                 </div>
-
             </div>
-        </form>
     </div>
+  </form>
 
-    <div class="inputBox col-md-4 col-sm-4">
+    <div id="ingredientform" class="inputBox col-md-4 col-sm-4">
         <form>
             <div class="form-group-sm">
                 <div class="fieldBox">
-                    <label class="hvr-underline-from-center">Ingredient</label>
+                    <label class="">Ingredient</label>
                     <select class="form-control" ng-model="ingredient_id">
                         <option *ngFor="let ingredient of ingredients" value="{{ingredient.id}}">{{ingredient.name}}</option>
                     </select><br/>
                 </div>
 
                 <div class="fieldBox">
-                    <label class="hvr-underline-from-center">Amount</label>
+                    <label class="">Amount</label>
                     <input class="form-control" [(ngModel)]="amount" type="text"><br/>
-                    <input class="btn" (click)="addIngredientToRecipe()" type="submit" value="Add ingredient"/>
+                    <input class="btn" (click)="addIngredientToRecipe()" type="submit" value="Add ingredient to recipe"/>
                 </div>
             </div>
         </form>

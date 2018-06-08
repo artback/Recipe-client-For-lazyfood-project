@@ -1,41 +1,35 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="collapse navbar-collapse" id="lazy-navbar">
-    <img src="../../assets/firstLogo.png" alt="Logotype" height="50" width="50">
+    <img src="../../assets/FirstLogo.png" alt="Logotype" height="50" width="50">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-      <a class="hvr-underline-from-center" [hidden]="isHome" ui-sref="home">HOME</a>
-      </li>
-      <li class="nav-item">
-        <a class="hvr-underline-from-center" [hidden]="!isLoggedIn" ui-sref="addRecipe">ADD RECIPE</a>
-      </li>
+      <li class="hvr-underline-from-center" [hidden]="globals.isHome" uiSref="home">&ensp; HOME &ensp;</li>
+        <li class="hvr-underline-from-center" [hidden]="globals.addrecipe" uiSref="addRecipe">ADD RECIPE</li>
     </ul>
     <ul class="nav navbar-right" >
-      <li class="hvr-underline-from-center" ><a [hidden]="isLoggedIn" data-toggle="modal" data-target="#myModal">LOGIN/REGISTER</a></li>
-      <li class="hvr-underline-from-center" ><a [hidden]="!isLoggedIn" >{{user}}</a></li>
-      <li class="hvr-underline-from-center" ><a [hidden]="!isLoggedIn" (click)="logout()" href="">LOGOUT</a></li>
+      <li class="hvr-underline-from-center" ><a [hidden]="globals.isLoggedIn" (click)="modal.show()">&ensp; LOGIN/REGISTER &ensp;</a></li>
+      <li class="hvr-underline-from-center" ><a [hidden]="!globals.isLoggedIn" >&ensp; {{globals.user | uppercase}} &ensp;</a></li>
+      <li class="hvr-underline-from-center" ><a [hidden]="!globals.isLoggedIn" (click)="logout()" >&ensp; LOGOUT &ensp;</a></li>
     </ul>
   </div>
 </nav>
-<div class="modal fade" id="myModal" role="dialog" >
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Login or create an account</h4>
-      </div>
-      div class="modal-body">
-      <form>
-        <div class="form-group-sm">
-          <label>Username</label>
-          <input class="form-control" [(ngModel)]="name" [ngModelOptions]="{standalone: true}"  type="text"><br/>
-          <label>Password</label>
-          <input class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" type="password"><br/>
-        </div>
-
-        <div class="modal-footer">
-          <input class="btn" (click)="createUser()" type="submit" value="Submit" data-dismiss="modal"/>
-        </div>
-      </form>
-    </div>
+<app-modal #modal>
+  <div class="app-modal-header">
+    <label class="modal-title" id="myModalLabel">Login or create an account</label>
   </div>
-</div>
+  <div class="app-modal-body">
+    <form>
+      <div class="form-group-sm">
+        <label>Username</label>
+        <input class="form-control" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" type="text" ><br/>
+        <label>Password</label>
+        <input class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" type="password"><br/>
+      </div>
+    </form>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="modal.hide()">Close</button>
+    <button type="button" (click)="submit(modal)" class="btn btn-primary">Submit</button>
+  </div>
+</app-modal>
+

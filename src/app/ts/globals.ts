@@ -6,4 +6,5 @@ export class Globals {
   pass: String;
   isLoggedIn = false;
   isHome = true;
+  addrecipe = false;
 }

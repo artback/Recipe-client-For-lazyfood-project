@@ -7,10 +7,11 @@
   padding-top: 5vh;
 }
 
-body{/
+body{
   background-color: #ECECEC;
   font-family: 'Comfortaa', cursive;
-
+  height: 100%;
+  width: 100%;
 }
 
 .author-text{
@@ -22,15 +23,24 @@ body{/
   padding-top: 175px;
 }
 
-.foodbase-pic{
-  padding-bottom: 5vh;
-}
-
 i{
   float:right;
 }
-
-
+.modal-dialog{
+  width: 550px;
+  height: 300px;
+  margin:0 auto;
+  display:table;
+  position: absolute;
+  left: 0;
+  right:0;
+  top: 25%;
+  -webkit-transform:translateY(-50%);
+  -moz-transform:translateY(-50%);
+  -ms-transform:translateY(-50%);
+  -o-transform:translateY(-50%);
+  transform:translateY(-50%);
+}
 .start{
   background-image: url("./assets/background.jpg");
   height: 100vh;
@@ -41,3 +51,5 @@ i{
 
 
 
+
+body { margin: 0; }

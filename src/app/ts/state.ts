@@ -4,7 +4,7 @@ import {AddrecipeComponent} from './addrecipe.component';
 import {RecipeService} from './recipe.service';
 import {Transition} from '@uirouter/angular';
 export const homeState = {
-  name: 'home', url: '/', component: HomeComponent
+  name: 'home', url: '', component: HomeComponent
 };
 export const recipeState = {
   name: 'recipe',

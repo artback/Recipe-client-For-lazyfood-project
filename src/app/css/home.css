@@ -2,6 +2,11 @@
 .mealBox{
     padding-top: 5vh;
 }
+.form-inline{
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+}
 
 body{
     background-color: #ECECEC;
@@ -18,10 +23,3 @@ body{
     padding-top: 175px;
 }
 
-.foodbase-pic{
-    padding-bottom: 5vh;
-}
-
-i{
-    float:right;
-}

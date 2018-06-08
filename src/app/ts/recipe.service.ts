@@ -1,16 +1,18 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Globals} from './globals';
+import {Cookie} from 'ng2-cookies/ng2-cookies';
 const baseUrl = 'http://localhost:8080';
 @Injectable()
 export class RecipeService {
-  constructor (private httpClient: HttpClient, private globals: Globals) {}
+  constructor (private httpClient: HttpClient, private globals: Globals) {
+  }
+
   getPromise(url): Promise<any> {
     return this.httpClient.get(url).toPromise();
   }
-
   getTable(): Promise<any> {
-    const url = baseUrl + 'RecipeApp/webresources/viewRecipes';
+    const url = baseUrl + '/viewRecipes';
     return this.getPromise(url);
   }
 
@@ -20,53 +22,53 @@ export class RecipeService {
   }
 
   getIngredients(): Promise<any> {
-    const url = baseUrl + 'RecipeApp/webresources/ingredients';
+    const url = baseUrl + '/ingredients';
     return this.getPromise(url);
   }
 
   getViewRecipe(id): Promise<any> {
-    const url = baseUrl + 'RecipeApp/webresources/viewRecipe/' + id;
+    const url = baseUrl + '/viewRecipe/' + id;
     return this.getPromise(url);
   }
 
   getRecipeIngredients(id): Promise<any> {
-    const url = baseUrl + 'RecipeApp/webresources/ingredients/' + id;
+    const url = baseUrl + '/ingredients/' + id;
     return this.getPromise(url);
   }
 
-  createUser(name, password): void {
+  public createUser = (username, password) => {
     const data = {
-      name: name,
+      username: username,
       password: password
     };
-    const url = baseUrl + 'RecipeApp/webresources/createUser';
-    this.httpClient.post(url, data).subscribe(function () {
+    const url = baseUrl + '/user';
+    this.httpClient.post(url, data).subscribe(() => {
       console.log('User added');
-      alert('Welcome to ' + name);
-    }, function () {
-      console.log('User with this name already exist,Logging in!');
-      this.loggIn(name, password);
+      alert('Welcome ' + username);
+      this.logIn(username, password);
+    }, () => {
+      console.log('User with ' + username + ' already exist,Logging in!');
+      this.logIn(username, password);
     });
   }
 
-  loggIn(name, password): void {
-    const url = baseUrl + 'RecipeApp/webresources/login';
-    const auth = 'Basic ' + window.btoa(name + ':' + password);
+  logIn = (username, password) => {
+    const url = baseUrl + '/login';
+    const auth = 'Basic ' + window.btoa(username + ':' + password);
     const options = {
       headers: {Authorization: auth}
     };
-    this.httpClient.post(url, null, options).subscribe(function () {
-      console.log('you isLoggedIn!');
+    this.httpClient.post(url, null, options).subscribe(() =>{
+      console.log(username + ' logged in');
       this.globals.isLoggedIn = true;
-      this.globals.user = name;
+      this.globals.user = username;
       this.globals.pass = password;
-      console.log(name, password);
+      Cookie.set('username', username);
+      Cookie.set('password', password);
     }, function () {
-      alert('Sorry, wrong password. Try again or create a new user');
-      console.log('You cant login');
+      alert('Sorry, wrong password. Try again');
     });
   }
-
   addRecipe(name, categoryID, description, instruction, picture): void {
     const data = {
       name: name,
@@ -75,7 +77,7 @@ export class RecipeService {
       instruction: instruction,
       picture: picture
     };
-    const url = baseUrl + 'RecipeApp/webresources/recipe';
+    const url = baseUrl + '/recipe';
     const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.pass);
     const options = {
      headers: {Authorization: auth}
@@ -88,7 +90,7 @@ export class RecipeService {
     });
   }
   removeRecipe(id): void {
-    const url = 'http://localhost:8080/RecipeApp/webresources/recipe/' + id;
+    const url = baseUrl + '/recipe/' + id;
     const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.pass);
     const options = {
       headers: {Authorization: auth}
