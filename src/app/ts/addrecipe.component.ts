@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, Injectable, OnDestroy, OnInit} from '@angular/core';
-import {MatInputModule} from '@angular/material/input';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import {RecipeService} from './recipe.service';
 import {Globals} from './globals';
+import {Ingredient} from './Ingredient';
+import { Ingredient } from './Ingredient';
 @Component({
   selector: 'app-addrecipe',
   templateUrl: '../template/addRecipe.html',
@@ -9,16 +10,13 @@ import {Globals} from './globals';
 })
 
 export class AddrecipeComponent implements OnInit, OnDestroy {
-  name: String;
-  categoryID;
+  private name: String;
+  private ingredients: Ingredient[] = new Array();
   private description: String;
   private instruction: String;
   private picture;
-  private amount;
-  private ingredient_id;
-  ingredients;
-  categories;
   constructor(public recipeService: RecipeService, public globals: Globals) {
+    this.ingredients.push(new Ingredient());
     this.getCategories();
     this.getIngredients();
   }
@@ -26,11 +24,18 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
    this.globals.isHome = false;
    this.globals.addrecipe = (true && this.globals.isLoggedIn);
   }
+  addIngredient() {
+    this.ingredients.push(new Ingredient());
+  }
+  removeIngredient() {
+    this.ingredients.pop();
+  }
   ngOnDestroy() {
     this.globals.addrecipe = (false && this.globals.isLoggedIn);
   }
-  addrecipe(): void {
-    this.recipeService.addRecipe(this.name, this.categoryID, this.description, this.instruction, this.picture);
+  addRecipe(): void {
+    console.log(this.ingredients.size);
+    //this.recipeService.addRecipe(this.name, this.categoryID, this.description, this.instruction, this.picture);
   }
   getCategories(): void {
   const promise = this.recipeService.getCategories();

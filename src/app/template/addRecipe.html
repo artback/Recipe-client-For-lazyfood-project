@@ -1,53 +1,60 @@
-<div class="container addRecipe" >
+<div class="container addRecipe">
   <form>
-  <div class="fieldBox">
-    <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Leave a comment"></textarea>
-    </mat-form-field>
-  </div>
-    <div id="recipeform" class="inputBox col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2">
-            <div class="form-group-sm">
+    <div class="fieldBox">
+      <mat-form-field class="fullwidth">
+        <input matInput placeholder="Name">
+      </mat-form-field>
+    </div>
+    <div id="middleForm">
+      <div id="photo">
 
-                <div class="fieldBox">
-                    <label class="">Category</label>
-                    <select class="form-control" [(ngModel)]="categoryID">
-                        <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
-                    </select><br/>
-                </div>
-
-                <div class="fieldBox">
-                    <label >Description</label>
-                    <input class="form-control" [(ngModel)]="description" type="text"><br/>
-                </div>
-
-                <div class="fieldBox">
-                    <label >Instruction</label>
-                    <input class="form-control" [(ngModel)]="instruction" type="text"><br/>
-                </div>
-
-                <div class="fieldBox">
-                    <input class="btn" (click)="addRecipe()" type="submit" value="Add recipe"/>
-                </div>
-            </div>
+      </div>
+      <div id="descriptionform" class="inputBox">
+        <label>Description</label>
+        <div class="form-group-sm">
+          <div class="fieldBox">
+            <mat-form-field class="fullwidth">
+              <textarea matInput mat-autosize="true" matAutosizeMaxRows="10" placeholder=""></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="bottomForm" class="inputBox">
+      <div id="ingredientTable">
+        <div id="table" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+          <table cellspacing="0">
+            <thead>
+            <tr>
+              <td>Ingredient</td>
+              <td>Volume</td>
+              
+            </tr>
+            </thead>
+              <tr *ngFor="let Ingredient of ingredients">
+                <td>
+                  <mat-form-field class="fullwidth">
+                    <input matInput placeholder="" [value]="Ingredient.name">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field class="fullwidth">
+                    <input matInput placeholder="" [value]="Ingredient.volume">
+                  </mat-form-field>
+                </td>
+              </tr>
+          </table>
+        </div>
+      </div>
+      <div id="steps">
+        <label>Steps</label>
+        <mat-form-field id="stepsform" class="fullwidth">
+          <textarea id="stepstext" matInput mat-autosize="true" matAutosizeMaxRows="15"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div id="addButton" class="fieldBox">
+      <button mat-raised-button (click)="addRecipe()" type="submit" color="primary">Add recipe</button>
     </div>
   </form>
-
-    <div id="ingredientform" class="inputBox col-md-4 col-sm-4">
-        <form>
-            <div class="form-group-sm">
-                <div class="fieldBox">
-                    <label class="">Ingredient</label>
-                    <select class="form-control" ng-model="ingredient_id">
-                        <option *ngFor="let ingredient of ingredients" value="{{ingredient.id}}">{{ingredient.name}}</option>
-                    </select><br/>
-                </div>
-
-                <div class="fieldBox">
-                    <label class="">Amount</label>
-                    <input class="form-control" [(ngModel)]="amount" type="text"><br/>
-                    <input class="btn" (click)="addIngredientToRecipe()" type="submit" value="Add ingredient to recipe"/>
-                </div>
-            </div>
-        </form>
-    </div>
 </div>

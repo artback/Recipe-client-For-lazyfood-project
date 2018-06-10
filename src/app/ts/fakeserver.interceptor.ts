@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { delay, materialize, dematerialize, mergeMap, _throw} from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/materialize';
+import 'rxjs/add/operator/dematerialize';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -24,7 +29,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
 
     // wrap in delayed observable to simulate server api call
-    return of(null).pipe(mergeMap(() => {
+    return Observable.of(null).mergeMap(() => {
       // authenticate
       if (request.url.endsWith('/login')  && request.method === 'POST') {
         // find if any user matches login credentials
@@ -34,9 +39,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const password = userAndPassword.password;
         const exists = users.filter(user => user.username === username && user.password === password).length;
         if (exists) {
-            return of(new HttpResponse({status: 200, body: null}));
+            return Observable.of(new HttpResponse({status: 200, body: null}));
         } else {
-            return Observable._throw('Unauthorised');
+            return Observable.throw('Unauthorised');
         }
       }
       // create user
@@ -52,7 +57,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
         // respond 200 OK
-        return of(new HttpResponse({ status: 200 }));
+        return Observable.of(new HttpResponse({ status: 200 }));
       }
 
       // delete user
@@ -73,7 +78,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           }
 
           // respond 200 OK
-          return of(new HttpResponse({ status: 200 }));
+          return Observable.of(new HttpResponse({ status: 200 }));
         } else {
           // return 401 not authorised if token is null or invalid
           return Observable.throw('Unauthorised');
@@ -82,7 +87,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       // pass through any requests not handled above
       return next.handle(request);
-    })).materialize()
+    }).materialize()
       .delay(500)
       .dematerialize();
   }

@@ -16,8 +16,10 @@
   color:#898989;
   font-style: italic;
 }
-.a{
+a{
   text-align:center;
+  padding-right: 1em;
+  padding-left: 1em;
 }
 .wrap{
   padding-top: 175px;

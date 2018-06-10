@@ -37,6 +37,7 @@
     "ng2-cookies": "^1.0.12",
     "popper.js": "^1.14.3",
     "rxjs": "^6.2.0",
+    "rxjs-compat": "^6.2.0",
     "webpack": "^4.11.1",
     "zone.js": "^0.8.26"
   },

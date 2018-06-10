@@ -2,7 +2,7 @@
   padding-top:70px;
   height: 100%;
   min-width: 100%;
-  background-image: url("//../../assets/ingredients.png");
+  background-color: #F6F3F8;
 }
 
 .inputBox{
@@ -12,11 +12,45 @@
 .fieldBox{
     text-align:center;
 }
-#recipeform{
-  float:left;
-  padding-left: 10em;
+.example-full-width{
+ width: 100%;
 }
-#ingredientform{
+#descriptionform{
+  width: 50%;
   float:right;
-  padding-right: 10em;
+}
+#middleForm{
+  display: flex;
+}
+#bottomForm{
+  height: 50%;
+}
+#photo{
+  width: 50%;
+  height: 200px;
+  float:left;
+}
+#ingredientTable{
+  width: 50%;
+  height: 90%;
+  float:left;
+}
+#table{
+  overflow: auto;
+  height: 100%;
+  text-align: left;
+}
+#steps{
+  width: 50%;
+  height: 90%;
+  float:right;
+}
+#addButton {
+  position: absolute;
+  bottom: 3em;
+  right: 3em;
+  height: 60px; /* Height of the footer */
+}
+.fullwidth{
+ width: 100%;
 }
