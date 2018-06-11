@@ -45,6 +45,12 @@
   height: 90%;
   float:right;
 }
+#ingredientlabel{
+ margin-right: 2em;
+}
+table{
+  width: 100%;
+}
 #addButton {
   position: absolute;
   bottom: 3em;

@@ -13,9 +13,10 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
   private name: String;
   private ingredients: Ingredient[] = new Array();
   private description: String;
-  private instruction: String;
+  private instructions: String[] = new Array();
   private picture;
   constructor(public recipeService: RecipeService, public globals: Globals) {
+    this.instructions.push('');
     this.ingredients.push(new Ingredient());
     this.getCategories();
     this.getIngredients();
@@ -27,24 +28,32 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
   addIngredient() {
     this.ingredients.push(new Ingredient());
   }
-  removeIngredient() {
-    this.ingredients.pop();
+  eventHandler(event, index) {
+    if (event.code === 'Enter') {
+      if (index === this.instructions.length - 1) {
+      this.addInstruction(index);
+      }
+    }
+  }
+  addInstruction(index) {
+      this.instructions.push('');
+  }
+  removeIngredient(index) {
+      if (this.ingredients.length !== 1 ) {
+        this.ingredients.splice(index, 1);
+      }
   }
   ngOnDestroy() {
     this.globals.addrecipe = (false && this.globals.isLoggedIn);
   }
   addRecipe(): void {
-    console.log(this.ingredients.size);
-    //this.recipeService.addRecipe(this.name, this.categoryID, this.description, this.instruction, this.picture);
+    this.recipeService.addRecipe(this.name, this.categoryID, this.description, this.instructions, this.picture, this.ingredients);
   }
   getCategories(): void {
   const promise = this.recipeService.getCategories();
   promise.then(function (data) {
     this.categories = data.data;
   });
-  }
-  addIngredientToRecipe(): void {
-      this.recipeService.addIngredientToRecipe(this.amount, this.ingredient_id);
   }
   getIngredients(): void {
   const promise = this.recipeService.getIngredients();

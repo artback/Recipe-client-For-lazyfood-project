@@ -22,16 +22,17 @@
     </div>
     <div id="bottomForm" class="inputBox">
       <div id="ingredientTable">
+        <label id="ingredientlabel">Ingredients</label>
+        <button mat-button type="button" (click)="addIngredient()">+</button>
         <div id="table" #scrollMe [scrollTop]="scrollMe.scrollHeight">
           <table cellspacing="0">
             <thead>
             <tr>
-              <td>Ingredient</td>
+              <td id="ingredient">Ingredient</td>
               <td>Volume</td>
-              
             </tr>
             </thead>
-              <tr *ngFor="let Ingredient of ingredients">
+              <tr *ngFor="let Ingredient of ingredients;let i = index">
                 <td>
                   <mat-form-field class="fullwidth">
                     <input matInput placeholder="" [value]="Ingredient.name">
@@ -42,15 +43,24 @@
                     <input matInput placeholder="" [value]="Ingredient.volume">
                   </mat-form-field>
                 </td>
+                  <button mat-button type="button" (click)="removeIngredient(i)">x</button>
               </tr>
           </table>
         </div>
       </div>
       <div id="steps">
         <label>Steps</label>
-        <mat-form-field id="stepsform" class="fullwidth">
-          <textarea id="stepstext" matInput mat-autosize="true" matAutosizeMaxRows="15"></textarea>
-        </mat-form-field>
+        <button mat-button type="button" (click)="addInstruction()">+</button>
+        <table >
+          <tr *ngFor="let instruction of instructions;let i = index">
+            <td>{{i+1}}</td>
+            <td>
+              <mat-form-field class="fullwidth">
+                <input matInput [value]="instruction" (keyup)="eventHandler($event,i)">
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div id="addButton" class="fieldBox">
