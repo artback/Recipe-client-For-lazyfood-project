@@ -60,7 +60,8 @@ export class RecipeService {
     };
     this.httpClient.post(url, null, options).subscribe(() =>{
       console.log(username + ' logged in');
-      this.globals.isLoggedIn = this.globals.addrecipe = true;
+      this.globals.isLoggedIn = true;
+      this.globals.addrecipe = false;
       this.globals.user = username;
       this.globals.pass = password;
       Cookie.set('username', username);

@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChildren} from '@angular/core';
 import {RecipeService} from './recipe.service';
 import {Globals} from './globals';
-import {Ingredient} from './Ingredient';
-import { Ingredient } from './Ingredient';
+import {Recipe} from './models/Recipe';
 @Component({
   selector: 'app-addrecipe',
   templateUrl: '../template/addRecipe.html',
@@ -10,55 +9,56 @@ import { Ingredient } from './Ingredient';
 })
 
 export class AddrecipeComponent implements OnInit, OnDestroy {
-  private name: String;
-  private ingredients: Ingredient[] = new Array();
-  private description: String;
-  private instructions: String[] = new Array();
-  private picture;
+  private recipe = new Recipe();
+  @ViewChildren('instructionfield') instructionsInput;
   constructor(public recipeService: RecipeService, public globals: Globals) {
-    this.instructions.push('');
-    this.ingredients.push(new Ingredient());
-    this.getCategories();
     this.getIngredients();
   }
   ngOnInit() {
    this.globals.isHome = false;
    this.globals.addrecipe = (true && this.globals.isLoggedIn);
   }
-  addIngredient() {
-    this.ingredients.push(new Ingredient());
+  onFileSelected(files) {
+    if (files[0]) {
+      const reader = new FileReader();
+      reader.onload = ((theFile) => {
+        return (e) => {
+          // Render thumbnail.
+          this.recipe.img = e.target.result;
+        };
+      })(files[0]);
+      reader.readAsDataURL(files[0]);
+    }
   }
-  eventHandler(event, index) {
+  eventHandler(event, index, elmnt) {
     if (event.code === 'Enter') {
-      if (index === this.instructions.length - 1) {
+      if (index === this.recipe.instructions.length - 1) {
       this.addInstruction(index);
       }
     }
+    if (event.code === 'Delete') {
+       this.recipe.instructions.splice(index, 1);
+     }
   }
-  addInstruction(index) {
-      this.instructions.push('');
+  addInstruction() {
+      this.recipe.addInstruction();
+      this.jumpToStep();
   }
-  removeIngredient(index) {
-      if (this.ingredients.length !== 1 ) {
-        this.ingredients.splice(index, 1);
-      }
+  jumpToStep() {
+    this.instructionsInput.changes.subscribe(() => {
+      this.instructionsInput.last.nativeElement.focus();
+    });
   }
   ngOnDestroy() {
     this.globals.addrecipe = (false && this.globals.isLoggedIn);
   }
   addRecipe(): void {
-    this.recipeService.addRecipe(this.name, this.categoryID, this.description, this.instructions, this.picture, this.ingredients);
-  }
-  getCategories(): void {
-  const promise = this.recipeService.getCategories();
-  promise.then(function (data) {
-    this.categories = data.data;
-  });
+    // this.recipeService.addRecipe(this.recipe);
   }
   getIngredients(): void {
-  const promise = this.recipeService.getIngredients();
-  promise.then(function (data) {
-    this.ingredients = data.data;
-  });
+    const promise = this.recipeService.getIngredients();
+    promise.then(function (data) {
+      this.recipe.ingredients = data.data;
+    });
   }
 }

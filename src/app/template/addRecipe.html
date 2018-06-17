@@ -1,5 +1,4 @@
 <div class="container addRecipe">
-  <form>
     <div class="fieldBox">
       <mat-form-field class="fullwidth">
         <input matInput placeholder="Name">
@@ -7,7 +6,13 @@
     </div>
     <div id="middleForm">
       <div id="photo">
-
+        <div class="image-upload">
+          <label for="file-input">
+            <img [src]="recipe.img" style="pointer-events: none"/>
+            <output id="list"></output>
+          </label>
+          <input id="file-input" type="file" #file (change)="onFileSelected(file.files)" />
+        </div>
       </div>
       <div id="descriptionform" class="inputBox">
         <label>Description</label>
@@ -15,6 +20,7 @@
           <div class="fieldBox">
             <mat-form-field class="fullwidth">
               <textarea matInput mat-autosize="true" matAutosizeMaxRows="10" placeholder=""></textarea>
+              <mat-hint align="start"><strong>use # for tags and categories</strong></mat-hint>
             </mat-form-field>
           </div>
         </div>
@@ -23,7 +29,7 @@
     <div id="bottomForm" class="inputBox">
       <div id="ingredientTable">
         <label id="ingredientlabel">Ingredients</label>
-        <button mat-button type="button" (click)="addIngredient()">+</button>
+        <button mat-button type="button" (click)="recipe.addEmptyIngredient()">+</button>
         <div id="table" #scrollMe [scrollTop]="scrollMe.scrollHeight">
           <table cellspacing="0">
             <thead>
@@ -32,18 +38,18 @@
               <td>Volume</td>
             </tr>
             </thead>
-              <tr *ngFor="let Ingredient of ingredients;let i = index">
+              <tr *ngFor="let ingredient of recipe.ingredients;let i = index">
                 <td>
                   <mat-form-field class="fullwidth">
-                    <input matInput placeholder="" [value]="Ingredient.name">
+                    <input matInput placeholder="" [value]="ingredient.name">
                   </mat-form-field>
                 </td>
                 <td>
                   <mat-form-field class="fullwidth">
-                    <input matInput placeholder="" [value]="Ingredient.volume">
+                    <input matInput placeholder="" [value]="ingredient.volume">
                   </mat-form-field>
                 </td>
-                  <button mat-button type="button" (click)="removeIngredient(i)">x</button>
+                  <button mat-button type="button" (click)="recipe.removeIngredient(i)">x</button>
               </tr>
           </table>
         </div>
@@ -52,11 +58,11 @@
         <label>Steps</label>
         <button mat-button type="button" (click)="addInstruction()">+</button>
         <table >
-          <tr *ngFor="let instruction of instructions;let i = index">
+          <tr *ngFor="let instruction of recipe.instructions;let i = index">
             <td>{{i+1}}</td>
             <td>
               <mat-form-field class="fullwidth">
-                <input matInput [value]="instruction" (keyup)="eventHandler($event,i)">
+                <input matInput [(ngModel)]="recipe.instructions[i].name" #instructionfield (keyup)="eventHandler($event,i)">
               </mat-form-field>
             </td>
           </tr>
@@ -64,7 +70,6 @@
       </div>
     </div>
     <div id="addButton" class="fieldBox">
-      <button mat-raised-button (click)="addRecipe()" type="submit" color="primary">Add recipe</button>
+      <button mat-raised-button  (click)="addRecipe()" type="submit" color="primary">Add recipe</button>
     </div>
-  </form>
 </div>

@@ -30,6 +30,18 @@
   height: 200px;
   float:left;
 }
+.image-upload > label{
+  width: 50%;
+  height: 100%;
+}
+.image-upload img{
+  width: auto;
+  max-height: 100%;
+}
+.image-upload > input
+{
+  display: none;
+}
 #ingredientTable{
   width: 50%;
   height: 90%;
