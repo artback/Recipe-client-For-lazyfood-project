@@ -8,6 +8,7 @@ export class Recipe {
   public description: String;
   public instructions: Instruction[] = [];
   constructor() {
+    this.img = '../../../assets/placeholder.png';
     this.instructions.push(new Instruction());
     this.ingredients.push( new Ingredient('', 0));
   }

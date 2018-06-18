@@ -53,7 +53,7 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
     this.globals.addrecipe = (false && this.globals.isLoggedIn);
   }
   addRecipe(): void {
-    // this.recipeService.addRecipe(this.recipe);
+    this.recipeService.addRecipe(this.recipe);
   }
   getIngredients(): void {
     const promise = this.recipeService.getIngredients();
