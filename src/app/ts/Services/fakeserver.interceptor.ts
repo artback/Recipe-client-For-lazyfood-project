@@ -27,6 +27,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // array in local storage for registered users
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
+    const recipes: any[] = JSON.parse(localStorage.getItem('recipes')) || [];
 
     // wrap in delayed observable to simulate server api call
     return Observable.of(null).mergeMap(() => {
@@ -81,10 +82,21 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return Observable.of(new HttpResponse({ status: 200 }));
         } else {
           // return 401 not authorised if token is null or invalid
-          return Observable.throw('Unauthorised');
+          return Observable.throw('unauthorised');
         }
       }
 
+      if (request.url.match('/recipe') && request.method === 'POST') {
+        const recipe = JSON.parse(request.body);
+        if (recipe.name !== '') {
+          recipes.push(request.body);
+          localStorage.setItem('recipes', JSON.stringify(recipes));
+          return Observable.of(new HttpResponse({status: 200}));
+        } else {
+          return Observable.throw('missing param');
+
+        }
+      }
       // pass through any requests not handled above
       return next.handle(request);
     }).materialize()

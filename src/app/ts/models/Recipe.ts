@@ -2,13 +2,13 @@ import {Instruction} from './Instruction';
 import {Ingredient} from './Ingredient';
 
 export class Recipe {
-  public img = new Image();
+  public img;
   public name: String;
   public ingredients: Ingredient[] = [];
   public description: String;
   public instructions: Instruction[] = [];
   constructor() {
-    this.img = '../../../assets/placeholder.png';
+    this.name = '';
     this.instructions.push(new Instruction());
     this.ingredients.push( new Ingredient('', 0));
   }

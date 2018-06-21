@@ -1,14 +1,15 @@
 <div class="container addRecipe">
     <div class="fieldBox">
       <mat-form-field class="fullwidth">
-        <input matInput placeholder="Name">
+        <input [(ngModel)]="recipe.name" matInput placeholder="Name" >
       </mat-form-field>
     </div>
     <div id="middleForm">
       <div id="photo">
         <div class="image-upload">
           <label for="file-input">
-            <img [src]="recipe.img" style="pointer-events: none"/>
+            <img *ngIf="recipe.img" [src]="recipe.img" style="pointer-events: none"/>
+            <img *ngIf="!recipe.img" src="../../../assets/placeholder.png" style="pointer-events: none"/>
             <output id="list"></output>
           </label>
           <input id="file-input" type="file" #file (change)="onFileSelected(file.files)" />

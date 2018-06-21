@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, Injectable, OnInit} from '@angular/core';
-import {RecipeService} from './recipe.service';
-import {Globals} from './globals';
+import {RecipeService} from '../Services/recipe.service';
+import {Globals} from '../models/globals';
 
 @Component({
   selector: 'app-home',
-  templateUrl: '../template/home.html',
-  styleUrls: ['../css/home.css']
+  templateUrl: '../../template/home.html',
+  styleUrls: ['../../css/home.css']
 })
 
 export class HomeComponent implements OnInit {

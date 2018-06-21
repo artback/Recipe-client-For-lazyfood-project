@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit, ViewChildren} from '@angular/core';
-import {RecipeService} from './recipe.service';
-import {Globals} from './globals';
-import {Recipe} from './models/Recipe';
+import {RecipeService} from '../Services/recipe.service';
+import {Globals} from '../models/globals';
+import {Recipe} from '../models/Recipe';
 @Component({
   selector: 'app-addrecipe',
-  templateUrl: '../template/addRecipe.html',
-  styleUrls: ['../css/addRecipe.css']
+  templateUrl: '../../template/addRecipe.html',
+  styleUrls: ['../../css/addRecipe.css']
 })
 
 export class AddrecipeComponent implements OnInit, OnDestroy {

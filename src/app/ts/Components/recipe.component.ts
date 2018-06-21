@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import {RecipeService} from './recipe.service';
+import {RecipeService} from '../Services/recipe.service';
 @Component({
   selector: 'app-recipe',
-  templateUrl: '../template/recipe.html',
-  styleUrls: ['../css/recipe.css'],
+  templateUrl: '../../template/recipe.html',
+  styleUrls: ['../../css/recipe.css'],
   inputs: ['recipe'],
 })
 

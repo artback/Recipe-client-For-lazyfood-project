@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Globals} from './globals';
+import {Globals} from '../models/globals';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
 const baseUrl = 'http://localhost:8080';
 @Injectable()
@@ -70,23 +70,17 @@ export class RecipeService {
       alert('Sorry, wrong password. Try again');
     });
   }
-  addRecipe(name, categoryID, description, instruction, picture): void {
-    const data = {
-      name: name,
-      categori_id: Number(categoryID),
-      description: description,
-      instruction: instruction,
-      picture: picture
-    };
+  addRecipe(recipe): void {
+    const recipeString = JSON.stringify(recipe);
     const url = baseUrl + '/recipe';
     const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.pass);
     const options = {
      headers: {Authorization: auth}
     };
-    this.httpClient.post(url, data, options).subscribe(function () {
+    this.httpClient.post(url, recipeString, options).subscribe(() =>  {
       console.log('Recipe added');
       alert('Recipe added: ' + name);
-    }, function () {
+    }, () => {
       console.log('Not able to add Recipe');
     });
   }

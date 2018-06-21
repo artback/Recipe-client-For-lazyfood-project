@@ -1,7 +1,7 @@
-import {HomeComponent} from './home.component';
-import {RecipeComponent} from './recipe.component';
-import {AddrecipeComponent} from './addrecipe.component';
-import {RecipeService} from './recipe.service';
+import {HomeComponent} from '../Components/home.component';
+import {RecipeComponent} from '../Components/recipe.component';
+import {AddrecipeComponent} from '../Components/addrecipe.component';
+import {RecipeService} from '../Services/recipe.service';
 import {Transition} from '@uirouter/angular';
 export const homeState = {
   name: 'home', url: '', component: HomeComponent

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {RecipeService} from './recipe.service';
-import {Globals} from './globals';
+import {RecipeService} from '../Services/recipe.service';
+import {Globals} from '../models/globals';
 import {Cookie} from 'ng2-cookies';
 @Component({
   selector: 'app-header',
-  templateUrl: '../template/header.html',
-  styleUrls: ['../css/header.css']
+  templateUrl: '../../template/header.html',
+  styleUrls: ['../../css/header.css']
 })
 
 export class HeaderComponent{
