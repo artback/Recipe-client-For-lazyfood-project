@@ -1,3 +1,6 @@
 export class Instruction {
-  public name = '';
+  public name: String ;
+  constructor() {
+   name = '';
+  }
 }

@@ -1,6 +1,6 @@
 export class Ingredient {
-  public volume = 0;
-  public name = '';
+  public volume: number;
+  public name: String;
   constructor(name: any, volume: any) {
     this.name = name;
     this.volume = volume;

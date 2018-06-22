@@ -88,6 +88,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       if (request.url.match('/recipe') && request.method === 'POST') {
         const recipe = JSON.parse(request.body);
+        console.log(recipe);
         if (recipe.name !== '') {
           recipes.push(request.body);
           localStorage.setItem('recipes', JSON.stringify(recipes));

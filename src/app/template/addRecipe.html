@@ -42,12 +42,12 @@
               <tr *ngFor="let ingredient of recipe.ingredients;let i = index">
                 <td>
                   <mat-form-field class="fullwidth">
-                    <input matInput placeholder="" [value]="ingredient.name">
+                    <input matInput placeholder="" [(ngModel)]="recipe.ingredients[i].name">
                   </mat-form-field>
                 </td>
                 <td>
                   <mat-form-field class="fullwidth">
-                    <input matInput placeholder="" [value]="ingredient.volume">
+                    <input matInput placeholder="" [(ngModel)]="recipe.ingredients[i].volume">
                   </mat-form-field>
                 </td>
                   <button mat-button type="button" (click)="recipe.removeIngredient(i)">x</button>

@@ -19,7 +19,7 @@ export class Recipe {
     this.ingredients.push(new Ingredient('', 0));
   }
   addEmptyInstruction() {
-    this.instructions.push(new Ingredient('', 0));
+    this.instructions.push(new Instruction());
   }
   addInstruction(name, volume) {
     this.instructions.push(new Ingredient(name, volume));
