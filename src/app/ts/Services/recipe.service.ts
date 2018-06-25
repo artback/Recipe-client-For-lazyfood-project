@@ -2,38 +2,39 @@ import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Globals} from '../models/globals';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
+import {Observable} from 'rxjs/index';
 const baseUrl = 'http://localhost:8080';
 @Injectable()
 export class RecipeService {
   constructor (private httpClient: HttpClient, private globals: Globals) {
   }
 
-  getPromise(url): Promise<any> {
-    return this.httpClient.get(url).toPromise();
+  getObservable(url): Observable<any> {
+    return this.httpClient.get(url);
   }
-  getTable(): Promise<any> {
-    const url = baseUrl + '/viewRecipes';
-    return this.getPromise(url);
+  getAllRecipes(): Observable<any> {
+    const url = baseUrl + '/recipe';
+    return this.getObservable(url);
   }
 
-  getCategories(): Promise<any> {
+  getCategories(): Observable<any> {
     const url =  baseUrl + 'RecipeApp/webresources/categories';
-    return this.getPromise(url);
+    return this.getObservable(url);
   }
 
-  getIngredients(): Promise<any> {
+  getIngredients(): Observable<any> {
     const url = baseUrl + '/ingredients';
-    return this.getPromise(url);
+    return this.getObservable(url);
   }
 
-  getViewRecipe(id): Promise<any> {
-    const url = baseUrl + '/viewRecipe/' + id;
-    return this.getPromise(url);
+  getRecipe(id): Observable<any> {
+    const url = baseUrl + '/recipe/' + id;
+    return this.getObservable(url);
   }
 
-  getRecipeIngredients(id): Promise<any> {
+  getIngredient(id): Observable<any> {
     const url = baseUrl + '/ingredients/' + id;
-    return this.getPromise(url);
+    return this.getObservable(url);
   }
 
   public createUser = (username, password) => {
@@ -94,7 +95,6 @@ export class RecipeService {
       console.log(data)
     );
   }
-
   addIngredientToRecipe(amount, ingredient_id): void {
     const data = {
       amount: amount,

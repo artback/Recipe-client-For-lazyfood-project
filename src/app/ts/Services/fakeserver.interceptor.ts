@@ -77,7 +77,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
               break;
             }
           }
-
           // respond 200 OK
           return Observable.of(new HttpResponse({ status: 200 }));
         } else {
@@ -97,6 +96,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return Observable.throw('missing param');
 
         }
+      }
+      if (request.url.match('/recipe') && request.method === 'GET') {
+        recipes = localStorage.getItem('recipes');
+        return Observable.of(({status: 200, body: recipes}));
       }
       // pass through any requests not handled above
       return next.handle(request);

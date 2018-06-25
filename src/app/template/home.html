@@ -3,7 +3,8 @@
         <img class="foodbase-pic" src="../../assets/lazy.png" alt="logotext">
         <form class="form-inline">
             <div class="input">
-                <input type="text" class="form-control" size="50" #query (keyup)="0" placeholder="Search for food here..." required>
+                <input name="recipesearch" [(ngModel)]="recipeField" type="text" class="form-control" size="50"
+                       (keyup)="0" placeholder="Search for food here..." required>
             </div>
         </form>
     </div>
@@ -11,14 +12,14 @@
 
 <div class="container" id="recipes">
     <div class="row">
-        <div class="mealBox col-md-3 col-sm-6" *ngFor="let viewRecipes of table| matchesSearch:query:value" >
-            <a href="http://localhost:8383/RecipeClient/index.html#!/recipe/{{viewRecipes.id}}">
-             <img src={{viewRecipes.picture}} class="img-responsive img-thumbnail" alt="image">
+        <div class="mealBox col-md-3 col-sm-6" *ngFor="let recipe of recipes | matchesSearch : recipefield" >
+            <a href="http://localhost:8383/RecipeClient/index.html#!/recipe/{{recipe.id}}">
+             <img src={{recipe.img}} class="img-responsive img-thumbnail" alt="image">
             </a>
-            <h4>{{viewRecipes.recipe}}</h4>
-            <p>{{viewRecipes.categori}}</p>
-            <i class="removeButton fa fa-times hvr-icon-pulse-grow" [hidden]="globals.isLoggedIn" (click)="removeRecipe(viewRecipes.id)"></i>
-            <p class="author-text">{{viewRecipes.author}}</p>
+            <h4>{{recipe}}</h4>
+            <i class="removeButton fa fa-times hvr-icon-pulse-grow" [hidden]="globals.isLoggedIn" (click)="removeRecipe(recipe.id)">
+            </i>
+            <p class="author-text">{{recipe.author}}</p>
         </div>
     </div>
 </div>

@@ -22,4 +22,5 @@ export const addRecipeState = {
   name: 'addRecipe',
   url: '/addRecipe',
   component: AddrecipeComponent
-}
+};
+

@@ -3,8 +3,8 @@
     <img src="../../assets/FirstLogo.png" alt="Logotype" height="50" width="50">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-      <li class="hvr-underline-from-center" [hidden]="globals.isHome" uiSref="home">&ensp; HOME &ensp;</li>
-        <li class="hvr-underline-from-center" [hidden]="globals.addrecipe" uiSref="addRecipe">ADD RECIPE</li>
+      <li class="hvr-underline-from-center" [hidden]="globals.isHome" routerLink="">&ensp; HOME &ensp;</li>
+        <li class="hvr-underline-from-center" [hidden]="globals.addrecipe" routerLink="addRecipe">ADD RECIPE</li>
     </ul>
     <ul class="nav navbar-right" >
       <li class="hvr-underline-from-center" ><a [hidden]="globals.isLoggedIn" (click)="modal.show()">&ensp; LOGIN/REGISTER &ensp;</a></li>

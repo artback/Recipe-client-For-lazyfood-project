@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Injectable, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RecipeService} from '../Services/recipe.service';
 import {Globals} from '../models/globals';
 
@@ -9,8 +9,8 @@ import {Globals} from '../models/globals';
 })
 
 export class HomeComponent implements OnInit {
-  private author: String;
-  table;
+  private recipes;
+  private author;
   constructor(public recipeService: RecipeService, public globals: Globals) {
     this.getRecipes();
   }
@@ -19,21 +19,13 @@ export class HomeComponent implements OnInit {
    this.globals.addrecipe = !this.globals.isLoggedIn;
   }
   getRecipes(): void {
-    const promise = this.recipeService.getTable();
-    promise.then(function (data) {
-      this.table = data.data;
+    this.recipeService.getAllRecipes().subscribe((recipes) => {
+      console.log(recipes);
+      this.recipes = JSON.parse(recipes);
     });
   }
   removeRecipe(id): void {
-    const promise = this.recipeService.getViewRecipe(id);
-    promise.then(function (data) {
-      this.author = data.data[0].author;
-      if (this.recipeService.user === this.author) {
-        this.recipeService.removeRecipe(id);
-        alert('Your recipe was deleted succesfully');
-      } else {
-        alert('You are only allowed to delete your own recipes');
-      }
-    });
+    // set header to Id check in backend if the same as author remove
+    this.recipeService.removeRecipe(id);
   }
 }

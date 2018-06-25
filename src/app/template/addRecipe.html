@@ -12,7 +12,7 @@
             <img *ngIf="!recipe.img" src="../../../assets/placeholder.png" style="pointer-events: none"/>
             <output id="list"></output>
           </label>
-          <input id="file-input" type="file" #file (change)="onFileSelected(file.files)" />
+          <input id="file-input" type="file" #file accept="image/*" multiple="false" (change)="onFileSelected(file.files)" />
         </div>
       </div>
       <div id="descriptionform" class="inputBox">

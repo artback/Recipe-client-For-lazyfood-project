@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit, ViewChildren} from '@angular/core';
 import {RecipeService} from '../Services/recipe.service';
 import {Globals} from '../models/globals';
 import {Recipe} from '../models/Recipe';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-addrecipe',
   templateUrl: '../../template/addRecipe.html',
@@ -11,10 +12,14 @@ import {Recipe} from '../models/Recipe';
 export class AddrecipeComponent implements OnInit, OnDestroy {
   private recipe = new Recipe();
   @ViewChildren('instructionfield') instructionsInput;
-  constructor(public recipeService: RecipeService, public globals: Globals) {
+  constructor(public recipeService: RecipeService, public globals: Globals, public router: Router) {
     this.getIngredients();
   }
   ngOnInit() {
+   if (!this.globals.isLoggedIn) {
+     console.log('not logged in');
+     this.router.navigate(['']);
+   }
    this.globals.isHome = false;
    this.globals.addrecipe = (true && this.globals.isLoggedIn);
   }
@@ -41,7 +46,7 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
      }
   }
   addInstruction() {
-      this.recipe.addInstruction();
+      this.recipe.addEmptyInstruction();
       this.jumpToStep();
   }
   jumpToStep() {
@@ -56,8 +61,7 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
     this.recipeService.addRecipe(this.recipe);
   }
   getIngredients(): void {
-    const promise = this.recipeService.getIngredients();
-    promise.then(function (data) {
+    this.recipeService.getIngredients().subscribe((data) => {
       this.recipe.ingredients = data.data;
     });
   }

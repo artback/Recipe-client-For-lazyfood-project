@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Globals } from '../models/globals';
 import { NgModule} from '@angular/core';
-import {UIRouterModule} from '@uirouter/angular';
+import { RouterModule, Routes } from '@angular/router';
 import {ModalComponent} from '../Components/modal.component';
 import { AppComponent } from '../Components/app.component';
 import {HomeComponent} from '../Components/home.component';
@@ -10,19 +10,24 @@ import {RecipeComponent} from '../Components/recipe.component';
 import {AddrecipeComponent} from '../Components/addrecipe.component';
 import {RecipeService} from '../Services/recipe.service';
 import { FormsModule } from '@angular/forms';
-import {homeState, addRecipeState, recipeState} from '../models/state';
 import {Queryfilter} from '../models/queryfilter';
 import { HttpClientModule} from '@angular/common/http';
 import { AutofocusDirective } from '../models/autofocus.directive';
 import {FakeBackendProvider} from '../Services/fakeserver.interceptor';
 import {Cookie} from 'ng2-cookies';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatInputModule, MatTab} from '@angular/material';
+import {MatInputModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent},
+  { path: 'addRecipe', component: AddrecipeComponent},
+  { path: 'recipe/:id',    component: RecipeComponent},
+  { path: '**', component: HomeComponent}
+];
 @NgModule({
   declarations: [
     AppComponent, AddrecipeComponent, RecipeComponent, HomeComponent, HeaderComponent, Queryfilter, ModalComponent, AutofocusDirective
@@ -37,7 +42,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatSelectModule,
     MatDividerModule,
     MatTableModule,
-    UIRouterModule.forRoot({ states: [ homeState, recipeState, addRecipeState], useHash: true }),
+    RouterModule.forRoot(
+      appRoutes,
+    ),
     BrowserAnimationsModule
   ],
   providers: [
@@ -61,5 +68,4 @@ export class AppModule {
   }
 
 }
-
 

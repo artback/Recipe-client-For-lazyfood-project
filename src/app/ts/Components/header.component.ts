@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {RecipeService} from '../Services/recipe.service';
 import {Globals} from '../models/globals';
 import {Cookie} from 'ng2-cookies';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: '../../template/header.html',
   styleUrls: ['../../css/header.css']
 })
 
-export class HeaderComponent{
+export class HeaderComponent {
   private name: String;
   private password: String;
-  constructor(public recipeService: RecipeService, public globals: Globals) {
+  constructor(public recipeService: RecipeService, public globals: Globals, public router: Router) {
 
   }
   logout(): void {
@@ -20,6 +21,7 @@ export class HeaderComponent{
     this.globals.pass = '';
     Cookie.set('username', '');
     Cookie.set('password', '');
+    this.router.navigate(['']);
   }
   submit(modal): void {
    modal.hide();

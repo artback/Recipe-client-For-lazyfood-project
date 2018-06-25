@@ -5,8 +5,12 @@ import {Injectable, Pipe, PipeTransform} from '@angular/core';
 })
 @Injectable()
 export class Queryfilter implements PipeTransform {
-    transform(value: any, args: string[]): any {
-    const filter = args[0].toLocaleLowerCase();
-    return filter ? value.filter(query => query.title.toLocaleLowerCase().indexOf(filter) !== -1) : value;
+    transform(items: any[], searchText: string): any[] {
+      if (!items) { return []; }
+      if (!searchText) { return items; }
+      searchText = searchText.toLocaleLowerCase();
+      return items.filter( it => {
+        return it.toLowerCase().includes(searchText);
+      });
   }
 }

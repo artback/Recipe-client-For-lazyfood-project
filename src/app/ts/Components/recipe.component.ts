@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component} from '@angular/core';
 import {RecipeService} from '../Services/recipe.service';
 @Component({
   selector: 'app-recipe',
@@ -8,17 +8,8 @@ import {RecipeService} from '../Services/recipe.service';
 })
 
 export class RecipeComponent {
-  recipe;
-  table;
   constructor(public recipeService: RecipeService) {
-    this.getIngredients();
   }
  getIngredients(): void {
-  console.log(this.recipe.data);
-  const promiseIng = this.recipeService.getRecipeIngredients(this.recipe.id);
-  promiseIng.then(function (data) {
-    console.log(data.data);
-    this.table = data.data;
-  });
-}
+  }
 }
