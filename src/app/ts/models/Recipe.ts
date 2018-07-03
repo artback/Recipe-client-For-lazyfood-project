@@ -3,10 +3,12 @@ import {Ingredient} from './Ingredient';
 
 export class Recipe {
   public img;
+  public author: String;
   public name: String;
   public ingredients: Ingredient[] = [];
   public description: String;
   public instructions: Instruction[] = [];
+  public hashtags: String[] = [];
   constructor() {
     this.name = '';
     this.instructions.push(new Instruction());

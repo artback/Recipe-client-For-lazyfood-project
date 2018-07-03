@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Globals } from '../models/globals';
+import { Globals } from '../Injectable/globals';
 import { NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {ModalComponent} from '../Components/modal.component';
@@ -10,9 +10,9 @@ import {RecipeComponent} from '../Components/recipe.component';
 import {AddrecipeComponent} from '../Components/addrecipe.component';
 import {RecipeService} from '../Services/recipe.service';
 import { FormsModule } from '@angular/forms';
-import {Queryfilter} from '../models/queryfilter';
+import {Queryfilter} from '../Injectable/queryfilter';
 import { HttpClientModule} from '@angular/common/http';
-import { AutofocusDirective } from '../models/autofocus.directive';
+import { AutofocusDirective } from '../Injectable/autofocus.directive';
 import {FakeBackendProvider} from '../Services/fakeserver.interceptor';
 import {Cookie} from 'ng2-cookies';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

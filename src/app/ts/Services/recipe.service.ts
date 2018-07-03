@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Globals} from '../models/globals';
+import {Globals} from '../Injectable/globals';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
 import {Observable} from 'rxjs/index';
 const baseUrl = 'http://localhost:8080';
@@ -78,12 +78,7 @@ export class RecipeService {
     const options = {
      headers: {Authorization: auth}
     };
-    this.httpClient.post(url, recipeString, options).subscribe(() =>  {
-      console.log('Recipe added');
-      alert('Recipe added: ' + name);
-    }, () => {
-      console.log('Not able to add Recipe');
-    });
+    return this.httpClient.post(url, recipeString, options);
   }
   removeRecipe(id): void {
     const url = baseUrl + '/recipe/' + id;

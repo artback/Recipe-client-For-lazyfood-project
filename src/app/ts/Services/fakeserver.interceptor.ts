@@ -7,6 +7,7 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -87,19 +88,23 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       if (request.url.match('/recipe') && request.method === 'POST') {
         const recipe = JSON.parse(request.body);
-        console.log(recipe);
         if (recipe.name !== '') {
           recipes.push(request.body);
           localStorage.setItem('recipes', JSON.stringify(recipes));
-          return Observable.of(new HttpResponse({status: 200}));
+          return Observable.of(new HttpResponse({status: 200, body: recipe.name}));
         } else {
           return Observable.throw('missing param');
 
         }
       }
       if (request.url.match('/recipe') && request.method === 'GET') {
-        recipes = localStorage.getItem('recipes');
-        return Observable.of(({status: 200, body: recipes}));
+        let localRecipes = JSON.parse(localStorage.getItem('recipes'));
+        for (let i = 0 ; i < localRecipes.length; i++) {
+          localRecipes[i] =  JSON.parse(localRecipes[i]);
+          localRecipes[i].id = i;
+        }
+        localRecipes = JSON.stringify(localRecipes);
+        return Observable.of(new HttpResponse({status: 200, body: localRecipes}));
       }
       // pass through any requests not handled above
       return next.handle(request);

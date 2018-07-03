@@ -1,25 +1,21 @@
 <div class="start">
-    <div class="form wrap text-center">
+   <div class="form wrap text-center">
         <img class="foodbase-pic" src="../../assets/lazy.png" alt="logotext">
         <form class="form-inline">
-            <div class="input">
-                <input name="recipesearch" [(ngModel)]="recipeField" type="text" class="form-control" size="50"
+                <input name="recipesearch" [(ngModel)]="recipefield" type="text" class="form-control" size="50"
                        (keyup)="0" placeholder="Search for food here..." required>
-            </div>
         </form>
     </div>
+  <div class="container" id="recipes">
+    <div class="row" *ngFor="let recipe of recipes | matchesSearch : recipefield" >
+        <img class="recipeimg" *ngIf="recipe.img" [src]="recipe.img" style="pointer-events: none"/>
+        <img class="recipeimg" *ngIf="!recipe.img" src="../../../assets/placeholder.png" style="pointer-events: none"/>
+        <div class="recipetext">
+        <h5><b id="name">{{recipe.name}}</b><i id="author">{{recipe.author}}</i></h5>
+        <p><br>{{recipe.description}}</p>
+        </div>
+        <i class="removeButton fa fa-times hvr-icon-pulse-grow" [hidden]="globals.isLoggedIn" (click)="removeRecipe(recipe.id)"></i>
+    </div>
+  </div>
 </div>
 
-<div class="container" id="recipes">
-    <div class="row">
-        <div class="mealBox col-md-3 col-sm-6" *ngFor="let recipe of recipes | matchesSearch : recipefield" >
-            <a href="http://localhost:8383/RecipeClient/index.html#!/recipe/{{recipe.id}}">
-             <img src={{recipe.img}} class="img-responsive img-thumbnail" alt="image">
-            </a>
-            <h4>{{recipe}}</h4>
-            <i class="removeButton fa fa-times hvr-icon-pulse-grow" [hidden]="globals.isLoggedIn" (click)="removeRecipe(recipe.id)">
-            </i>
-            <p class="author-text">{{recipe.author}}</p>
-        </div>
-    </div>
-</div>

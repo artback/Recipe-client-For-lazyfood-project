@@ -8,9 +8,9 @@ export class Queryfilter implements PipeTransform {
     transform(items: any[], searchText: string): any[] {
       if (!items) { return []; }
       if (!searchText) { return items; }
-      searchText = searchText.toLocaleLowerCase();
+      searchText = searchText.toLocaleLowerCase().trim();
       return items.filter( it => {
-        return it.toLowerCase().includes(searchText);
+        return it.name.toLowerCase().includes(searchText);
       });
   }
 }

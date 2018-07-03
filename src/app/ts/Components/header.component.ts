@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {RecipeService} from '../Services/recipe.service';
-import {Globals} from '../models/globals';
+import {Globals} from '../Injectable/globals';
 import {Cookie} from 'ng2-cookies';
 import {Router} from '@angular/router';
 @Component({

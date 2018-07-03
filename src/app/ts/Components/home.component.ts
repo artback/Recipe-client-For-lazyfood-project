@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RecipeService} from '../Services/recipe.service';
-import {Globals} from '../models/globals';
+import {Globals} from '../Injectable/globals';
 
 @Component({
   selector: 'app-home',
@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
    this.globals.addrecipe = !this.globals.isLoggedIn;
   }
   getRecipes(): void {
-    this.recipeService.getAllRecipes().subscribe((recipes) => {
-      console.log(recipes);
-      this.recipes = JSON.parse(recipes);
+    this.recipeService.getAllRecipes().subscribe((response) => {
+      this.recipes = JSON.parse(response);
+      console.log(this.recipes);
     });
   }
   removeRecipe(id): void {
