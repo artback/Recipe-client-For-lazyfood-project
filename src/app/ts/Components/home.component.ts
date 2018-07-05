@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
   getRecipes(): void {
     this.recipeService.getAllRecipes().subscribe((response) => {
       this.recipes = JSON.parse(response);
-      console.log(this.recipes);
     });
   }
   removeRecipe(id): void {

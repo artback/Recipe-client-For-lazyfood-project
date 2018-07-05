@@ -71,7 +71,7 @@ export class RecipeService {
       alert('Sorry, wrong password. Try again');
     });
   }
-  addRecipe(recipe): void {
+  addRecipe(recipe): Observable<any> {
     const recipeString = JSON.stringify(recipe);
     const url = baseUrl + '/recipe';
     const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.pass);

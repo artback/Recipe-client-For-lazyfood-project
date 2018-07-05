@@ -12,7 +12,7 @@ import {FormControl, Validators} from '@angular/forms';
 
 export class AddrecipeComponent implements OnInit, OnDestroy {
   private recipe = new Recipe();
-  private description: String;
+  private description: string;
   @ViewChildren('instructionfield') instructionsInput;
   constructor(public recipeService: RecipeService, public globals: Globals, public router: Router) {
     // this.getIngredients();
@@ -62,7 +62,7 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
   }
   addRecipe(): void {
     if (this.recipe.name !== '') {
-      const re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches = [];
+      let re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches = [];
       while (match = re.exec(this.description)) {
         this.recipe.hashtags.push(match[1]);
       }

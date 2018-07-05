@@ -12,16 +12,11 @@ import {RecipeService} from '../Services/recipe.service';
 import { FormsModule } from '@angular/forms';
 import {Queryfilter} from '../Injectable/queryfilter';
 import { HttpClientModule} from '@angular/common/http';
-import { AutofocusDirective } from '../Injectable/autofocus.directive';
 import {FakeBackendProvider} from '../Services/fakeserver.interceptor';
 import {Cookie} from 'ng2-cookies';
+import {MaterialModule} from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatInputModule} from '@angular/material';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatTableModule} from '@angular/material/table';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { StarRatingModule } from 'angular-star-rating';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'addRecipe', component: AddrecipeComponent},
@@ -30,18 +25,14 @@ const appRoutes: Routes = [
 ];
 @NgModule({
   declarations: [
-    AppComponent, AddrecipeComponent, RecipeComponent, HomeComponent, HeaderComponent, Queryfilter, ModalComponent, AutofocusDirective
+    AppComponent, AddrecipeComponent, RecipeComponent, HomeComponent, HeaderComponent, Queryfilter, ModalComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatDividerModule,
-    MatTableModule,
+    MaterialModule,
+    StarRatingModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
     ),
