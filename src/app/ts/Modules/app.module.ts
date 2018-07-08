@@ -10,6 +10,7 @@ import {RecipeComponent} from '../Components/recipe.component';
 import {AddrecipeComponent} from '../Components/addrecipe.component';
 import {RecipeService} from '../Services/recipe.service';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import {Queryfilter} from '../Injectable/queryfilter';
 import { HttpClientModule} from '@angular/common/http';
 import {FakeBackendProvider} from '../Services/fakeserver.interceptor';
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     StarRatingModule.forRoot(),
     RouterModule.forRoot(

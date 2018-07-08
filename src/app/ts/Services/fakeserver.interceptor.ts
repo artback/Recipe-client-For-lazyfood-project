@@ -99,12 +99,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
       if (request.url.match('/recipe') && request.method === 'GET') {
         let localRecipes = JSON.parse(localStorage.getItem('recipes'));
-        for (let i = 0 ; i < localRecipes.length; i++) {
-          localRecipes[i] =  JSON.parse(localRecipes[i]);
-          localRecipes[i].id = i;
+        if (localRecipes) {
+          for (let i = 0; i < localRecipes.length; i++) {
+            localRecipes[i] = JSON.parse(localRecipes[i]);
+            localRecipes[i].id = i;
+          }
+          localRecipes = JSON.stringify(localRecipes);
+          return Observable.of(new HttpResponse({status: 200, body: localRecipes}));
+        } else {
+          return Observable.of(new HttpResponse({status: 204}));
         }
-        localRecipes = JSON.stringify(localRecipes);
-        return Observable.of(new HttpResponse({status: 200, body: localRecipes}));
       }
       // pass through any requests not handled above
       return next.handle(request);

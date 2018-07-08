@@ -45,7 +45,6 @@ export class RecipeService {
     const url = baseUrl + '/user';
     this.httpClient.post(url, data).subscribe(() => {
       console.log('User added');
-      alert('Welcome ' + username);
       this.logIn(username, password);
     }, () => {
       console.log('User with ' + username + ' already exist,Logging in!');

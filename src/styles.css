@@ -42,7 +42,7 @@ i{
   transform:translateY(-50%);
 }
 .start{
-  background-image: url("./assets/background.jpg");
+  background-image: url("./assets/images/background.jpg");
   height: 100vh;
   background-size: 100% 100%;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);

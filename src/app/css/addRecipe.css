@@ -54,6 +54,9 @@
   height: 90%;
   float:left;
 }
+#ingredient{
+ padding-right: 1em;
+}
 #table{
   overflow: auto;
   height: 100%;
