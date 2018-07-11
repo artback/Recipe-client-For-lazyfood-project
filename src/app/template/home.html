@@ -9,7 +9,7 @@
   <div class="container" id="recipes">
     <div class="row" *ngFor="let recipe of recipes | matchesSearch : recipefield" >
         <img class="recipeimg" *ngIf="recipe.img" [src]="recipe.img" style="pointer-events: none"/>
-        <img class="recipeimg" *ngIf="!recipe.img" src="../../../assets/placeholder.png" style="pointer-events: none"/>
+        <img class="recipeimg" *ngIf="!recipe.img" src="../../../assets/images/placeholder.png" style="pointer-events: none"/>
         <div class="recipetext">
         <h5><b id="name">{{recipe.name}}</b><i id="author">{{recipe.author}}</i></h5>
         <p><br>{{recipe.description}}</p>

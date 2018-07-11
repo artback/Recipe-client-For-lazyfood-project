@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit, ViewChildren} from '@angular/core';
 import {RecipeService} from '../Services/recipe.service';
 import {Globals} from '../Injectable/globals';
-import {Recipe} from '../models/Recipe';
 import {Router} from '@angular/router';
 import {FormControl, Validators, FormGroup, FormBuilder, FormArray} from '@angular/forms';
 
@@ -24,6 +23,20 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
   get Name() {
     return this.recipeForm.get('name');
   }
+  createForm() {
+    this.recipeForm = this.fb.group({
+      name: ['', [
+        Validators.required,
+        Validators.minLength(this.NAMELENGTH)
+      ]],
+      rating: [''],
+      description: [''],
+      instructions: this.fb.array([]),
+      ingredients: this.fb.array([]),
+    });
+    this.addIngredient();
+    this.addInstruction();
+  }
   @ViewChildren('instructionfield') instructionsInput;
 
   constructor(public recipeService: RecipeService, public globals: Globals, public router: Router, private fb: FormBuilder) {}
@@ -39,7 +52,7 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
   onFileSelected(files) {
     if (files[0]) {
       const reader = new FileReader();
-      reader.onload = (() => {
+      reader.onload = ((theFile) => {
         return (e) => {
           this.img = e.target.result;
         };
@@ -55,10 +68,6 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
        this.deleteInstruction(index);
      }
   }
-  addInstruction() {
-      this.recipe.addEmptyInstruction();
-      this.jumpToStep();
-  }
   jumpToStep() {
     this.addInstruction();
     this.instructionsInput.changes.subscribe(() => {
@@ -69,16 +78,18 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
     this.globals.addrecipe = (false && this.globals.isLoggedIn);
   }
   addRecipe(): void {
-      recipe = this.recipeForm.value;
+    let recipe = this.recipeForm.value;
+    console.log(recipe);
+
       recipe.hashtags = [];
     let re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches = [];
     while (match = re.exec(recipe.description)) {
       recipe.hashtags.push(match[1]);
     }
-    recipe.description = this.description.replace(/#(\w+)/g, '');
+    recipe.description = recipe.description.replace(/#(\w+)/g, '');
     recipe.img = this.img;
     recipe.author = this.globals.user;
-    this.recipeService.addRecipe().subscribe((response) => {
+    this.recipeService.addRecipe(recipe).subscribe((response) => {
           alert('recipe:' + response + ' was added');
           this.router.navigate(['']);
         }, (error) => {
@@ -88,8 +99,12 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
   }
   addIngredient(): void {
       const ingredient = this.fb.group({
-      volume: [''],
-      name: ['']
+      volume: ['', [
+        Validators.required
+        ]],
+        name: ['', [
+          Validators.required,
+        ]],
     });
     this.ingredientForm.push(ingredient);
   }
@@ -106,18 +121,5 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
     if (this.ingredientForm.length > 1) {
       this.ingredientForm.removeAt(i);
     }
-  }
-  createForm() {
-    this.recipeForm = this.fb.group({
-      name: ['', [
-        Validators.required,
-        Validators.minLength(this.NAMELENGTH)
-        ]],
-      description: [''],
-      instructions: this.fb.array([]),
-      ingredients: this.fb.array([]),
-    });
-    this.addIngredient();
-    this.addInstruction();
   }
 }

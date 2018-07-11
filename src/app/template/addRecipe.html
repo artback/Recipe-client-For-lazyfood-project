@@ -4,7 +4,7 @@
       <mat-form-field class="fullwidth">
         <input matInput placeholder="Name" formControlName="name">
         <mat-error *ngIf="Name.invalid">
-          Name is required to be atleast {{NAMELENGTH}} letters long
+          Name is required to be at least {{NAMELENGTH}} letters long
         </mat-error>
       </mat-form-field>
     </div>
@@ -13,13 +13,15 @@
         <div class="image-upload">
           <label for="file-input">
             <img *ngIf="img" [src]="img" style="pointer-events: none"/>
-            <img *ngIf="!img" src="../../../assets/placeholder.png" style="pointer-events: none"/>
+            <img *ngIf="!img" src="../../../assets/images/placeholder.png" style="pointer-events: none"/>
             <output id="list"></output>
           </label>
           <input id="file-input" type="file" #file accept="image/*" multiple="false" (change)="onFileSelected(file.files)" />
         </div>
       </div>
       <div id="descriptionform" class="inputBox">
+        <star-rating-control formControlName="rating"
+          labelText="Personal Score" labelPosition="right" [starType]="'icon'" ></star-rating-control>
         <label>Description</label>
         <div class="form-group-sm">
           <div class="fieldBox">

@@ -29,7 +29,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     // array in local storage for registered users
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
     const recipes: any[] = JSON.parse(localStorage.getItem('recipes')) || [];
+    const userSearch = function(username) {
+      let i = null;
+      for (i = 0; users.length > i; i += 1) {
+        if (users[i].username === username) {
+          return i;
+        }
+      }
 
+      return -1;
+    };
     // wrap in delayed observable to simulate server api call
     return Observable.of(null).mergeMap(() => {
       // authenticate
@@ -88,8 +97,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       if (request.url.match('/recipe') && request.method === 'POST') {
         const recipe = JSON.parse(request.body);
+        const index = userSearch(recipe.author);
+        if(users[index].ratings) {
+          users[index].ratings.push({id: recipe.id, rating: recipe.rating});
+        } else{
+          users[index].ratings = [{id: recipe.id, rating: recipe.rating}];
+        }
         if (recipe.name !== '') {
-          recipes.push(request.body);
+          recipes.push(JSON.stringify(recipe));
           localStorage.setItem('recipes', JSON.stringify(recipes));
           return Observable.of(new HttpResponse({status: 200, body: recipe.name}));
         } else {
@@ -99,16 +114,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
       if (request.url.match('/recipe') && request.method === 'GET') {
         let localRecipes = JSON.parse(localStorage.getItem('recipes'));
-        if (localRecipes) {
-          for (let i = 0; i < localRecipes.length; i++) {
-            localRecipes[i] = JSON.parse(localRecipes[i]);
-            localRecipes[i].id = i;
-          }
-          localRecipes = JSON.stringify(localRecipes);
-          return Observable.of(new HttpResponse({status: 200, body: localRecipes}));
-        } else {
-          return Observable.of(new HttpResponse({status: 204}));
+        for (let i = 0 ; i < localRecipes.length; i++) {
+          localRecipes[i] =  JSON.parse(localRecipes[i]);
+          localRecipes[i].id = i;
         }
+        localRecipes = JSON.stringify(localRecipes);
+        return Observable.of(new HttpResponse({status: 200, body: localRecipes}));
       }
       // pass through any requests not handled above
       return next.handle(request);
