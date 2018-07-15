@@ -41,10 +41,11 @@ export class ProfileComponent implements OnInit {
   createForm() {
     const user = this.globals.user;
     const adress = this.fb.group({
-      address: [''],
-      state: [''],
-      city: [''],
-      postalcode: [''],
+      address: '',
+      co: '',
+      state: '',
+      city: '',
+      postalcode: '',
     });
     this.profileForm = this.fb.group({
       surname: [user.surname, [

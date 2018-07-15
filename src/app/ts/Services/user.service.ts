@@ -13,7 +13,16 @@ export class UserService {
   public createUser = (username, password) => {
     const data = {
       username: username,
-      password: password
+      password: password,
+      forname: '',
+      surname: '',
+      adress : {
+        address: '',
+        co: '',
+        state: '',
+        city: '',
+        postalcode: '',
+      }
     };
     const url = this.globals.baseUrl + '/user';
     this.httpClient.post(url, data).subscribe(() => {

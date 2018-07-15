@@ -3,6 +3,9 @@
   min-width: 100%;
   background-color: #F6F3F8;
 }
+#top{
+ padding-top: 4em;
+}
 
 #photo{
   width: 50%;
