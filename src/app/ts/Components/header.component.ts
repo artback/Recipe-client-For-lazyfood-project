@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {RecipeService} from '../Services/recipe.service';
 import {Globals} from '../Injectable/globals';
 import {Cookie} from 'ng2-cookies';
 import {Router} from '@angular/router';
+import {UserService} from '../Services/user.service';
 @Component({
   selector: 'app-header',
   templateUrl: '../../template/header.html',
@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 export class HeaderComponent {
   private name: String;
   private password: String;
-  constructor(public recipeService: RecipeService, public globals: Globals, public router: Router) {
+  constructor(public userService: UserService, public globals: Globals, public router: Router) {
 
   }
   logout(): void {
@@ -28,7 +28,7 @@ export class HeaderComponent {
    this.createUser();
   }
   createUser(): void {
-    this.recipeService.createUser(this.name, this.password);
+    this.userService.createUser(this.name, this.password);
   }
 
 

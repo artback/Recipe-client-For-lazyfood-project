@@ -46,7 +46,6 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
      this.router.navigate(['']);
    }
    this.createForm();
-   this.globals.isHome = false;
    this.globals.addrecipe = (true && this.globals.isLoggedIn);
   }
   onFileSelected(files) {
@@ -79,9 +78,7 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
   }
   addRecipe(): void {
     let recipe = this.recipeForm.value;
-    console.log(recipe);
-
-      recipe.hashtags = [];
+    recipe.hashtags = [];
     let re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches = [];
     while (match = re.exec(recipe.description)) {
       recipe.hashtags.push(match[1]);

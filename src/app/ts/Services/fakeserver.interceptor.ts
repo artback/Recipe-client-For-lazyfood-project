@@ -98,19 +98,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (request.url.match('/recipe') && request.method === 'POST') {
         const recipe = JSON.parse(request.body);
         const index = userSearch(recipe.author);
-        if(users[index].ratings) {
+        if (users[index].ratings) {
           users[index].ratings.push({id: recipe.id, rating: recipe.rating});
-        } else{
+        } else {
           users[index].ratings = [{id: recipe.id, rating: recipe.rating}];
         }
-        if (recipe.name !== '') {
           recipes.push(JSON.stringify(recipe));
           localStorage.setItem('recipes', JSON.stringify(recipes));
+          localStorage.setItem('users', JSON.stringify(users));
           return Observable.of(new HttpResponse({status: 200, body: recipe.name}));
-        } else {
-          return Observable.throw('missing param');
-
-        }
       }
       if (request.url.match('/recipe') && request.method === 'GET') {
         let localRecipes = JSON.parse(localStorage.getItem('recipes'));

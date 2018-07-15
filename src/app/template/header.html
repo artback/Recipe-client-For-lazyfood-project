@@ -8,8 +8,8 @@
     </ul>
     <ul class="nav navbar-right" >
       <li class="hvr-underline-from-center" ><a [hidden]="globals.isLoggedIn" (click)="modal.show()">&ensp; LOGIN/REGISTER &ensp;</a></li>
-      <li class="hvr-underline-from-center" ><a [hidden]="!globals.isLoggedIn" > {{globals.user | uppercase}} </a></li>
-      <li class="hvr-underline-from-center" ><a [hidden]="!globals.isLoggedIn" (click)="logout()" > LOGOUT </a></li>
+      <li class="hvr-underline-from-center" [routerLink]="['/profile', globals.user]" [hidden]="!globals.isLoggedIn" >{{globals.user | uppercase}} </li>
+      <li class="hvr-underline-from-center" ><a [hidden]="!globals.isLoggedIn" (click)="logout()" > LOGOUT</a></li>
     </ul>
   </div>
 </nav>

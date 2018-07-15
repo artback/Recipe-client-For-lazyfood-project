@@ -9,6 +9,7 @@ import {HeaderComponent} from '../Components/header.component';
 import {RecipeComponent} from '../Components/recipe.component';
 import {AddrecipeComponent} from '../Components/addrecipe.component';
 import {RecipeService} from '../Services/recipe.service';
+import {UserService} from '../Services/user.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {Queryfilter} from '../Injectable/queryfilter';
@@ -18,15 +19,17 @@ import {Cookie} from 'ng2-cookies';
 import {MaterialModule} from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
+import {ProfileComponent} from '../Components/profile.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'addRecipe', component: AddrecipeComponent},
   { path: 'recipe/:id',    component: RecipeComponent},
+  { path: 'profile/:username', component: ProfileComponent},
   { path: '**', component: HomeComponent}
 ];
 @NgModule({
   declarations: [
-    AppComponent, AddrecipeComponent, RecipeComponent, HomeComponent, HeaderComponent, Queryfilter, ModalComponent
+    AppComponent, AddrecipeComponent, RecipeComponent, HomeComponent, HeaderComponent, Queryfilter, ModalComponent,ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule
   ],
   providers: [
-   HttpClientModule, FakeBackendProvider, RecipeService, Globals
+   HttpClientModule, FakeBackendProvider, RecipeService, Globals, UserService
   ],
   bootstrap: [
    AppComponent, HeaderComponent

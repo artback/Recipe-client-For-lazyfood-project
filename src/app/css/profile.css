@@ -1,0 +1,35 @@
+.profileForm{
+  padding-top:70px;
+  min-width: 100%;
+  background-color: #F6F3F8;
+}
+
+#photo{
+  width: 50%;
+  height: 200px;
+  float:left;
+}
+.image-upload > label{
+  width: 50%;
+  height: 100%;
+}
+.image-upload img{
+  width: auto;
+  max-height: 100%;
+}
+.image-upload > input
+{
+  display: none;
+}
+#top{
+ width: 100%;
+}
+#middle{
+  width: 100%;
+}
+#addButton {
+  position: absolute;
+  bottom: 3em;
+  right: 3em;
+  height: 60px; /* Height of the footer */
+}
