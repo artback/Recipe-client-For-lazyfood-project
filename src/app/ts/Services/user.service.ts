@@ -11,11 +11,15 @@ export class UserService {
   getObservable(url): Observable<any> {
     return this.httpClient.get(url);
   }
+  public getUserData = (username) => {
+   const url = this.baseUrl + '/user/' + username;
+   return this.getObservable(url);
+  };
   public createUser = (username, password) => {
     const user = {
       username: username,
       password: password,
-      forname: '',
+      forename: '',
       surname: '',
       adress : {
         address: '',
@@ -33,20 +37,19 @@ export class UserService {
       console.log('User with ' + username + ' already exist,Logging in!');
       this.logIn(username, password);
     });
-  }
+  };
   public editUser = (user) => {
   const url = this.baseUrl + '/user/edit';
   this.httpClient.post(url, user).subscribe(() => {
    console.log('you was edited');
   });
-  }
+  };
   public logout = () => {
   this.globals.isLoggedIn = false;
   this.globals.user = '';
   this.globals.pass = '';
   Cookie.set('username', '');
   Cookie.set('password', '');
-  this.router.navigate(['']);
   }
   logIn = (username, password) => {
     const url = this.baseUrl + '/login';

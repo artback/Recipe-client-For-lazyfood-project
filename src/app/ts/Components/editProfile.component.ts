@@ -9,8 +9,8 @@ import {Router} from '@angular/router';
   styleUrls: ['../../css/profile.css'],
 })
 
-export class ProfileComponent implements OnInit {
-  @Input() username: String;
+export class EditProfileComponent implements OnInit {
+  private user;
   private img;
   profileForm: FormGroup;
   get Name() {
@@ -35,31 +35,37 @@ export class ProfileComponent implements OnInit {
       console.log('not logged in');
       this.router.navigate(['']);
     }
-    this.createForm();
+    this.userService.getUserData(this.globals.user).subscribe((user) =>{
+      this.user = user;
+      this.img = user.img;
+      delete user.img;
+      this.createForm();
+    });
   }
   constructor(public userService: UserService,
               public globals: Globals,
               public router: Router, private fb: FormBuilder) {}
   editProfile() {
-    const user = this.profileForm.value;
+    let user = this.profileForm.value;
     user.username = this.globals.user;
-    this.userService.editUser(this.profileForm.value);
+    user.img = this.img;
+    this.userService.editUser(user);
   }
   createForm() {
-    const user = this.globals.user;
+    const aDress = this.user.adress;
     const adress = this.fb.group({
-      address: '',
-      co: '',
-      state: '',
-      city: '',
-      postalcode: '',
+      address: aDress.address,
+      co: aDress.co,
+      state: aDress.state,
+      city: aDress.city,
+      postalcode: aDress.postalcode,
     });
     this.profileForm = this.fb.group({
-      surname: [user.surname, [
+      surname: [this.user.surname, [
         Validators.required,
         Validators.minLength(this.NAMELENGTH)
       ]],
-      forename: [user.forename, [
+      forename: [this.user.forename, [
         Validators.required,
         Validators.minLength(this.globals.NAMELENGTH)
       ]],

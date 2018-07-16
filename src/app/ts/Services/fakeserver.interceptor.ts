@@ -54,9 +54,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         } else {
             return Observable.throw('Unauthorised');
         }
-      }
-      // create user
-      if (request.url.endsWith('/user') && request.method === 'POST') {
+      } else if (request.url.endsWith('/user') && request.method === 'POST') {
         // get new user object from post body
         const newUser = request.body;
         // validation
@@ -69,39 +67,26 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         localStorage.setItem('users', JSON.stringify(users));
         // respond 200 OK
         return Observable.of(new HttpResponse({ status: 200 }));
-      }
-
-      if (request.url.endsWith('/user') && request.method === 'POST') {
+      } else if (request.url.endsWith('/user/edit') && request.method === 'POST') {
         // get new user object from post body
         const user = request.body;
         // validation
-        const foundUser = users.filter(User => User.username === user.username).length;
-        if (foundUser) {
+        const index = users.findIndex(oUser => oUser.username === user.username);
+        if (index === -1) {
           return Observable.throw('Username "' + user.username + '" was not to found in the system');
         }
-        const index = users.findIndex(oUser => oUser.username === user.username);
         // save user
         users[index] = user;
         localStorage.setItem('users', JSON.stringify(users));
         // respond 200 OK
         return Observable.of(new HttpResponse({ status: 200 }));
-      }
-      if (request.url.endsWith('/user/edit') && request.method === 'POST') {
-        // get new user object from post body
-        const user = request.body;
-        // validation
-        const foundUser = users.filter(User => User.username === user.username).length;
-        if (foundUser) {
-          return Observable.throw('Username "' + user.username + '" was not to found in the system');
+      } else if (request.url.includes('/user/') && request.method === 'GET') {
+        const username = request.url.split(/[\/]+/).pop();
+        let myUser = users.filter(user => user.username === username)[0];
+        if (myUser) {
+         delete myUser.password;
+         return Observable.of(new HttpResponse({ status: 200, body: myUser }));
         }
-        const index = users.findIndex(oUser => oUser.username === user.username);
-        // save user
-        users[index] = user;
-        localStorage.setItem('users', JSON.stringify(users));
-        // respond 200 OK
-        return Observable.of(new HttpResponse({ status: 200 }));
-      }
-      if (request.url.includes('/user/') && request.method === 'POST') {
       }
       // delete user
       if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'DELETE') {

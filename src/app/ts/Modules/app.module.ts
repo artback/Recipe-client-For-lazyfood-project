@@ -19,17 +19,17 @@ import {Cookie} from 'ng2-cookies';
 import {MaterialModule} from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
-import {ProfileComponent} from '../Components/profile.component';
+import {EditProfileComponent} from '../Components/editProfile.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'addrecipe', component: AddrecipeComponent},
   { path: 'recipe/:id',    component: RecipeComponent},
-  { path: 'profile/:username', component: ProfileComponent},
+  { path: 'editprofile', component: EditProfileComponent},
   { path: '**', component: HomeComponent}
 ];
 @NgModule({
   declarations: [
-    AppComponent, AddrecipeComponent, RecipeComponent, HomeComponent, HeaderComponent, Queryfilter, ModalComponent,ProfileComponent
+    AppComponent, AddrecipeComponent, RecipeComponent, HomeComponent, HeaderComponent, Queryfilter, ModalComponent, EditProfileComponent
   ],
   imports: [
     BrowserModule,

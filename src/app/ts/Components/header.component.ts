@@ -15,6 +15,7 @@ export class HeaderComponent implements AfterViewInit{
 
   logout(): void {
     this.userService.logout();
+    this.router.navigate(['']);
   }
   submit(modal): void {
    modal.hide();
