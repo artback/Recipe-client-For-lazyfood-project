@@ -20,8 +20,7 @@
   width: auto;
   max-height: 100%;
 }
-.image-upload > input
-{
+.image-upload > input {
   display: none;
 }
 #top{

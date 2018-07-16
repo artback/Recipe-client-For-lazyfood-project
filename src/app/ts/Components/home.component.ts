@@ -8,18 +8,11 @@ import {Globals} from '../Injectable/globals';
   styleUrls: ['../../css/home.css']
 })
 
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent {
   private recipes;
   private author;
   constructor(public recipeService: RecipeService, public globals: Globals) {
     this.getRecipes();
-  }
-  ngOnInit() {
-   this.globals.isHome = true;
-   this.globals.addrecipe = !this.globals.isLoggedIn;
-  }
-  ngOnDestroy() {
-    this.globals.isHome = false;
   }
   getRecipes(): void {
     this.recipeService.getAllRecipes().subscribe((response) => {

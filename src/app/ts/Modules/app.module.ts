@@ -22,7 +22,7 @@ import { StarRatingModule } from 'angular-star-rating';
 import {ProfileComponent} from '../Components/profile.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
-  { path: 'addRecipe', component: AddrecipeComponent},
+  { path: 'addrecipe', component: AddrecipeComponent},
   { path: 'recipe/:id',    component: RecipeComponent},
   { path: 'profile/:username', component: ProfileComponent},
   { path: '**', component: HomeComponent}

@@ -46,7 +46,6 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
      this.router.navigate(['']);
    }
    this.createForm();
-   this.globals.addrecipe = (true && this.globals.isLoggedIn);
   }
   onFileSelected(files) {
     if (files[0]) {

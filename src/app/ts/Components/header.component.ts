@@ -1,6 +1,5 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Globals} from '../Injectable/globals';
-import {Cookie} from 'ng2-cookies';
 import {Router} from '@angular/router';
 import {UserService} from '../Services/user.service';
 @Component({
@@ -9,19 +8,13 @@ import {UserService} from '../Services/user.service';
   styleUrls: ['../../css/header.css']
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements AfterViewInit{
   private name: String;
   private password: String;
-  constructor(public userService: UserService, public globals: Globals, public router: Router) {
+  constructor(private userService: UserService, public globals: Globals, private router: Router) {}
 
-  }
   logout(): void {
-    this.globals.isLoggedIn = false;
-    this.globals.user = '';
-    this.globals.pass = '';
-    Cookie.set('username', '');
-    Cookie.set('password', '');
-    this.router.navigate(['']);
+    this.userService.logout();
   }
   submit(modal): void {
    modal.hide();
@@ -30,6 +23,5 @@ export class HeaderComponent {
   createUser(): void {
     this.userService.createUser(this.name, this.password);
   }
-
 
 }

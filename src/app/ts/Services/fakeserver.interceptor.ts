@@ -71,6 +71,38 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return Observable.of(new HttpResponse({ status: 200 }));
       }
 
+      if (request.url.endsWith('/user') && request.method === 'POST') {
+        // get new user object from post body
+        const user = request.body;
+        // validation
+        const foundUser = users.filter(User => User.username === user.username).length;
+        if (foundUser) {
+          return Observable.throw('Username "' + user.username + '" was not to found in the system');
+        }
+        const index = users.findIndex(oUser => oUser.username === user.username);
+        // save user
+        users[index] = user;
+        localStorage.setItem('users', JSON.stringify(users));
+        // respond 200 OK
+        return Observable.of(new HttpResponse({ status: 200 }));
+      }
+      if (request.url.endsWith('/user/edit') && request.method === 'POST') {
+        // get new user object from post body
+        const user = request.body;
+        // validation
+        const foundUser = users.filter(User => User.username === user.username).length;
+        if (foundUser) {
+          return Observable.throw('Username "' + user.username + '" was not to found in the system');
+        }
+        const index = users.findIndex(oUser => oUser.username === user.username);
+        // save user
+        users[index] = user;
+        localStorage.setItem('users', JSON.stringify(users));
+        // respond 200 OK
+        return Observable.of(new HttpResponse({ status: 200 }));
+      }
+      if (request.url.includes('/user/') && request.method === 'POST') {
+      }
       // delete user
       if (request.url.match(/\/api\/users\/\d+$/) && request.method === 'DELETE') {
         // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
@@ -110,12 +142,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
       if (request.url.match('/recipe') && request.method === 'GET') {
         let localRecipes = JSON.parse(localStorage.getItem('recipes'));
-        for (let i = 0 ; i < localRecipes.length; i++) {
-          localRecipes[i] =  JSON.parse(localRecipes[i]);
-          localRecipes[i].id = i;
+        if (localRecipes) {
+          for (let i = 0; i < localRecipes.length; i++) {
+            localRecipes[i] = JSON.parse(localRecipes[i]);
+            localRecipes[i].id = i;
+          }
+          localRecipes = JSON.stringify(localRecipes);
+          return Observable.of(new HttpResponse({status: 200, body: localRecipes}));
+        } else {
+          Observable.of(new HttpResponse({status: 200}));
         }
-        localRecipes = JSON.stringify(localRecipes);
-        return Observable.of(new HttpResponse({status: 200, body: localRecipes}));
       }
       // pass through any requests not handled above
       return next.handle(request);

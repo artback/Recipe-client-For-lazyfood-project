@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Globals} from '../Injectable/globals';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../Services/user.service';
 import {Router} from '@angular/router';
 @Component({
@@ -16,8 +16,8 @@ export class ProfileComponent implements OnInit {
   get Name() {
     return this.profileForm.get('name');
   }
-  get  () {
-    return this.profileForm.get('adress') as FormArray;
+  get adress() {
+    return this.profileForm.get('adress') as FormGroup;
   }
   onFileSelected(files) {
     if (files[0]) {
@@ -37,7 +37,14 @@ export class ProfileComponent implements OnInit {
     }
     this.createForm();
   }
-  constructor(public userService: UserService, public globals: Globals, public router: Router, private fb: FormBuilder) {}
+  constructor(public userService: UserService,
+              public globals: Globals,
+              public router: Router, private fb: FormBuilder) {}
+  editProfile() {
+    const user = this.profileForm.value;
+    user.username = this.globals.user;
+    this.userService.editUser(this.profileForm.value);
+  }
   createForm() {
     const user = this.globals.user;
     const adress = this.fb.group({
@@ -54,7 +61,7 @@ export class ProfileComponent implements OnInit {
       ]],
       forename: [user.forename, [
         Validators.required,
-        Validators.minLength(this.NAMELENGTH)
+        Validators.minLength(this.globals.NAMELENGTH)
       ]],
       adress: adress
     });
