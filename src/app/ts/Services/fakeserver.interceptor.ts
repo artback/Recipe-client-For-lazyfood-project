@@ -48,11 +48,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const userAndPassword = FakeBackendInterceptor.getUsernameAndPasswordFromHeader(auth);
         const username = userAndPassword.username;
         const password = userAndPassword.password;
-        const exists = users.filter(user => user.username === username && user.password === password).length;
+        const exists = users.filter(user => user.username === username ).length;
         if (exists) {
-            return Observable.of(new HttpResponse({status: 200, body: null}));
+            const authorised = users.filter(user => user.password === password).length;
+            if (authorised) {
+              return Observable.of(new HttpResponse({status: 200, body: null}));
+            } else {
+              return Observable.throw('wrong password');
+            }
         } else {
-            return Observable.throw('Unauthorised');
+            return Observable.throw('User don\'t exist');
         }
       } else if (request.url.endsWith('/user') && request.method === 'POST') {
         // get new user object from post body
@@ -82,7 +87,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return Observable.of(new HttpResponse({ status: 200 }));
       } else if (request.url.includes('/user/') && request.method === 'GET') {
         const username = request.url.split(/[\/]+/).pop();
-        let myUser = users.filter(user => user.username === username)[0];
+        const myUser = users.filter(user => user.username === username)[0];
         if (myUser) {
          delete myUser.password;
          return Observable.of(new HttpResponse({ status: 200, body: myUser }));

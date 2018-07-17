@@ -4,6 +4,5 @@ import { Injectable } from '@angular/core';
 export class Globals {
   readonly SERVERURL = 'http://localhost:8080';
   user: String;
-  pass: String;
   isLoggedIn = false;
 }

@@ -3,12 +3,12 @@ import {Globals} from '../Injectable/globals';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../Services/user.service';
 import {Router} from '@angular/router';
+import {NumberValidator} from '../Injectable/NumberValidator';
 @Component({
   selector: 'app-profile',
   templateUrl: '../../template/profile.html',
   styleUrls: ['../../css/profile.css'],
 })
-
 export class EditProfileComponent implements OnInit {
   private user;
   private img;
@@ -58,7 +58,7 @@ export class EditProfileComponent implements OnInit {
       co: aDress.co,
       state: aDress.state,
       city: aDress.city,
-      postalcode: aDress.postalcode,
+      postalcode: [aDress.postalcode, [NumberValidator.numeric]]
     });
     this.profileForm = this.fb.group({
       surname: [this.user.surname, [

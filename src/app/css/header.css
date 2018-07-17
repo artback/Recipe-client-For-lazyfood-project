@@ -16,6 +16,10 @@
   color:#898989;
   font-style: italic;
 }
+button{
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
 a{
   text-align:center;
   padding-right: 1em;
