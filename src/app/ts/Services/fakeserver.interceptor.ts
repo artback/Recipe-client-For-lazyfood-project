@@ -121,9 +121,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const recipe = JSON.parse(request.body);
         const index = userSearch(recipe.author);
         if (users[index].ratings) {
-          users[index].ratings.push({id: recipe.id, rating: recipe.rating});
+          users[index].ratings.push( {id: (recipes.length + 1), rating: recipe.rating});
         } else {
-          users[index].ratings = [{id: recipe.id, rating: recipe.rating}];
+          users[index].ratings = [{id: (recipes.length + 1), rating: recipe.rating}];
         }
           recipes.push(JSON.stringify(recipe));
           localStorage.setItem('recipes', JSON.stringify(recipes));

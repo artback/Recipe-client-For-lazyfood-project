@@ -36,6 +36,7 @@ export class EditProfileComponent implements OnInit {
       this.router.navigate(['']);
     }
     this.userService.getUserData(this.globals.user).subscribe((user) =>{
+      console.log(user);
       this.user = user;
       this.img = user.img;
       delete user.img;

@@ -15,7 +15,8 @@
 </nav>
 <app-modal #modal>
   <div class="app-modal-header">
-    <label class="modal-title" id="myModalLabel">Login or create an account</label>
+    <label *ngIf="!register" class="modal-title" id="myModalLabel">Login to your account</label>
+    <label *ngIf="register" class="modal-title" id="myModalLabel">Create an account</label>
   </div>
   <div class="app-modal-body">
     <form *ngIf="!register" [formGroup]="profileForm">
@@ -28,28 +29,26 @@
     </form>
     <form *ngIf="register"[formGroup]="profileForm" novalidate>
       <div id="userprofile">
+        <label>Username</label>
+        <input class="form-control" formControlName="username"  type="text" ><br/>
+        <label>Password</label>
+        <input class="form-control" formControlName="password" type="password"><br/>
         <table class="example-full-width" cellspacing="0"><tr>
-          <td><mat-form-field class="example-full-width">
-            <input matInput formControlName="username" placeholder="username">
-          </mat-form-field></td>
-          <td><mat-form-field class="example-full-width">
-            <input matInput formControlName="password" placeholder="password" type="password">
-          </mat-form-field></td>
-        </tr></table>
-        <table class="example-full-width" cellspacing="0"><tr>
-          <td><mat-form-field class="example-full-width">
-            <input matInput formControlName="forename" placeholder="First name">
-          </mat-form-field></td>
-          <td><mat-form-field class="example-full-width">
-            <input matInput formControlName="surname" placeholder="Last Name">
-          </mat-form-field></td>
+          <td>
+            <label>First name</label>
+            <input class="form-control" formControlName="forename" >
+          </td>
+          <td>
+            <label>last name</label>
+            <input class="form-control" formControlName="surname" >
+          </td>
         </tr></table>
       </div>
     </form>
   </div>
   <div class="app-modal-footer">
-    <button type="button" class="btn btn-default" (click)="modal.hide()">Close</button>
-    <button *ngIf="!register" type="button" class="btn btn-default" (click)="regAct()">Register</button>
+    <button type="button" class="btn btn-default" (click)="close(modal)">Close</button>
+    <button *ngIf="!register" type="button" class="btn btn-default" (click)="register = true">Register</button>
     <button *ngIf="!register" type="button" (click)="logIn(modal)" class="btn btn-primary">Login</button>
     <button [disabled]="profileForm.invalid" *ngIf="register" type="button" (click)="createAccount(modal)" class="btn btn-primary">Submit</button>
   </div>

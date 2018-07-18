@@ -20,6 +20,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.profileForm.get('adress') as FormGroup;
   }
   ngOnInit() {
+    this.clearForm();
+  }
+  clearForm(): void {
     const adress = this.fb.group({
       address: '',
       co: '',
@@ -47,9 +50,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userService.logout();
     this.router.navigate(['']);
   }
-  regAct(): void {
-   this.register = true;
-  }
   createAccount(modal): void {
     const user = this.profileForm.value;
     this.userService.createUser(user).subscribe(() => {
@@ -65,11 +65,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.globals.user = user.username;
       Cookie.set('username', user.username);
       modal.hide();
-    }, function (error) {
-      alert(error);
+      this.clearForm();
+    }, (error) => {
+      if (error === 'User don\'t exist') {
+       this.register = true;
+      } else {
+        alert(error);
+      }
     });
   }
   close(modal): void {
+   this.clearForm();
    this.register = false;
    modal.hide();
   }

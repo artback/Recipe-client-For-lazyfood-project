@@ -78,7 +78,7 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
   addRecipe(): void {
     let recipe = this.recipeForm.value;
     recipe.hashtags = [];
-    let re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches = [];
+    let re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches = [];;
     while (match = re.exec(recipe.description)) {
       recipe.hashtags.push(match[1]);
     }
@@ -86,7 +86,7 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
     recipe.img = this.img;
     recipe.author = this.globals.user;
     this.recipeService.addRecipe(recipe).subscribe((response) => {
-          alert('recipe:' + response + ' was added');
+          alert( response + ' was added');
           this.router.navigate(['']);
         }, (error) => {
           alert(error);

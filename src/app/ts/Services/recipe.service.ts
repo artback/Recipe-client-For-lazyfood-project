@@ -51,9 +51,7 @@ export class RecipeService {
     const options = {
       headers: {Authorization: auth}
     };
-    this.httpClient.delete(url, options).subscribe(data =>
-      console.log(data)
-    );
+    this.httpClient.delete(url, options).subscribe(data => console.log(data));
   }
 
 }
