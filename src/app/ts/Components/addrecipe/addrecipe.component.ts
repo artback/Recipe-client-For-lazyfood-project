@@ -1,13 +1,13 @@
 import {Component, OnDestroy, OnInit, ViewChildren} from '@angular/core';
-import {RecipeService} from '../Services/recipe.service';
-import {Globals} from '../Injectable/globals';
+import {RecipeService} from '../../Services/recipe.service';
+import {Globals} from '../../Injectable/globals';
 import {Router} from '@angular/router';
 import {FormControl, Validators, FormGroup, FormBuilder, FormArray} from '@angular/forms';
 
 @Component({
   selector: 'app-addrecipe',
-  templateUrl: '../../template/addRecipe.html',
-  styleUrls: ['../../css/addRecipe.css']
+  templateUrl: './addRecipe.html',
+  styleUrls: ['./addRecipe.css']
 })
 
 export class AddrecipeComponent implements OnInit, OnDestroy {
@@ -37,7 +37,6 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
     this.addIngredient();
     this.addInstruction();
   }
-  @ViewChildren('instructionfield') instructionsInput;
 
   constructor(public recipeService: RecipeService, public globals: Globals, public router: Router, private fb: FormBuilder) {}
   ngOnInit() {
@@ -76,9 +75,11 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
     this.globals.addrecipe = (false && this.globals.isLoggedIn);
   }
   addRecipe(): void {
+    // tslint:disable-next-line
     let recipe = this.recipeForm.value;
     recipe.hashtags = [];
-    let re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches = [];;
+    // tslint:disable-next-line
+    let re = /(?:^|\W)#(\w+)(?!\w)/g, match, matches = [];
     while (match = re.exec(recipe.description)) {
       recipe.hashtags.push(match[1]);
     }

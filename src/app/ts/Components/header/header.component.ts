@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
-import {Globals} from '../Injectable/globals';
+import {Globals} from '../../Injectable/globals';
 import {Router} from '@angular/router';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
-import {UserService} from '../Services/user.service';
+import {UserService} from '../../Services/user.service';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'app-header',
-  templateUrl: '../../template/header.html',
-  styleUrls: ['../../css/header.css']
+  templateUrl: './header.html',
+  styleUrls: ['./header.css']
 })
 
 export class HeaderComponent implements OnInit, OnDestroy {
@@ -20,9 +20,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.profileForm.get('adress') as FormGroup;
   }
   ngOnInit() {
-    this.clearForm();
+    this.createForm();
   }
-  clearForm(): void {
+  createForm(): void {
     const adress = this.fb.group({
       address: '',
       co: '',
@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.globals.user = user.username;
       Cookie.set('username', user.username);
       modal.hide();
-      this.clearForm();
+      this.profileForm.patchValue({password: ''});
     }, (error) => {
       if (error === 'User don\'t exist') {
        this.register = true;
@@ -75,7 +75,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
   close(modal): void {
-   this.clearForm();
+   this.profileForm.patchValue({password: ''});
    this.register = false;
    modal.hide();
   }

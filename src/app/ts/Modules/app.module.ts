@@ -2,12 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Globals } from '../Injectable/globals';
 import { NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ModalComponent} from '../Components/modal.component';
-import { AppComponent } from '../Components/app.component';
-import {HomeComponent} from '../Components/home.component';
-import {HeaderComponent} from '../Components/header.component';
-import {RecipeComponent} from '../Components/recipe.component';
-import {AddrecipeComponent} from '../Components/addrecipe.component';
+import {ModalComponent} from '../Components/modal/modal.component';
+import { AppComponent } from '../Components/app/app.component';
+import {HomeComponent} from '../Components/home/home.component';
+import {HeaderComponent} from '../Components/header/header.component';
+import {RecipeComponent} from '../Components/recipe/recipe.component';
+import {AddrecipeComponent} from '../Components/addrecipe/addrecipe.component';
 import {RecipeService} from '../Services/recipe.service';
 import {UserService} from '../Services/user.service';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,8 @@ import {Cookie} from 'ng2-cookies';
 import {MaterialModule} from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
-import {EditProfileComponent} from '../Components/editProfile.component';
+import {EditProfileComponent} from '../Components/editprofile/editProfile.component';
+import { RecipeListItemComponent} from '../Components/recipeListItem/recipeListItem.components';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'addrecipe', component: AddrecipeComponent},
@@ -29,7 +30,10 @@ const appRoutes: Routes = [
 ];
 @NgModule({
   declarations: [
-    AppComponent, AddrecipeComponent, RecipeComponent, HomeComponent, HeaderComponent, Queryfilter, ModalComponent, EditProfileComponent
+    AppComponent, AddrecipeComponent, RecipeComponent,
+    HomeComponent, HeaderComponent, Queryfilter,
+    ModalComponent, EditProfileComponent,
+    RecipeListItemComponent
   ],
   imports: [
     BrowserModule,

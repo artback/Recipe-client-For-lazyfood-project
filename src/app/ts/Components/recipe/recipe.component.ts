@@ -1,10 +1,9 @@
 import { Component} from '@angular/core';
-import {RecipeService} from '../Services/recipe.service';
+import {RecipeService} from '../../Services/recipe.service';
 @Component({
   selector: 'app-recipe',
-  templateUrl: '../../template/recipe.html',
-  styleUrls: ['../../css/recipe.css'],
-  inputs: ['recipe'],
+  templateUrl: './recipe.html',
+  styleUrls: ['./recipe.css'],
 })
 
 export class RecipeComponent {

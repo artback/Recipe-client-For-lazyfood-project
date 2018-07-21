@@ -7,7 +7,6 @@ export class RecipeService {
   readonly baseUrl = this.globals.SERVERURL;
   constructor (private httpClient: HttpClient, private globals: Globals) {
   }
-
   getObservable(url): Observable<any> {
     return this.httpClient.get(url);
   }
@@ -35,7 +34,10 @@ export class RecipeService {
     const url = this.baseUrl + '/ingredients/' + id;
     return this.getObservable(url);
   }
-
+  updateRating(rating, recipeId) {
+    const url = this.baseUrl + '/rating/' + this.globals.user;
+    return this.httpClient.post(url, {recipe: recipeId, rating: rating});
+  }
   addRecipe(recipe): Observable<any> {
     const recipeString = JSON.stringify(recipe);
     const url = this.baseUrl + '/recipe';

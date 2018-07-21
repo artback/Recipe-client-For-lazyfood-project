@@ -21,10 +21,8 @@ export class UserService {
   }
 
   public editUser = (user) => {
-  const url = this.baseUrl + '/user/edit';
-  this.httpClient.post(url, user).subscribe(() => {
-   console.log('you was edited');
-  });
+    const url = this.baseUrl + '/user/edit';
+    return this.httpClient.post(url, user);
   }
   public logout = () => {
   this.globals.isLoggedIn = false;

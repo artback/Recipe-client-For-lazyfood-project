@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="collapse navbar-collapse" id="lazy-navbar">
-    <img src="../../assets/images/FirstLogo.png" alt="Logotype" height="50" width="50">
+    <img src="../../../../assets/images/FirstLogo.png" alt="Logotype" height="50" width="50">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
       <li class="hvr-underline-from-center" *ngIf="!router.url.endsWith('/')" routerLink=""><a>HOME</a></li>
@@ -15,8 +15,8 @@
 </nav>
 <app-modal #modal>
   <div class="app-modal-header">
-    <label *ngIf="!register" class="modal-title" id="myModalLabel">Login to your account</label>
-    <label *ngIf="register" class="modal-title" id="myModalLabel">Create an account</label>
+    <label *ngIf="!register" class="modal-title">Login to your account</label>
+    <label *ngIf="register" class="modal-title">Create an account</label>
   </div>
   <div class="app-modal-body">
     <form *ngIf="!register" [formGroup]="profileForm">

@@ -1,0 +1,16 @@
+  <img class="recipeimg" *ngIf="recipe.img" [src]="recipe.img" style="pointer-events: none"/>
+  <img class="recipeimg" *ngIf="!recipe.img" src="../../../assets/images/placeholder.png" style="pointer-events: none"/>
+  <div class="recipetext">
+    <div id="recipe-header">
+      <h5><b id="name">{{recipe.name}}</b>
+        <i><star-rating-control (ratingChange)="onRatingChange($event,recipe)"
+                                labelPosition="right" [starType]="'icon'" ></star-rating-control></i>
+      </h5>
+    </div>
+    <div class="recipe-body">
+      <p><br>{{recipe.description}}</p>
+    </div>
+    <div class="footer">
+      <i id="author">{{recipe.author}}</i>
+    </div>
+  </div>
