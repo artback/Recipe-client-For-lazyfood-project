@@ -9,29 +9,33 @@ export class UserService {
   constructor (private httpClient: HttpClient, private globals: Globals) {
   }
   getObservable(url): Observable<any> {
-    return this.httpClient.get(url);
+    const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.pass);
+    const options = {
+      headers: {Authorization: auth}
+    };
+    return this.httpClient.get(url, options);
   }
-  public getUserData = (username) => {
+  getUserData(username): Observable<any> {
    const url = this.baseUrl + '/user/' + username;
    return this.getObservable(url);
   }
-  public createUser = (user) => {
+  createUser(user): Observable<any> {
     const url = this.baseUrl + '/user';
     return this.httpClient.post(url, user);
   }
 
-  public editUser = (user) => {
+  editUser(user): Observable<any> {
     const url = this.baseUrl + '/user/edit';
     return this.httpClient.post(url, user);
   }
-  public logout = () => {
+  logout(): Observable<any> {
   this.globals.isLoggedIn = false;
   this.globals.user = '';
   this.globals.pass = '';
   Cookie.set('username', '');
   Cookie.set('password', '');
   }
-  public logIn = (username, password) => {
+  logIn(username, password): Observable<any> {
     const url = this.baseUrl + '/login';
     const auth = 'Basic ' + window.btoa(username + ':' + password);
     const options = {

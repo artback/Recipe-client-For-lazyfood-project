@@ -19,10 +19,10 @@ export class EditProfileComponent implements OnInit {
   get adress() {
     return this.profileForm.get('adress') as FormGroup;
   }
-  onFileSelected(files) {
+  static onFileSelected(files) {
     if (files[0]) {
       const reader = new FileReader();
-      reader.onload = ((theFile) => {
+      reader.onload = (() => {
         return (e) => {
           this.img = e.target.result;
         };
@@ -40,6 +40,7 @@ export class EditProfileComponent implements OnInit {
       this.img = user.img;
       delete user.img;
       this.profileForm.patchValue(user);
+      console.log(user.ratings);
     });
   }
   constructor(public userService: UserService,

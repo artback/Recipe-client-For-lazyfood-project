@@ -9,7 +9,7 @@
   height: 54%;
 }
 #recipes::-webkit-scrollbar {
-  width: 0px;
+  width: 0;
   background: transparent;
 }
 .mealBox{
@@ -17,7 +17,6 @@
 }
 .recipetext{
   height: 100%;
-  padding-left: 1em;
 }
 body{
   background-color: #ECECEC;
@@ -26,13 +25,15 @@ body{
 }
 .recipeimg{
   float: left;
-  border-radius: 15px 0px 0px 15px;
+  border-radius: 15px 0 0 15px;
   width: 20%;
   height: 100%;
 }
-footer{
+.footer{
   position: absolute;
-  bottom: 0px;
+  bottom: 10%;
+  right: 1%;
+  height: 10%;
 }
 
 .author-text{

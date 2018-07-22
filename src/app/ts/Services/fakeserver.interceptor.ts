@@ -29,7 +29,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     // array in local storage for registered users
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
     const recipes: any[] = JSON.parse(localStorage.getItem('recipes')) || [];
-    const userSearch = function(username) {
+    const userSearch = (username) => {
       let i = null;
       for (i = 0; users.length > i; i += 1) {
         if (users[i].username === username) {
@@ -38,6 +38,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
 
       return -1;
+    };
+    const splitIdentifier =  (uri) => {
+      uri = uri.split('/');
+      const identifier = uri.pop() || uri.pop();  // handle potential trailing slash
+      return identifier;
     };
     // wrap in delayed observable to simulate server api call
     return Observable.of(null).mergeMap(() => {
@@ -68,6 +73,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return Observable.throw('Username "' + newUser.username + '" is already taken');
         }
         // save new user
+        newUser.rating = [];
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
         // respond 200 OK
@@ -121,14 +127,30 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const recipe = JSON.parse(request.body);
         const index = userSearch(recipe.author);
         if (users[index].ratings) {
-          users[index].ratings.push( {id: (recipes.length + 1), rating: recipe.rating});
+          users[index].ratings[recipe.length + 1] = {rating: recipe.rating};
         } else {
-          users[index].ratings = [{id: (recipes.length + 1), rating: recipe.rating}];
+          users[index].ratings = [{}];
+          users[index].ratings[recipe.length + 1] = {rating: recipe.rating};
         }
           recipes.push(JSON.stringify(recipe));
           localStorage.setItem('recipes', JSON.stringify(recipes));
           localStorage.setItem('users', JSON.stringify(users));
           return Observable.of(new HttpResponse({status: 200, body: recipe.name}));
+      }
+      if (request.url.includes('/rating/') && request.method === 'POST') {
+          const body = JSON.parse(request.body);
+          const index = userSearch(body.user);
+          const recipeId = splitIdentifier(request.url);
+          users[index].rating[recipeId] = {rating: body.rating};
+          localStorage.setItem('users', JSON.stringify(users));
+          return Observable.of(new HttpResponse({status: 200}));
+      } else if (request.url.includes('/rating') && request.method === 'GET') {
+        const user = FakeBackendInterceptor.getUsernameAndPasswordFromHeader(request.headers.get('Authorization')).username;
+        const index = userSearch(user);
+        const recipeId = splitIdentifier(request.url);
+        const rating = users[index].rating[recipeId];
+        rating = (rating == null) ? {rating: 0}  : rating;
+        return Observable.of(new HttpResponse({status: 200, body: rating}));
       }
       if (request.url.match('/recipe') && request.method === 'GET') {
         let localRecipes = JSON.parse(localStorage.getItem('recipes'));
@@ -140,7 +162,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           localRecipes = JSON.stringify(localRecipes);
           return Observable.of(new HttpResponse({status: 200, body: localRecipes}));
         } else {
-          Observable.of(new HttpResponse({status: 200}));
+          return Observable.of(new HttpResponse({status: 200}));
         }
       }
       // pass through any requests not handled above

@@ -1,10 +1,9 @@
-  <img class="recipeimg" *ngIf="recipe.img" [src]="recipe.img" style="pointer-events: none"/>
-  <img class="recipeimg" *ngIf="!recipe.img" src="../../../assets/images/placeholder.png" style="pointer-events: none"/>
-  <div class="recipetext">
+<img class="recipeimg" *ngIf="recipe.img" [src]="recipe.img" style="pointer-events: none"/>
+<img class="recipeimg" *ngIf="!recipe.img" src="../../../assets/images/placeholder.png" style="pointer-events: none"/>
     <div id="recipe-header">
       <h5><b id="name">{{recipe.name}}</b>
-        <i><star-rating-control (ratingChange)="onRatingChange($event,recipe)"
-                                labelPosition="right" [starType]="'icon'" ></star-rating-control></i>
+        <i *ngIf="globals.isLoggedIn"><star-rating-control (ratingChange)="onRatingChange($event,recipe)"
+                                labelPosition="right" [rating]="rating" [starType]="'icon'" ></star-rating-control></i>
       </h5>
     </div>
     <div class="recipe-body">
@@ -13,4 +12,3 @@
     <div class="footer">
       <i id="author">{{recipe.author}}</i>
     </div>
-  </div>

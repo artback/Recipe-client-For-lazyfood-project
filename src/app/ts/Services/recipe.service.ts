@@ -8,7 +8,11 @@ export class RecipeService {
   constructor (private httpClient: HttpClient, private globals: Globals) {
   }
   getObservable(url): Observable<any> {
-    return this.httpClient.get(url);
+    const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.password);
+    const options = {
+      headers: {Authorization: auth}
+    };
+    return this.httpClient.get(url, options);
   }
   getAllRecipes(): Observable<any> {
     const url = this.baseUrl + '/recipe';
@@ -35,8 +39,9 @@ export class RecipeService {
     return this.getObservable(url);
   }
   updateRating(rating, recipeId) {
-    const url = this.baseUrl + '/rating/' + this.globals.user;
-    return this.httpClient.post(url, {recipe: recipeId, rating: rating});
+    const url = this.baseUrl + '/rating/' + recipeId;
+    const body = JSON.stringify({user: this.globals.user, rating: rating});
+    return this.httpClient.post(url, body);
   }
   addRecipe(recipe): Observable<any> {
     const recipeString = JSON.stringify(recipe);
@@ -47,13 +52,13 @@ export class RecipeService {
     };
     return this.httpClient.post(url, recipeString, options);
   }
-  removeRecipe(id): void {
+  removeRecipe(id): Observable<any> {
     const url = this.baseUrl + '/recipe/' + id;
-    const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.pass);
-    const options = {
-      headers: {Authorization: auth}
-    };
-    this.httpClient.delete(url, options).subscribe(data => console.log(data));
+    return this.httpClient.delete(url, options);
   }
 
+  getRating(id): Observable<any> {
+    const url = this.baseUrl + '/rating/' + id;
+    return this.getObservable(url);
+  }
 }
