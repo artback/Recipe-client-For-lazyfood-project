@@ -105,7 +105,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
           // find user by id in users array
           const urlParts = request.url.split('/');
-          const id = parseInt(urlParts[urlParts.length - 1]);
+          const id = parseInt(urlParts[urlParts.length - 1], 10);
           for (let i = 0; i < users.length; i++) {
             const user = users[i];
             if (user.id === id) {
@@ -127,15 +127,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const recipe = JSON.parse(request.body);
         const index = userSearch(recipe.author);
         if (users[index].ratings) {
-          users[index].ratings[recipe.length + 1] = {rating: recipe.rating};
+          users[index].rating[recipes.length + 1] = {rating: recipe.rating};
         } else {
-          users[index].ratings = [{}];
-          users[index].ratings[recipe.length + 1] = {rating: recipe.rating};
+          users[index].rating = [{}];
+          users[index].rating[recipes.length + 1] = {rating: recipe.rating};
         }
-          recipes.push(JSON.stringify(recipe));
-          localStorage.setItem('recipes', JSON.stringify(recipes));
-          localStorage.setItem('users', JSON.stringify(users));
-          return Observable.of(new HttpResponse({status: 200, body: recipe.name}));
+        delete recipe.rating;
+        recipes.push(JSON.stringify(recipe));
+        localStorage.setItem('recipes', JSON.stringify(recipes));
+        localStorage.setItem('users', JSON.stringify(users));
+        return Observable.of(new HttpResponse({status: 200, body: recipe.name}));
       }
       if (request.url.includes('/rating/') && request.method === 'POST') {
           const body = JSON.parse(request.body);
@@ -148,7 +149,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const user = FakeBackendInterceptor.getUsernameAndPasswordFromHeader(request.headers.get('Authorization')).username;
         const index = userSearch(user);
         const recipeId = splitIdentifier(request.url);
-        const rating = users[index].rating[recipeId];
+        let rating = users[index].rating[recipeId];
         rating = (rating == null) ? {rating: 0}  : rating;
         return Observable.of(new HttpResponse({status: 200, body: rating}));
       }

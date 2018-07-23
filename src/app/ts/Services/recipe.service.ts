@@ -8,7 +8,7 @@ export class RecipeService {
   constructor (private httpClient: HttpClient, private globals: Globals) {
   }
   getObservable(url): Observable<any> {
-    const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.password);
+    const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.pass);
     const options = {
       headers: {Authorization: auth}
     };

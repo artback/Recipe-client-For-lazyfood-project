@@ -10,7 +10,6 @@ import {NumberValidator} from '../../Injectable/NumberValidator';
   styleUrls: ['./profile.css'],
 })
 export class EditProfileComponent implements OnInit {
-  private user;
   private img;
   profileForm: FormGroup;
   get Name() {
@@ -22,7 +21,7 @@ export class EditProfileComponent implements OnInit {
   static onFileSelected(files) {
     if (files[0]) {
       const reader = new FileReader();
-      reader.onload = (() => {
+      reader.onload = ((file) => {
         return (e) => {
           this.img = e.target.result;
         };
@@ -40,7 +39,6 @@ export class EditProfileComponent implements OnInit {
       this.img = user.img;
       delete user.img;
       this.profileForm.patchValue(user);
-      console.log(user.ratings);
     });
   }
   constructor(public userService: UserService,

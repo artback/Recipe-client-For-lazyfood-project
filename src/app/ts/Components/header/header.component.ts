@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component , OnInit} from '@angular/core';
 import {Globals} from '../../Injectable/globals';
 import {Router} from '@angular/router';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./header.css']
 })
 
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
   private register = false;
   profileForm: FormGroup;
   get Name() {
@@ -74,7 +74,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
   }
-  close(modal): void {
+  private close(modal): void {
    this.profileForm.patchValue({password: ''});
    this.register = false;
    modal.hide();

@@ -24,6 +24,6 @@ export class RecipeListItemComponent implements  OnInit {
   }
   removeRecipe(): void {
     // set header to Id check in backend if the same as author remove
-    this.recipeService.removeRecipe(recipe.id);
+    this.recipeService.removeRecipe(this.recipe.id);
   }
 }

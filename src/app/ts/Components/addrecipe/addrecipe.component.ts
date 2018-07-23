@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChildren} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RecipeService} from '../../Services/recipe.service';
 import {Globals} from '../../Injectable/globals';
 import {Router} from '@angular/router';
@@ -10,7 +10,7 @@ import {FormControl, Validators, FormGroup, FormBuilder, FormArray} from '@angul
   styleUrls: ['./addRecipe.css']
 })
 
-export class AddrecipeComponent implements OnInit, OnDestroy {
+export class AddrecipeComponent implements OnInit {
   recipeForm: FormGroup;
   private img;
   private readonly NAMELENGTH = 4;
@@ -70,9 +70,6 @@ export class AddrecipeComponent implements OnInit, OnDestroy {
     this.instructionsInput.changes.subscribe(() => {
       this.instructionsInput.last.nativeElement.focus();
     });
-  }
-  ngOnDestroy() {
-    this.globals.addrecipe = (false && this.globals.isLoggedIn);
   }
   addRecipe(): void {
     // tslint:disable-next-line
