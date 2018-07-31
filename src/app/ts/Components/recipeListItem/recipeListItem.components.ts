@@ -15,9 +15,7 @@ export class RecipeListItemComponent implements  OnInit {
   constructor(public recipeService: RecipeService, private globals: Globals) {
   }
   ngOnInit() {
-    this.recipeService.getRating(this.recipe.id).subscribe((ratingResponse) => {
-      this.rating = (ratingResponse.rating == null) ? 0 : ratingResponse.rating;
-    });
+    console.log(this.recipe);
   }
   onRatingChange = (event: RatingChangeEvent, recipe) => {
     this.recipeService.updateRating(event.rating, recipe.id).subscribe();

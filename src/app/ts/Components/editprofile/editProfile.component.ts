@@ -10,7 +10,7 @@ import {NumberValidator} from '../../Injectable/NumberValidator';
   styleUrls: ['./profile.css'],
 })
 export class EditProfileComponent implements OnInit {
-  private img;
+  img;
   profileForm: FormGroup;
   get Name() {
     return this.profileForm.get('name');
@@ -18,10 +18,10 @@ export class EditProfileComponent implements OnInit {
   get adress() {
     return this.profileForm.get('adress') as FormGroup;
   }
-  static onFileSelected(files) {
+  onFileSelected(files) {
     if (files[0]) {
       const reader = new FileReader();
-      reader.onload = ((file) => {
+      reader.onload = ((theFile) => {
         return (e) => {
           this.img = e.target.result;
         };
@@ -64,7 +64,7 @@ export class EditProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       surname: ['', [
         Validators.required,
-        Validators.minLength(this.NAMELENGTH)
+        Validators.minLength(this.globals.NAMELENGTH)
       ]],
       forename: ['', [
         Validators.required,

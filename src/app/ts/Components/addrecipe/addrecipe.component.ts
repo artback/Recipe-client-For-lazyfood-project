@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChildren} from '@angular/core';
 import {RecipeService} from '../../Services/recipe.service';
 import {Globals} from '../../Injectable/globals';
 import {Router} from '@angular/router';
@@ -11,6 +11,7 @@ import {FormControl, Validators, FormGroup, FormBuilder, FormArray} from '@angul
 })
 
 export class AddrecipeComponent implements OnInit {
+  @ViewChildren('instructionfield') instructionsInput;
   recipeForm: FormGroup;
   private img;
   private readonly NAMELENGTH = 4;

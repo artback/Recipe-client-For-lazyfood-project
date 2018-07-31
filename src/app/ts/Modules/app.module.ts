@@ -12,7 +12,6 @@ import {RecipeService} from '../Services/recipe.service';
 import {UserService} from '../Services/user.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import {Queryfilter} from '../Injectable/queryfilter';
 import { HttpClientModule} from '@angular/common/http';
 import {FakeBackendProvider} from '../Services/fakeserver.interceptor';
 import {Cookie} from 'ng2-cookies';
@@ -21,19 +20,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
 import {EditProfileComponent} from '../Components/editprofile/editProfile.component';
 import { RecipeListItemComponent} from '../Components/recipeListItem/recipeListItem.components';
+import {WeeklistComponent} from '../Components/WeekList/weeklist.component';
+import { DragulaModule } from 'ng2-dragula';
+import * as moment from 'moment/moment';
+import {JsonpModule} from '@angular/http';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'addrecipe', component: AddrecipeComponent},
   { path: 'recipe/:id',    component: RecipeComponent},
+  { path: 'menu/:year/:week',    component: WeeklistComponent},
   { path: 'editprofile', component: EditProfileComponent},
   { path: '**', component: HomeComponent}
 ];
 @NgModule({
   declarations: [
     AppComponent, AddrecipeComponent, RecipeComponent,
-    HomeComponent, HeaderComponent, Queryfilter,
+    HomeComponent, HeaderComponent,
     ModalComponent, EditProfileComponent,
-    RecipeListItemComponent
+    RecipeListItemComponent, WeeklistComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
     ),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    JsonpModule,
+    DragulaModule.forRoot()
   ],
   providers: [
    HttpClientModule, FakeBackendProvider, RecipeService, Globals, UserService
@@ -58,6 +64,7 @@ export class AppModule {
   constructor(public globals: Globals) {
    const username = Cookie.get('username');
    const password = Cookie.get('password');
+   moment.locale('sv');
    if (username) {
      this.globals.isLoggedIn = true;
      this.globals.user = username;

@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -24,7 +23,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
     return {username: username, password: password};
   }
-  constructor() { }
+  static requestToUserAndPassword(request) {
+    const auth = request.headers.get('Authorization');
+    const userAndPassword = FakeBackendInterceptor.getUsernameAndPasswordFromHeader(auth);
+    return userAndPassword;
+  }
+  constructor() {
+
+  }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // array in local storage for registered users
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
@@ -41,16 +47,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     };
     const splitIdentifier =  (uri) => {
       uri = uri.split('/');
-      const identifier = uri.pop() || uri.pop();  // handle potential trailing slash
-      return identifier;
+        // handle potential trailing slash
+      return uri.pop() || uri.pop();
     };
+
     // wrap in delayed observable to simulate server api call
     return Observable.of(null).mergeMap(() => {
       // authenticate
       if (request.url.endsWith('/login')  && request.method === 'POST') {
         // find if any user matches login credentials
-        const auth = request.headers.get('Authorization');
-        const userAndPassword = FakeBackendInterceptor.getUsernameAndPasswordFromHeader(auth);
+        const userAndPassword = FakeBackendInterceptor.requestToUserAndPassword(request);
         const username = userAndPassword.username;
         const password = userAndPassword.password;
         const exists = users.filter(user => user.username === username ).length;
@@ -127,10 +133,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const recipe = JSON.parse(request.body);
         const index = userSearch(recipe.author);
         if (users[index].ratings) {
-          users[index].rating[recipes.length + 1] = {rating: recipe.rating};
+          users[index].rating[recipes.length] = {rating: recipe.rating};
         } else {
           users[index].rating = [{}];
-          users[index].rating[recipes.length + 1] = {rating: recipe.rating};
+          users[index].rating[recipes.length] = {rating: recipe.rating};
         }
         delete recipe.rating;
         recipes.push(JSON.stringify(recipe));
@@ -144,14 +150,22 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           const recipeId = splitIdentifier(request.url);
           users[index].rating[recipeId] = {rating: body.rating};
           localStorage.setItem('users', JSON.stringify(users));
+          localStorage.setItem('recipes', JSON.stringify(recipes));
           return Observable.of(new HttpResponse({status: 200}));
-      } else if (request.url.includes('/rating') && request.method === 'GET') {
+      }
+      if (request.url.includes('/rating') && request.method === 'GET') {
         const user = FakeBackendInterceptor.getUsernameAndPasswordFromHeader(request.headers.get('Authorization')).username;
         const index = userSearch(user);
         const recipeId = splitIdentifier(request.url);
         let rating = users[index].rating[recipeId];
         rating = (rating == null) ? {rating: 0}  : rating;
         return Observable.of(new HttpResponse({status: 200, body: rating}));
+      }
+      if (request.url.includes('/menu') && request.method === 'GET') {
+        // Create an list of 7 dishes menu;
+        const username = FakeBackendInterceptor.requestToUserAndPassword(request).username;
+        const index = userSearch(username);
+        return Observable.of(new HttpResponse({status: 200, body: null}));
       }
       if (request.url.match('/recipe') && request.method === 'GET') {
         let localRecipes = JSON.parse(localStorage.getItem('recipes'));

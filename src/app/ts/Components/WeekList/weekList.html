@@ -1,0 +1,19 @@
+<div class="start">
+  <table class="weektable">
+    <tr class="weekrow tablerow">
+      <th>Monday</th>
+      <th>Tuesday</th>
+      <th>Wednesday</th>
+      <th>Thursday</th>
+      <th>Friday</th>
+      <th>Saturday</th>
+      <th>Sunday</th>
+    <tr class="daterow tablerow">
+      <td *ngFor="let date of weekDays">{{date.format('Do MMMM')}}</td>
+    </tr>
+    <tr class="foodrow tablerow" dragula="FOOD">
+      <th *ngFor="let recipe of weekRecipes">{{recipe}}</th>
+    </tr>
+  </table>
+</div>
+

@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
       password: [''],
       surname: ['', [
         Validators.required,
-        Validators.minLength(this.NAMELENGTH)
+        Validators.minLength(this.globals.NAMELENGTH)
       ]],
       forename: ['', [
         Validators.required,

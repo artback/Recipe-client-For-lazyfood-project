@@ -1,16 +1,13 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
+import {Globals} from './globals';
+import {RecipeService} from '../Services/recipe.service';
 
 @Pipe({
   name: 'matchesSearch'
 })
 @Injectable()
 export class Queryfilter implements PipeTransform {
-    transform(items: any[], searchText: string): any[] {
-      if (!items) { return []; }
-      if (!searchText) { return items; }
-      searchText = searchText.toLocaleLowerCase().trim();
-      return items.filter( it => {
-        return it.name.toLowerCase().includes(searchText);
-      });
+    constructor(private recipeService: RecipeService) {}
+    transform( searchText: string): void {
   }
 }

@@ -28,7 +28,7 @@ export class UserService {
     const url = this.baseUrl + '/user/edit';
     return this.httpClient.post(url, user);
   }
-  logout(): Observable<any> {
+  logout(): void {
   this.globals.isLoggedIn = false;
   this.globals.user = '';
   this.globals.pass = '';

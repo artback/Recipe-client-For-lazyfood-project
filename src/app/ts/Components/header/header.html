@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="collapse navbar-collapse" id="lazy-navbar">
-    <img src="../../../../assets/images/FirstLogo.png" alt="Logotype" height="50" width="50">
+    <img src="../../../../assets/images/FirstLogo.png" alt="Logotype" height="50" width="50" routerLink="">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-      <li class="hvr-underline-from-center" *ngIf="!router.url.endsWith('/')" routerLink=""><a>HOME</a></li>
+      <li class="hvr-underline-from-center" *ngIf="!router.url.includes('/menu')&& globals.isLoggedIn" [routerLink]="['/menu', globals.getYear(), globals.getWeekNumber()]"><a>WEEK LIST</a></li>
       <li class="hvr-underline-from-center" *ngIf="!router.url.endsWith('addrecipe')&& globals.isLoggedIn" routerLink="addrecipe"><a>ADD RECIPE</a></li>
     </ul>
     <ul class="nav navbar-right" >
@@ -27,7 +27,7 @@
         <input class="form-control" formControlName="password" type="password"><br/>
       </div>
     </form>
-    <form *ngIf="register"[formGroup]="profileForm" novalidate>
+    <form *ngIf="register" [formGroup]="profileForm" novalidate>
       <div id="userprofile">
         <label>Username</label>
         <input class="form-control" formControlName="username"  type="text" ><br/>

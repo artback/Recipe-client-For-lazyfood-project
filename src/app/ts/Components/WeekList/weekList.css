@@ -1,0 +1,18 @@
+.tablerow{
+  border: 1px solid black;
+  color: whitesmoke;
+  background-color: #3d3d3d;
+  width: 100%;
+  min-width: 100%;
+}
+
+.daterow{
+  height: 4em;
+}
+.foodrow{
+  height: 7em;
+}
+.weektable{
+  text-align: center;
+  width: 100%;
+}
