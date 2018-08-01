@@ -12,10 +12,14 @@ import {Globals} from '../../Injectable/globals';
 export class RecipeListItemComponent implements  OnInit {
   @Input() recipe;
   rating: number;
-  constructor(public recipeService: RecipeService, private globals: Globals) {
+  constructor(public recipeService: RecipeService, public globals: Globals) {
   }
   ngOnInit() {
     console.log(this.recipe);
+  }
+  openRecipe() {
+   const uri = this.recipe.uri;
+   this.recipeService.getRecipe(uri).subscribe((recipe) => console.log(recipe));
   }
   onRatingChange = (event: RatingChangeEvent, recipe) => {
     this.recipeService.updateRating(event.rating, recipe.id).subscribe();
