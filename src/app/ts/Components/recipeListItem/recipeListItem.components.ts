@@ -21,8 +21,8 @@ export class RecipeListItemComponent implements  OnInit {
    const uri = this.recipe.uri;
    this.recipeService.getRecipe(uri).subscribe((recipe) => console.log(recipe));
   }
-  onRatingChange = (event: RatingChangeEvent, recipe) => {
-    this.recipeService.updateRating(event.rating, recipe.id).subscribe();
+  onRatingChange(event: RatingChangeEvent, recipe) {
+    this.recipeService.updateRating(event.rating, recipe.uri).subscribe();
   }
   removeRecipe(): void {
     // set header to Id check in backend if the same as author remove

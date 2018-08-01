@@ -1,6 +1,4 @@
-<div (click)="openRecipe()">
 <img class="recipeimg" *ngIf="recipe.image" [src]="recipe.image" style="pointer-events: none"/>
-<img class="recipeimg" *ngIf="!recipe.image" src="../../../assets/images/placeholder.png" style="pointer-events: none"/>
 <div id="recipe-header">
   <h6>{{recipe.label}}
     <i *ngIf="globals.isLoggedIn">
@@ -14,5 +12,4 @@
 </div>
 <div class="footer">
   <i id="author">{{recipe.source}}</i>
-</div>
 </div>
