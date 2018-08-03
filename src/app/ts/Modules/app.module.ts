@@ -23,7 +23,6 @@ import { RecipeListItemComponent} from '../Components/recipeListItem/recipeListI
 import {WeeklistComponent} from '../Components/WeekList/weeklist.component';
 import { DragulaModule } from 'ng2-dragula';
 import * as moment from 'moment/moment';
-import {JsonpModule} from '@angular/http';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'addrecipe', component: AddrecipeComponent},
@@ -50,7 +49,6 @@ const appRoutes: Routes = [
       appRoutes,
     ),
     BrowserAnimationsModule,
-    JsonpModule,
     DragulaModule.forRoot()
   ],
   providers: [

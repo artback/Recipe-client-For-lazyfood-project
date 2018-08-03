@@ -33,7 +33,7 @@ export class RecipeService {
   }
 
   getRecipe(id): Observable<any> {
-    id = id.split('#')[1];
+    // id = id.split('#')[1];
     const url = this.searchEdmamURL + 'r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23' + id;
     return this.getObservable(url);
   }
@@ -43,6 +43,7 @@ export class RecipeService {
     return this.getObservable(url);
   }
   updateRating(rating, recipeId) {
+    recipeId = recipeId.split('#')[1];
     const url = this.baseUrl + '/rating/' + recipeId;
     const body = JSON.stringify({user: this.globals.user, rating: rating});
     return this.httpClient.post(url, body);

@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
-import {FakeBackendInterceptor} from './fakeserver.interceptor';
+import 'rxjs-compat/add/observable/of';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -28,9 +26,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     const auth = request.headers.get('Authorization');
     return FakeBackendInterceptor.getUsernameAndPasswordFromHeader(auth);
   }
-  constructor() {
-
-  }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // array in local storage for registered users
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
@@ -47,6 +42,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       uri = uri.split('/');
         // handle potential trailing slash
       return uri.pop() || uri.pop();
+    };
+    const findRating = (user, recipeId) => {
+      if (user.rating) {
+        for (let i = 0; i < user.rating.length; i++) {
+          if (user.rating[i].recipe === recipeId) {
+            return i;
+          }
+        }
+      }
+      return -1;
     };
 
     // wrap in delayed observable to simulate server api call
@@ -106,10 +111,16 @@ export class FakeBackendInterceptor implements HttpInterceptor {
          return Observable.of(new HttpResponse({ status: 200, body: myUser }));
         }
       }
-      if (request.url.includes('/rating/') && request.method === 'POST') {
-          // const body = JSON.parse(request.body);
-          //  const index = userSearch(body.user);
-          // const recipeId = splitIdentifier(request.url);
+      if (request.url.includes('/rating') && request.method === 'POST') {
+          const body = JSON.parse(request.body);
+          const userIndex = userSearch(body.user);
+          const recipeId = splitIdentifier(request.url);
+          const ratingIndex = findRating(users[userIndex], recipeId);
+          if (ratingIndex === -1) {
+            users[userIndex].rating.push({recipe: recipeId, rating: body.rating});
+          } else {
+            users[userIndex].rating[ratingIndex] = ({recipe: recipeId, rating: body.rating});
+          }
           localStorage.setItem('users', JSON.stringify(users));
           return Observable.of(new HttpResponse({status: 200}));
       }
