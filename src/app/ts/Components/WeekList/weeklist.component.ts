@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Globals} from '../../Injectable/globals';
 import * as moment from 'moment/moment';
 import {ActivatedRoute} from '@angular/router';
@@ -22,7 +22,9 @@ export class WeeklistComponent implements OnInit {
   }
   ngOnInit() {
     this.weekDays = this.setDateOfWeek(this.week);
-    this.recipeService.getRandomWeek(this.week, this.year).subscribe((recipes) => this.weekRecipes = recipes);
+    this.recipeService.getRandomWeek(this.week, this.year).subscribe((recipeIds) => {
+      this.recipeService.getRecipes(recipeIds).subscribe((recipes) => this.weekRecipes = recipes);
+    });
   }
   setDateOfWeek(week) {
     // @TODO: check for the users locale from ip

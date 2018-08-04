@@ -7,7 +7,7 @@ import {map} from 'rxjs/internal/operators';
 export class RecipeService {
   private readonly baseUrl = this.globals.SERVERURL;
   private readonly  edamamURL = 'https://api.edamam.com';
-  private readonly searchEdmamURL = this.edamamURL +  '/search?app_id=7bcc7b18&app_key=6bf94f4c82184663f1a9e0f5ee962982&';
+  private readonly searchEdmamURL = this.edamamURL +  '/search?app_id=7bcc7b18&app_key=6bf94f4c82184663f1a9e0f5ee962982';
   constructor (private httpClient: HttpClient, private globals: Globals) {
   }
   private getObservable(url): Observable<any> {
@@ -33,8 +33,7 @@ export class RecipeService {
   }
 
   getRecipe(id): Observable<any> {
-    // id = id.split('#')[1];
-    const url = this.searchEdmamURL + 'r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23' + id;
+    const url = this.searchEdmamURL + '&r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23' + id;
     return this.getObservable(url);
   }
 
@@ -61,12 +60,12 @@ export class RecipeService {
     const url = this.baseUrl + '/recipe/' + id;
     return this.httpClient.delete(url);
   }
-  getRandomWeek(week, year): Observable<any> {
+  getRandomWeek(week, year): Observable<any[]> {
    const url = this.baseUrl + '/menu/' + year + '/' + week;
    return this.getObservable(url);
   }
   getRecipesSuggestions(query): Observable<any[]> {
-    const url = this.searchEdmamURL + 'q=' + query;
+    const url = this.searchEdmamURL + '&q=' + query;
     return this.getObservable(url).pipe(
       map(res => {
         return res.hits.map(item => {
@@ -78,6 +77,12 @@ export class RecipeService {
 
   getRating(id): Observable<any> {
     const url = this.baseUrl + '/rating/' + id;
+    return this.getObservable(url);
+  }
+
+  getRecipes(recipeIds: any[]) {
+    let url = this.searchEdmamURL ;
+    recipeIds.map((id) => url += '&r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23' + id);
     return this.getObservable(url);
   }
 }

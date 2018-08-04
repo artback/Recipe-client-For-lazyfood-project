@@ -3,7 +3,6 @@ import { Globals } from '../Injectable/globals';
 import { NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {ModalComponent} from '../Components/modal/modal.component';
-import { AppComponent } from '../Components/app/app.component';
 import {HomeComponent} from '../Components/home/home.component';
 import {HeaderComponent} from '../Components/header/header.component';
 import {RecipeComponent} from '../Components/recipe/recipe.component';
@@ -23,6 +22,7 @@ import { RecipeListItemComponent} from '../Components/recipeListItem/recipeListI
 import {WeeklistComponent} from '../Components/WeekList/weeklist.component';
 import { DragulaModule } from 'ng2-dragula';
 import * as moment from 'moment/moment';
+import {AppComponent} from '../Components/app/app.component';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'addrecipe', component: AddrecipeComponent},
@@ -33,10 +33,10 @@ const appRoutes: Routes = [
 ];
 @NgModule({
   declarations: [
-    AppComponent, AddrecipeComponent, RecipeComponent,
+    AddrecipeComponent, RecipeComponent,
     HomeComponent, HeaderComponent,
     ModalComponent, EditProfileComponent,
-    RecipeListItemComponent, WeeklistComponent
+    RecipeListItemComponent, WeeklistComponent, AppComponent
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,10 @@
       <td *ngFor="let date of weekDays">{{date.format('Do MMMM')}}</td>
     </tr>
     <tr class="foodrow tablerow" dragula="FOOD">
-      <th *ngFor="let recipe of weekRecipes">{{recipe}}</th>
+      <th *ngFor="let recipe of weekRecipes">
+        <img [src]="recipe.image"/>
+        <div class="bottom-left">{{recipe.label}}</div>
+      </th>
     </tr>
   </table>
 </div>

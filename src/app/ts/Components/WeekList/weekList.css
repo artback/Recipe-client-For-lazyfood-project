@@ -5,7 +5,18 @@
   width: 100%;
   min-width: 100%;
 }
-
+th{
+  max-width: 14%;
+  position: relative;
+}
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+img{
+ max-width: 100%;
+}
 .daterow{
   height: 4em;
 }
@@ -14,5 +25,53 @@
 }
 .weektable{
   text-align: center;
+}
+table{
+  width: 100% !important;
+  max-width: 100%;
+
+}
+
+.mealBox{
+  padding-top: 5vh;
+}
+.form-inline{
+  display: block;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+body{
+  background-color: #ECECEC;
+  font-family: 'Comfortaa', cursive;
+}
+app-recipelistitem{
+  position: relative;
+  height: 100%;
   width: 100%;
 }
+
+.wrap{
+  padding-top: 175px;
+}
+#recipes{
+  overflow: auto !important;
+  height: 54%;
+}
+#recipes::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+body{
+  background-color: #ECECEC;
+  font-family: 'Comfortaa', cursive;
+
+}
+.row{
+  opacity: 0.8;
+  height: 150px;
+  background-color: #ECECEC;
+  border-radius: 15px;
+  margin-bottom: 1em;
+}
+

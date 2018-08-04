@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {RecipeService} from '../../Services/recipe.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +8,4 @@ import {RecipeService} from '../../Services/recipe.service';
 
 export class AppComponent {
   title = 'lazy client';
-  constructor(public recipeService: RecipeService) {
-  }
 }

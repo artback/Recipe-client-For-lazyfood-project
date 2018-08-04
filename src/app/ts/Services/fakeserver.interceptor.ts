@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import WeightedPicker from 'weighted-picker/browser';
+import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
@@ -22,13 +24,17 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
     return {username: username, password: password};
   }
-  static requestToUserAndPassword(request) {
-    const auth = request.headers.get('Authorization');
-    return FakeBackendInterceptor.getUsernameAndPasswordFromHeader(auth);
-  }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // array in local storage for registered users
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
+    const requestToUserAndPassword = (req) => {
+      const auth = req.headers.get('Authorization');
+      return FakeBackendInterceptor.getUsernameAndPasswordFromHeader(auth);
+    };
+    const requestToUserIndex = (req) => {
+      const username = requestToUserAndPassword(req).username;
+      return userSearch(username);
+    };
     const userSearch = (username) => {
       for (let i = 0; users.length > i; i += 1) {
         if (users[i].username === username) {
@@ -46,20 +52,30 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     const findRating = (user, recipeId) => {
       if (user.rating) {
         for (let i = 0; i < user.rating.length; i++) {
-          if (user.rating[i].recipe === recipeId) {
+          if (user.recipe[i] === recipeId) {
             return i;
           }
         }
       }
       return -1;
     };
-
+    const getUniqueWeightedRandom = (items, weights, quantity) => {
+      const retValues = [];
+      for (let i = 0; i < quantity; i++) {
+        const picker = new WeightedPicker(items.length, index => weights[index]);
+        const pickedIndex = picker.pickOne();
+        retValues.push(items[pickedIndex]);
+        delete items[pickedIndex];
+        delete weights[pickedIndex];
+      }
+      return retValues;
+    };
     // wrap in delayed observable to simulate server api call
     return Observable.of(null).mergeMap(() => {
-      // authenticate
+      // users
       if (request.url.endsWith('/login')  && request.method === 'POST') {
         // find if any user matches login credentials
-        const userAndPassword = FakeBackendInterceptor.requestToUserAndPassword(request);
+        const userAndPassword = requestToUserAndPassword(request);
         const username = userAndPassword.username;
         const password = userAndPassword.password;
         const exists = users.filter(user => user.username === username ).length;
@@ -84,6 +100,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
         // save new user
         newUser.rating = [];
+        newUser.recipe = [];
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
         // respond 200 OK
@@ -111,15 +128,20 @@ export class FakeBackendInterceptor implements HttpInterceptor {
          return Observable.of(new HttpResponse({ status: 200, body: myUser }));
         }
       }
+
+
+
       if (request.url.includes('/rating') && request.method === 'POST') {
           const body = JSON.parse(request.body);
           const userIndex = userSearch(body.user);
           const recipeId = splitIdentifier(request.url);
           const ratingIndex = findRating(users[userIndex], recipeId);
           if (ratingIndex === -1) {
-            users[userIndex].rating.push({recipe: recipeId, rating: body.rating});
+            users[userIndex].rating.push(body.rating);
+            users[userIndex].recipe.push(recipeId);
           } else {
-            users[userIndex].rating[ratingIndex] = ({recipe: recipeId, rating: body.rating});
+            users[userIndex].rating[ratingIndex] = body.rating;
+            users[userIndex].recipe[ratingIndex] = recipeId;
           }
           localStorage.setItem('users', JSON.stringify(users));
           return Observable.of(new HttpResponse({status: 200}));
@@ -132,11 +154,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         rating = (rating == null) ? {rating: 0}  : rating;
         return Observable.of(new HttpResponse({status: 200, body: rating}));
       }
+
+
       if (request.url.includes('/menu') && request.method === 'GET') {
         // Create an list of 7 dishes menu;
-        // const username = FakeBackendInterceptor.requestToUserAndPassword(request).username;
-        // const index = userSearch(username);
-        return Observable.of(new HttpResponse({status: 200, body: null}));
+        const userIndex = requestToUserIndex(request);
+        const weekListRecipes = getUniqueWeightedRandom(users[userIndex].recipe, users[userIndex].rating, 7);
+        return Observable.of(new HttpResponse({status: 200, body: weekListRecipes}));
       }
       // pass through any requests not handled above
       return next.handle(request);
