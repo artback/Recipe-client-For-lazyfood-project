@@ -3,6 +3,8 @@ import {Globals} from '../../Injectable/globals';
 import * as moment from 'moment/moment';
 import {ActivatedRoute} from '@angular/router';
 import {RecipeService} from '../../Services/recipe.service';
+import {Subscription} from 'rxjs/Subscription';
+import {DragulaService} from 'ng2-dragula';
 @Component({
   selector: 'app-weeklist',
   templateUrl: './weekList.html',
@@ -10,11 +12,17 @@ import {RecipeService} from '../../Services/recipe.service';
 })
 
 export class WeeklistComponent implements OnInit {
+  FOOD = 'FOOD';
   week: number;
   year: number;
   weekDays;
   weekRecipes;
-  constructor(private recipeService: RecipeService, private globals: Globals, private route: ActivatedRoute ) {
+  constructor(private recipeService: RecipeService, private globals: Globals, private route: ActivatedRoute,
+              private dragulaService: DragulaService ) {
+    dragulaService.createGroup('FOOD', {
+      removeOnSpill: true
+    });
+
     this.route.params.subscribe(res => {
       this.week = res.week;
       this.year =  res.year;
@@ -36,5 +44,8 @@ export class WeeklistComponent implements OnInit {
       date.add(1, 'day');
     }
     return weekDays;
+  }
+  verifyWeekList() {
+    this.recipeService.saveWeekList(this.week, this.year, this.weekRecipes).subscribe();
   }
 }

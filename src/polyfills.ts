@@ -71,6 +71,8 @@ import 'core-js/es7/reflect';
  * Zone JS is required by default for Angular itself.
  */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
+
+// for ng2-dragula
 (window as any).global = window;
 
 

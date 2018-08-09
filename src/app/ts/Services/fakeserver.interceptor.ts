@@ -44,10 +44,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       return -1;
     };
-    const splitIdentifier =  (uri) => {
+    const splitURL =  (uri) => {
       uri = uri.split('/');
         // handle potential trailing slash
-      return uri.pop() || uri.pop();
+      return uri.filter(split => split.length > 1);
     };
     const findRating = (user, recipeId) => {
       if (user.rating) {
@@ -101,6 +101,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // save new user
         newUser.rating = [];
         newUser.recipe = [];
+        newUser.menu = [];
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
         // respond 200 OK
@@ -134,7 +135,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (request.url.includes('/rating') && request.method === 'POST') {
           const body = JSON.parse(request.body);
           const userIndex = userSearch(body.user);
-          const recipeId = splitIdentifier(request.url);
+          const recipeId = splitURL(request.url).pop;
           const ratingIndex = findRating(users[userIndex], recipeId);
           if (ratingIndex === -1) {
             users[userIndex].rating.push(body.rating);
@@ -149,7 +150,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (request.url.includes('/rating') && request.method === 'GET') {
         const user = FakeBackendInterceptor.getUsernameAndPasswordFromHeader(request.headers.get('Authorization')).username;
         const index = userSearch(user);
-        const recipeId = splitIdentifier(request.url);
+        const recipeId = splitURL(request.url).last;
         let rating = users[index].rating[recipeId];
         rating = (rating == null) ? {rating: 0}  : rating;
         return Observable.of(new HttpResponse({status: 200, body: rating}));
@@ -161,6 +162,23 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const userIndex = requestToUserIndex(request);
         const weekListRecipes = getUniqueWeightedRandom(users[userIndex].recipe, users[userIndex].rating, 7);
         return Observable.of(new HttpResponse({status: 200, body: weekListRecipes}));
+      }
+      if (request.url.includes('/menu') && request.method === 'POST') {
+        const url = splitURL(request.url);
+        const week = url.pop();
+        const year = url.pop();
+        const userIndex = requestToUserIndex(request);
+        localStorage.setItem('users', JSON.stringify(users));
+        if (users[userIndex].menu) {
+          if (!users[userIndex].menu[year]) {
+            users[userIndex].menu[year] = [];
+          }
+          if (!users[userIndex].menu[year][week]) {
+            users[userIndex].menu[year][week] = [];
+          }
+          users[userIndex].menu[year][week].push(request.body);
+        }
+        return Observable.of(new HttpResponse({status: 200}));
       }
       // pass through any requests not handled above
       return next.handle(request);

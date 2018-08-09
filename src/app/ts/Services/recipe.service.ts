@@ -17,6 +17,13 @@ export class RecipeService {
     };
     return this.httpClient.get(url, options);
   }
+  private postObservable(url , body): Observable<any>{
+    const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.pass);
+    const options = {
+      headers: {Authorization: auth}
+    };
+    return this.httpClient.post(url , body, options);
+  }
   getAllRecipes(): Observable<any> {
     const url = this.baseUrl + '/recipe';
     return this.getObservable(url);
@@ -45,7 +52,7 @@ export class RecipeService {
     recipeId = recipeId.split('#')[1];
     const url = this.baseUrl + '/rating/' + recipeId;
     const body = JSON.stringify({user: this.globals.user, rating: rating});
-    return this.httpClient.post(url, body);
+    return this.postObservable(url, body);
   }
   addRecipe(recipe): Observable<any> {
     const recipeString = JSON.stringify(recipe);
@@ -84,5 +91,10 @@ export class RecipeService {
     let url = this.searchEdmamURL ;
     recipeIds.map((id) => url += '&r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23' + id);
     return this.getObservable(url);
+  }
+
+  saveWeekList(week, year, weekRecipes: any): Observable<any> {
+    const url = this.baseUrl + '/menu/' + year + '/' + week;
+    return this.postObservable(url, weekRecipes);
   }
 }

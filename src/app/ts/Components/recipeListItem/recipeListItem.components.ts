@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {RecipeService} from '../../Services/recipe.service';
 import {RatingChangeEvent} from 'angular-star-rating';
 import {Globals} from '../../Injectable/globals';
@@ -9,13 +9,10 @@ import {Globals} from '../../Injectable/globals';
   styleUrls: ['./recipeListItem.css']
 })
 
-export class RecipeListItemComponent implements  OnInit {
+export class RecipeListItemComponent {
   @Input() recipe;
   rating: number;
   constructor(public recipeService: RecipeService, public globals: Globals) {
-  }
-  ngOnInit() {
-    console.log(this.recipe);
   }
   openRecipe() {
    const uri = this.recipe.uri;

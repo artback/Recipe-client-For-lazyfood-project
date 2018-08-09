@@ -11,12 +11,15 @@
     <tr class="daterow tablerow">
       <td *ngFor="let date of weekDays">{{date.format('Do MMMM')}}</td>
     </tr>
-    <tr class="foodrow tablerow" dragula="FOOD">
+    <tr  dragula="FOOD"class="foodrow tablerow" [(dragulaModel)]="weekRecipes">
       <th *ngFor="let recipe of weekRecipes">
         <img [src]="recipe.image"/>
         <div class="bottom-left">{{recipe.label}}</div>
       </th>
     </tr>
   </table>
+  <div id="addButton" class="fieldBox">
+    <button mat-fab (click)="verifyWeekList()" type="submit" color="primary">&#10004;</button>
+  </div>
 </div>
 
