@@ -8,7 +8,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/materialize';
 import 'rxjs/add/operator/dematerialize';
 import 'rxjs-compat/add/observable/of';
-
+import * as moment from 'moment/moment';
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
   static getUsernameAndPasswordFromHeader(request: String) {
@@ -27,6 +27,23 @@ export class FakeBackendInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // array in local storage for registered users
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
+    const convertMS = ( milliseconds ) =>{
+      // tslint:disable-next-line
+      var day, hour, minute, seconds;
+      seconds = Math.floor(milliseconds / 1000);
+      minute = Math.floor(seconds / 60);
+      seconds = seconds % 60;
+      hour = Math.floor(minute / 60);
+      minute = minute % 60;
+      day = Math.floor(hour / 24);
+      hour = hour % 24;
+      return {
+        day: day,
+        hour: hour,
+        minute: minute,
+        seconds: seconds
+      };
+    }
     const requestToUserAndPassword = (req) => {
       const auth = req.headers.get('Authorization');
       return FakeBackendInterceptor.getUsernameAndPasswordFromHeader(auth);
@@ -59,8 +76,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       }
       return -1;
     };
-    const getUniqueWeightedRandom = (items, weights, quantity) => {
+    const getUniqueWeightedRandom = (items, ratings, date, quantity) => {
       const retValues = [];
+      // tslint:disable-next-line
+      let weights = [];
+      for (let i = 0; i < ratings.length; i++) {
+        date[i] == null ? date[i] = (Date.now() / 1.006) : date[i] = date[i];
+        const day = convertMS(Date.now() - date[i]).day;
+        weights.push(ratings[i] + day);
+      }
       for (let i = 0; i < quantity; i++) {
         const picker = new WeightedPicker(items.length, index => weights[index]);
         const pickedIndex = picker.pickOne();
@@ -135,7 +159,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (request.url.includes('/rating') && request.method === 'POST') {
           const body = JSON.parse(request.body);
           const userIndex = userSearch(body.user);
-          const recipeId = splitURL(request.url).pop;
+          const recipeId = splitURL(request.url).pop();
           const ratingIndex = findRating(users[userIndex], recipeId);
           if (ratingIndex === -1) {
             users[userIndex].rating.push(body.rating);
@@ -148,8 +172,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           return Observable.of(new HttpResponse({status: 200}));
       }
       if (request.url.includes('/rating') && request.method === 'GET') {
-        const user = FakeBackendInterceptor.getUsernameAndPasswordFromHeader(request.headers.get('Authorization')).username;
-        const index = userSearch(user);
+        const index = requestToUserIndex(request);
         const recipeId = splitURL(request.url).last;
         let rating = users[index].rating[recipeId];
         rating = (rating == null) ? {rating: 0}  : rating;
@@ -160,7 +183,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (request.url.includes('/menu') && request.method === 'GET') {
         // Create an list of 7 dishes menu;
         const userIndex = requestToUserIndex(request);
-        const weekListRecipes = getUniqueWeightedRandom(users[userIndex].recipe, users[userIndex].rating, 7);
+        const weekListRecipes = getUniqueWeightedRandom(users[userIndex].recipe, users[userIndex].rating, users[userIndex].date , 7);
         return Observable.of(new HttpResponse({status: 200, body: weekListRecipes}));
       }
       if (request.url.includes('/menu') && request.method === 'POST') {
@@ -168,6 +191,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const week = url.pop();
         const year = url.pop();
         const userIndex = requestToUserIndex(request);
+        for (let i = 0; i < request.body.length; i++) {
+          const recipeId = request.body[i].uri.split('#').pop();
+          const ratingIndex = findRating(users[userIndex], recipeId);
+          if (!users[userIndex].date) {
+            users[userIndex].date = [];
+          }
+          users[userIndex].date[ratingIndex] = Date.now();
+        }
         localStorage.setItem('users', JSON.stringify(users));
         if (users[userIndex].menu) {
           if (!users[userIndex].menu[year]) {

@@ -12,16 +12,11 @@ import {DragulaService} from 'ng2-dragula';
 })
 
 export class WeeklistComponent implements OnInit {
-  FOOD = 'FOOD';
   week: number;
   year: number;
   weekDays;
   weekRecipes;
-  constructor(private recipeService: RecipeService, private globals: Globals, private route: ActivatedRoute,
-              private dragulaService: DragulaService ) {
-    dragulaService.createGroup('FOOD', {
-      removeOnSpill: true
-    });
+  constructor(private recipeService: RecipeService, private globals: Globals, private route: ActivatedRoute) {
 
     this.route.params.subscribe(res => {
       this.week = res.week;
@@ -31,7 +26,9 @@ export class WeeklistComponent implements OnInit {
   ngOnInit() {
     this.weekDays = this.setDateOfWeek(this.week);
     this.recipeService.getRandomWeek(this.week, this.year).subscribe((recipeIds) => {
-      this.recipeService.getRecipes(recipeIds).subscribe((recipes) => this.weekRecipes = recipes);
+      this.recipeService.getRecipes(recipeIds).subscribe((recipes) => {
+        this.weekRecipes = recipes;
+      });
     });
   }
   setDateOfWeek(week) {

@@ -17,7 +17,7 @@ export class RecipeService {
     };
     return this.httpClient.get(url, options);
   }
-  private postObservable(url , body): Observable<any>{
+  private postObservable(url , body): Observable<any> {
     const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.pass);
     const options = {
       headers: {Authorization: auth}
