@@ -24,17 +24,17 @@ export class WeeklistComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.weekDays = this.setDateOfWeek(this.week);
+    this.weekDays = this.setDateOfWeek();
     this.recipeService.getRandomWeek(this.week, this.year).subscribe((recipeIds) => {
       this.recipeService.getRecipes(recipeIds).subscribe((recipes) => {
         this.weekRecipes = recipes;
       });
     });
   }
-  setDateOfWeek(week) {
+  setDateOfWeek() {
     // @TODO: check for the users locale from ip
     const weekDays = new Array(7);
-    let date  = moment().week(this.week);
+    let date  = moment().week(this.week).year(this.year);
     date = date.startOf('week');
     for (let i = 0; i < 7; i++) {
       weekDays[i] = date.clone();

@@ -27,7 +27,19 @@ export class FakeBackendInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // array in local storage for registered users
     const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
-    const convertMS = ( milliseconds ) =>{
+    const getDateOfWeekInYear = (week, year) => {
+      // @TODO: check for the users locale from ip
+      const weekDays = new Array(7);
+      let date  = moment().week(week).year(year);
+      date = date.startOf('week');
+      for (let i = 0; i < 7; i++) {
+        weekDays[i] = date.clone();
+        weekDays[i] = weekDays[i].toDate();
+        date.add(1, 'day');
+      }
+      return weekDays;
+    };
+    const convertMS = ( milliseconds ) => {
       // tslint:disable-next-line
       var day, hour, minute, seconds;
       seconds = Math.floor(milliseconds / 1000);
@@ -43,7 +55,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         minute: minute,
         seconds: seconds
       };
-    }
+    };
     const requestToUserAndPassword = (req) => {
       const auth = req.headers.get('Authorization');
       return FakeBackendInterceptor.getUsernameAndPasswordFromHeader(auth);
@@ -191,13 +203,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const week = url.pop();
         const year = url.pop();
         const userIndex = requestToUserIndex(request);
+        const weekDates = getDateOfWeekInYear(week, year);
         for (let i = 0; i < request.body.length; i++) {
           const recipeId = request.body[i].uri.split('#').pop();
           const ratingIndex = findRating(users[userIndex], recipeId);
           if (!users[userIndex].date) {
             users[userIndex].date = [];
           }
-          users[userIndex].date[ratingIndex] = Date.now();
+          users[userIndex].date[ratingIndex] = weekDates[i].getTime();
+
         }
         localStorage.setItem('users', JSON.stringify(users));
         if (users[userIndex].menu) {
