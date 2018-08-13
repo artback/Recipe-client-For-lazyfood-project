@@ -1,5 +1,9 @@
 <div class="start">
   <table class="weektable">
+    <div class="nav-buttons">
+    <button class="leftbutton"  mat-fab (click)="navigate(-1)" type="submit" color="basic">&#8249;</button>
+    <button class="rightbutton" mat-fab (click)="navigate(1)"  type="submit" color="basic">&#8250;</button>
+    </div>
     <tr class="weekrow tablerow">
       <th>Monday</th>
       <th>Tuesday</th>
@@ -18,8 +22,8 @@
       </th>
     </tr>
   </table>
-  <div id="addButton" class="fieldBox">
-    <button mat-fab (click)="verifyWeekList()" type="submit" color="primary">&#10004;</button>
+  <div *ngIf="!submited" id="addButton" class="fieldBox">
+    <button  mat-fab (click)="verifyWeekList()" type="submit" color="primary">&#10004;</button>
   </div>
 </div>
 

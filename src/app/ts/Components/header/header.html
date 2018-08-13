@@ -4,53 +4,55 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
       <li class="hvr-underline-from-center" *ngIf="!router.url.includes('/menu')&& globals.isLoggedIn" [routerLink]="['/menu', globals.getYear(), globals.getWeekNumber()]"><a>WEEK LIST</a></li>
+      <!--
       <li class="hvr-underline-from-center" *ngIf="!router.url.endsWith('addrecipe')&& globals.isLoggedIn" routerLink="addrecipe"><a>ADD RECIPE</a></li>
-    </ul>
-    <ul class="nav navbar-right" >
-      <li class="hvr-underline-from-center" ><a [hidden]="globals.isLoggedIn" (click)="modal.show()">LOGIN/REGISTER &ensp;</a></li>
-      <li class="hvr-underline-from-center"  [hidden]="!globals.isLoggedIn" routerLink="editprofile"><a>{{globals.user | uppercase}}</a></li>
-      <li class="hvr-underline-from-center" ><a [hidden]="!globals.isLoggedIn" (click)="logout()">LOGOUT</a></li>
-    </ul>
-  </div>
-</nav>
-<app-modal #modal>
-  <div class="app-modal-header">
-    <label *ngIf="!register" class="modal-title">Login to your account</label>
-    <label *ngIf="register" class="modal-title">Create an account</label>
-  </div>
-  <div class="app-modal-body">
-    <form *ngIf="!register" [formGroup]="profileForm">
-      <div class="form-group-sm">
-        <label>Username</label>
-        <input class="form-control" formControlName="username"  type="text" ><br/>
-        <label>Password</label>
-        <input class="form-control" formControlName="password" type="password"><br/>
-      </div>
-    </form>
-    <form *ngIf="register" [formGroup]="profileForm" novalidate>
-      <div id="userprofile">
-        <label>Username</label>
-        <input class="form-control" formControlName="username"  type="text" ><br/>
-        <label>Password</label>
-        <input class="form-control" formControlName="password" type="password"><br/>
-        <table class="example-full-width" cellspacing="0"><tr>
-          <td>
-            <label>First name</label>
-            <input class="form-control" formControlName="forename" >
-          </td>
-          <td>
-            <label>last name</label>
-            <input class="form-control" formControlName="surname" >
-          </td>
-        </tr></table>
-      </div>
-    </form>
-  </div>
-  <div class="app-modal-footer">
-    <button type="button" class="btn btn-default" (click)="close(modal)">Close</button>
-    <button *ngIf="!register" type="button" class="btn btn-default" (click)="register = true">Register</button>
-    <button *ngIf="!register" type="button" (click)="logIn(modal)" class="btn btn-primary">Login</button>
-    <button [disabled]="profileForm.invalid" *ngIf="register" type="button" (click)="createAccount(modal)" class="btn btn-primary">Submit</button>
-  </div>
-</app-modal>
+      -->
+     </ul>
+     <ul class="nav navbar-right" >
+       <li class="hvr-underline-from-center" ><a [hidden]="globals.isLoggedIn" (click)="modal.show()">LOGIN/REGISTER &ensp;</a></li>
+       <li class="hvr-underline-from-center"  [hidden]="!globals.isLoggedIn" routerLink="editprofile"><a>{{globals.user | uppercase}}</a></li>
+       <li class="hvr-underline-from-center" ><a [hidden]="!globals.isLoggedIn" (click)="logout()">LOGOUT</a></li>
+     </ul>
+   </div>
+ </nav>
+ <app-modal #modal>
+   <div class="app-modal-header">
+     <label *ngIf="!register" class="modal-title">Login to your account</label>
+     <label *ngIf="register" class="modal-title">Create an account</label>
+   </div>
+   <div class="app-modal-body">
+     <form *ngIf="!register" [formGroup]="profileForm">
+       <div class="form-group-sm">
+         <label>Username</label>
+         <input class="form-control" formControlName="username"  type="text"><br/>
+         <label>Password</label>
+         <input class="form-control" formControlName="password" type="password"><br/>
+       </div>
+     </form>
+     <form *ngIf="register" [formGroup]="profileForm" novalidate>
+       <div id="userprofile">
+         <label>Username</label>
+         <input class="form-control" formControlName="username"  type="text" ><br/>
+         <label>Password</label>
+         <input class="form-control" formControlName="password" type="password"><br/>
+         <table class="example-full-width" cellspacing="0"><tr>
+           <td>
+             <label>First name</label>
+             <input class="form-control" formControlName="forename" >
+           </td>
+           <td>
+             <label>last name</label>
+             <input class="form-control" formControlName="surname" >
+           </td>
+         </tr></table>
+       </div>
+     </form>
+   </div>
+   <div class="app-modal-footer">
+     <button type="button" class="btn btn-default" (click)="close(modal)">Close</button>
+     <button *ngIf="!register" type="button" class="btn btn-default" (click)="register = true">Register</button>
+     <button *ngIf="!register" type="button" (click)="logIn(modal)" class="btn btn-primary">Login</button>
+     <button [disabled]="profileForm.invalid" *ngIf="register" type="button" (click)="createAccount(modal)" class="btn btn-primary">Submit</button>
+   </div>
+ </app-modal>
 

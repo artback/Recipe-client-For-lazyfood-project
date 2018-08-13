@@ -1,9 +1,10 @@
-import {Component , OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Globals} from '../../Injectable/globals';
 import {Router} from '@angular/router';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
 import {UserService} from '../../Services/user.service';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.html',
@@ -13,15 +14,19 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class HeaderComponent implements OnInit {
   private register = false;
   profileForm: FormGroup;
+
   get Name() {
     return this.profileForm.get('name');
   }
+
   get adress() {
     return this.profileForm.get('adress') as FormGroup;
   }
+
   ngOnInit() {
     this.createForm();
   }
+
   createForm(): void {
     const adress = this.fb.group({
       address: '',
@@ -44,12 +49,16 @@ export class HeaderComponent implements OnInit {
       adress: adress
     });
   }
-  constructor(private userService: UserService, public globals: Globals, private router: Router, private fb: FormBuilder) {}
+
+  constructor(private userService: UserService, public globals: Globals, private router: Router, private fb: FormBuilder) {
+  }
 
   logout(): void {
     this.userService.logout();
+    this.ngOnInit();
     this.router.navigate(['']);
   }
+
   createAccount(modal): void {
     const user = this.profileForm.value;
     this.userService.createUser(user).subscribe(() => {
@@ -58,9 +67,10 @@ export class HeaderComponent implements OnInit {
       alert('Sorry, Username already exist');
     });
   }
+
   logIn(modal): void {
-   const user = this.profileForm.value;
-   this.userService.logIn(user.username, user.password).subscribe(() => {
+    const user = this.profileForm.value;
+    this.userService.logIn(user.username, user.password).subscribe(() => {
       this.globals.isLoggedIn = true;
       this.globals.user = user.username;
       Cookie.set('username', user.username);
@@ -68,15 +78,16 @@ export class HeaderComponent implements OnInit {
       this.profileForm.patchValue({password: ''});
     }, (error) => {
       if (error === 'User don\'t exist') {
-       this.register = true;
+        this.register = true;
       } else {
         alert(error);
       }
     });
   }
+
   private close(modal): void {
-   this.profileForm.patchValue({password: ''});
-   this.register = false;
-   modal.hide();
+    this.profileForm.patchValue({password: ''});
+    this.register = false;
+    modal.hide();
   }
 }

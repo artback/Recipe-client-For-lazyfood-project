@@ -138,6 +138,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         newUser.rating = [];
         newUser.recipe = [];
         newUser.menu = [];
+        newUser.date = [];
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
         // respond 200 OK
@@ -195,6 +196,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       if (request.url.includes('/menu') && request.method === 'GET') {
         // Create an list of 7 dishes menu;
         const userIndex = requestToUserIndex(request);
+        if (users[userIndex].date === undefined) {
+          users[userIndex].date = [];
+        }
+        localStorage.setItem('users', JSON.stringify(users));
         const weekListRecipes = getUniqueWeightedRandom(users[userIndex].recipe, users[userIndex].rating, users[userIndex].date , 7);
         return Observable.of(new HttpResponse({status: 200, body: weekListRecipes}));
       }
@@ -213,7 +218,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
           users[userIndex].date[ratingIndex] = weekDates[i].getTime();
 
         }
-        localStorage.setItem('users', JSON.stringify(users));
         if (users[userIndex].menu) {
           if (!users[userIndex].menu[year]) {
             users[userIndex].menu[year] = [];
@@ -222,7 +226,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             users[userIndex].menu[year][week] = [];
           }
           users[userIndex].menu[year][week].push(request.body);
-        }
+          }
+          console.log(";gfdjfkdgl");
+        localStorage.setItem('users', JSON.stringify(users));
         return Observable.of(new HttpResponse({status: 200}));
       }
       // pass through any requests not handled above
