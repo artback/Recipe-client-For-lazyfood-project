@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment/moment';
 @Injectable()
 export class Globals {
-  readonly SERVERURL = 'http://localhost:8080';
+  readonly SERVERURL = 'http://localhost:1337';
   readonly NAMELENGTH = 4;
   user: String;
   pass: String;

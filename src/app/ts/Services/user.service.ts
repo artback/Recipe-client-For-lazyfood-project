@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Globals} from '../Injectable/globals';
 import {Cookie} from 'ng2-cookies/ng2-cookies';
 import {Observable} from 'rxjs/index';
 @Injectable()
 export class UserService {
   readonly baseUrl = this.globals.SERVERURL;
+  private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
   constructor (private httpClient: HttpClient, private globals: Globals) {
   }
   getObservable(url): Observable<any> {
@@ -20,12 +21,20 @@ export class UserService {
    return this.getObservable(url);
   }
   createUser(user): Observable<any> {
-    const url = this.baseUrl + '/user';
-    return this.httpClient.post(url, user);
+    const url = this.baseUrl + '/users/register';
+    const data = {
+      username: user.username,
+      password: user.password
+    };
+    return this.httpClient.post(url, data);
   }
 
   editUser(user): Observable<any> {
-    const url = this.baseUrl + '/user/edit';
+    const url = this.baseUrl + '/users/user';
+    const data = {
+      username: user.username,
+      password: user.password
+    };
     return this.httpClient.post(url, user);
   }
   logout(): void {
@@ -35,13 +44,18 @@ export class UserService {
   Cookie.set('username', '');
   Cookie.set('password', '');
   }
-  logIn(username, password): Observable<any> {
-    const url = this.baseUrl + '/login';
-    const auth = 'Basic ' + window.btoa(username + ':' + password);
-    const options = {
-      headers: {Authorization: auth}
-    };
-    return this.httpClient.post(url, null, options);
+  logIn(user): Observable<any> {
+    const url = this.baseUrl + '/oauth/token';
+    const data = JSON.stringify({
+      'grant_type': 'password',
+      'username': user.username,
+      'password': user.password,
+      'client_id': 'mOHeCT4JNVSszc7071uoGzIgdbBuYocIGYxtw4XfKjs=',
+      'client_secret': 'EUoAHrX4v9FxHzhBu4kJ5YhyBkpU5f1PZguQETSxl5hGwM9Lg1mRjWqn97YB92OFYUnC6OlN+DZEZo1aR5IA=='
+    });
+
+    return this.httpClient.post(url, data, this.options);
+
   }
 
 }

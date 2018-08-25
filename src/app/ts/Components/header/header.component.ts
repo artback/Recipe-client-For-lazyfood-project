@@ -70,23 +70,23 @@ export class HeaderComponent implements OnInit {
 
   logIn(modal): void {
     const user = this.profileForm.value;
-    this.userService.logIn(user.username, user.password).subscribe(() => {
+    this.userService.logIn(user).subscribe((res) => {
       this.globals.isLoggedIn = true;
       this.globals.user = user.username;
-      Cookie.set('username', user.username);
       modal.hide();
       this.profileForm.patchValue({password: ''});
+      this.profileForm.reset();
     }, (error) => {
-      if (error === 'User don\'t exist') {
+      if (error.status === 401) {
         this.register = true;
       } else {
-        alert(error);
+        console.log(error);
       }
     });
   }
 
   private close(modal): void {
-    this.profileForm.patchValue({password: ''});
+    this.profileForm.reset();
     this.register = false;
     modal.hide();
   }

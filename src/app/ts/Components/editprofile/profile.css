@@ -3,14 +3,14 @@
   min-width: 100%;
   background-color: #F6F3F8;
 }
-#top{
- padding-top: 4em;
-}
-
 #photo{
   width: 50%;
   height: 200px;
   float:left;
+}
+#userprofile{
+  float: left;
+  width: 50%;
 }
 .image-upload > label{
   width: 50%;
@@ -24,6 +24,7 @@
   display: none;
 }
 #top{
+ padding-top: 4em;
  width: 100%;
 }
 #middle{

@@ -12,7 +12,6 @@ import {UserService} from '../Services/user.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
-import {FakeBackendProvider} from '../Services/fakeserver.interceptor';
 import {Cookie} from 'ng2-cookies';
 import {MaterialModule} from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -52,7 +51,7 @@ const appRoutes: Routes = [
     DragulaModule.forRoot()
   ],
   providers: [
-   HttpClientModule, FakeBackendProvider, RecipeService, Globals, UserService
+   HttpClientModule, RecipeService, Globals, UserService
   ],
   bootstrap: [
    AppComponent, HeaderComponent
