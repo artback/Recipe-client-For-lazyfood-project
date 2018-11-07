@@ -2,8 +2,8 @@
 <div id="recipe-header">
   <h6>{{recipe.label}}
     <i *ngIf="globals.isLoggedIn">
-      <star-rating-control (ratingChange)="onRatingChange($event,recipe)"
-                           labelPosition="right" [rating]="rating" [starType]="'icon'"></star-rating-control>
+      <star-rating-control (ratingChange)="onRatingChange($event)"
+                           labelPosition="right" [rating]="value" [starType]="'icon'"></star-rating-control>
     </i>
   </h6>
 </div>

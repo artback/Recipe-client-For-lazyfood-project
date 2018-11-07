@@ -11,25 +11,18 @@ import {Globals} from '../../Injectable/globals';
 
 export class RecipeListItemComponent implements OnInit {
   @Input() recipe;
-  rating: number;
-
+  id: String;
+  value: number;
   ngOnInit() {
-    this.recipeService.getRating(this.recipe.uri);
+    this.id =  this.recipe.uri.substr(this.recipe.uri.lastIndexOf('_') + 1);
+    this.recipeService.getRating(this.id).subscribe((ret) => {this.value = ret.value; });
   }
 
-  constructor(public recipeService: RecipeService, public globals: Globals) {
+  constructor(public recipeService: RecipeService, public globals: Globals) {}
+
+
+  onRatingChange(event: RatingChangeEvent) {
+    this.recipeService.updateRating(event.rating, this.id).subscribe();
   }
 
-  openRecipe() {
-    this.recipeService.getRecipe(this.recipe.uri).subscribe((recipe) => console.log(recipe));
-  }
-
-  onRatingChange(event: RatingChangeEvent, recipe) {
-    this.recipeService.updateRating(event.rating, recipe.uri).subscribe();
-  }
-
-  removeRecipe(): void {
-    // set header to Id check in backend if the same as author remove
-    this.recipeService.removeRecipe(this.recipe.id);
-  }
 }

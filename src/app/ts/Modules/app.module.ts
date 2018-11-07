@@ -59,15 +59,10 @@ const appRoutes: Routes = [
 })
 export class AppModule {
   constructor(public globals: Globals) {
-   const username = Cookie.get('username');
-   const password = Cookie.get('password');
    moment.locale('sv');
-   if (username) {
+   if (Cookie.get('access_token')) {
+     this.globals.user = Cookie.get('username');
      this.globals.isLoggedIn = true;
-     this.globals.user = username;
-   }
-   if (password) {
-    this.globals.pass = password;
    }
   }
 

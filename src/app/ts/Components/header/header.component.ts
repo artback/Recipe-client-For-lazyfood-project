@@ -54,7 +54,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.userService.logout();
+    Cookie.delete('access_token');
+    Cookie.delete('username');
+    this.globals.isLoggedIn = false;
     this.ngOnInit();
     this.router.navigate(['']);
   }
@@ -72,12 +74,12 @@ export class HeaderComponent implements OnInit {
     const user = this.profileForm.value;
     this.userService.logIn(user).subscribe((res) => {
       this.globals.isLoggedIn = true;
-      this.globals.user = user.username;
+      Cookie.set('access_token', res.access_token);
+      Cookie.set('username', user.username);
       modal.hide();
-      this.profileForm.patchValue({password: ''});
       this.profileForm.reset();
     }, (error) => {
-      if (error.status === 401) {
+      if (error.status === 403) {
         this.register = true;
       } else {
         console.log(error);

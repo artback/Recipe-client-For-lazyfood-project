@@ -32,10 +32,9 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     if (!this.globals.isLoggedIn) {
-      console.log('not logged in');
       this.router.navigate(['']);
     }
-    this.userService.getUserData(this.globals.user).subscribe((user) => {
+    this.userService.getUserData().subscribe((user) => {
       this.img = user.img;
       delete user.img;
       this.profileForm.patchValue(user);
@@ -47,11 +46,8 @@ export class EditProfileComponent implements OnInit {
   editProfile() {
     // tslint:disable-next-line
     let user = this.profileForm.value;
-    user.username = this.globals.user;
     user.img = this.img;
-    this.userService.editUser(user).subscribe(() => {
-      console.log('complete');
-    });
+    this.userService.editUser(user).subscribe();
   }
   createForm() {
     const adress = this.fb.group({

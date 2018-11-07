@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Globals} from '../Injectable/globals';
-import {Cookie} from 'ng2-cookies/ng2-cookies';
-import {Observable} from 'rxjs/index';
+import {Observable} from 'rxjs';
+
 @Injectable()
 export class UserService {
   readonly baseUrl = this.globals.SERVERURL;
@@ -10,39 +10,26 @@ export class UserService {
   constructor (private httpClient: HttpClient, private globals: Globals) {
   }
   getObservable(url): Observable<any> {
-    const auth = 'Basic ' + window.btoa(this.globals.user + ':' + this.globals.pass);
-    const options = {
-      headers: {Authorization: auth}
-    };
-    return this.httpClient.get(url, options);
+    return this.httpClient.get(url, Globals.authHeader());
   }
-  getUserData(username): Observable<any> {
-   const url = this.baseUrl + '/user/' + username;
+  getUserData(): Observable<any> {
+   const url = this.baseUrl + '/users/info/';
    return this.getObservable(url);
   }
   createUser(user): Observable<any> {
     const url = this.baseUrl + '/users/register';
     const data = {
       username: user.username,
+      forename: user.forename,
+      surname: user.surname,
       password: user.password
     };
-    return this.httpClient.post(url, data);
+    return this.httpClient.post(url, data, Globals.authHeader());
   }
 
   editUser(user): Observable<any> {
-    const url = this.baseUrl + '/users/user';
-    const data = {
-      username: user.username,
-      password: user.password
-    };
-    return this.httpClient.post(url, user);
-  }
-  logout(): void {
-  this.globals.isLoggedIn = false;
-  this.globals.user = '';
-  this.globals.pass = '';
-  Cookie.set('username', '');
-  Cookie.set('password', '');
+    const url = this.baseUrl + '/users/info';
+    return this.httpClient.post(url, user, Globals.authHeader());
   }
   logIn(user): Observable<any> {
     const url = this.baseUrl + '/oauth/token';
