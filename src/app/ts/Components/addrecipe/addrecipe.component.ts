@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChildren} from '@angular/core';
 import {RecipeService} from '../../Services/recipe.service';
 import {Globals} from '../../Injectable/globals';
 import {Router} from '@angular/router';
-import {FormControl, Validators, FormGroup, FormBuilder, FormArray} from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, FormArray} from '@angular/forms';
 
 @Component({
   selector: 'app-addrecipe',
@@ -41,10 +41,6 @@ export class AddrecipeComponent implements OnInit {
 
   constructor(public recipeService: RecipeService, public globals: Globals, public router: Router, private fb: FormBuilder) {}
   ngOnInit() {
-   if (!this.globals.isLoggedIn) {
-     console.log('not logged in');
-     this.router.navigate(['']);
-   }
    this.createForm();
   }
   onFileSelected(files) {
@@ -83,7 +79,7 @@ export class AddrecipeComponent implements OnInit {
     }
     recipe.description = recipe.description.replace(/#(\w+)/g, '');
     recipe.img = this.img;
-    recipe.author = this.globals.user;
+    recipe.author = 'cookie';
     this.recipeService.addRecipe(recipe).subscribe((response) => {
           alert( response + ' was added');
           this.router.navigate(['']);

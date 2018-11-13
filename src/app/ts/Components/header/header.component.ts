@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Globals} from '../../Injectable/globals';
 import {Router} from '@angular/router';
-import {Cookie} from 'ng2-cookies/ng2-cookies';
 import {UserService} from '../../Services/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +13,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 export class HeaderComponent implements OnInit {
   private register = false;
+  private usernameCheck: boolean ;
+  private username: String;
   profileForm: FormGroup;
-
   get Name() {
     return this.profileForm.get('name');
   }
@@ -22,8 +23,11 @@ export class HeaderComponent implements OnInit {
   get adress() {
     return this.profileForm.get('adress') as FormGroup;
   }
-
   ngOnInit() {
+    this.usernameCheck =  this.cookieService.check('username');
+    if (this.usernameCheck) {
+     this.username = this.cookieService.get('username');
+    }
     this.createForm();
   }
 
@@ -50,15 +54,14 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  constructor(private userService: UserService, public globals: Globals, private router: Router, private fb: FormBuilder) {
-  }
+  constructor(private userService: UserService, public globals: Globals,
+              private router: Router, private fb: FormBuilder, private cookieService: CookieService) {}
 
   logout(): void {
-    Cookie.delete('access_token');
-    Cookie.delete('username');
-    this.globals.isLoggedIn = false;
-    this.ngOnInit();
     this.router.navigate(['']);
+    this.usernameCheck = false;
+    this.cookieService.delete('username');
+    this.cookieService.delete('access_token');
   }
 
   createAccount(modal): void {
@@ -73,14 +76,17 @@ export class HeaderComponent implements OnInit {
   logIn(modal): void {
     const user = this.profileForm.value;
     this.userService.logIn(user).subscribe((res) => {
-      this.globals.isLoggedIn = true;
-      Cookie.set('access_token', res.access_token);
-      Cookie.set('username', user.username);
+      this.usernameCheck = true;
+      this.cookieService.set('access_token', res.access_token);
+      this.cookieService.set('username', user.username );
       modal.hide();
       this.profileForm.reset();
     }, (error) => {
       if (error.status === 403) {
         this.register = true;
+      }  else if (error.status === 401) {
+        alert('Sorry, Password invalid');
+        this.profileForm.patchValue({'password': ''});
       } else {
         console.log(error);
       }

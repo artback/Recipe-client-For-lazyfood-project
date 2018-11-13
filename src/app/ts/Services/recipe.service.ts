@@ -3,18 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import {Globals} from '../Injectable/globals';
 import {Observable} from 'rxjs/index';
 import {map} from 'rxjs/internal/operators';
+import {CookieService} from 'ngx-cookie-service';
 @Injectable()
 export class RecipeService {
   private readonly baseUrl = this.globals.SERVERURL;
   private readonly  edamamURL = 'https://api.edamam.com';
   private readonly searchEdmamURL = this.edamamURL +  '/search?app_id=7bcc7b18&app_key=6bf94f4c82184663f1a9e0f5ee962982';
-  constructor (private httpClient: HttpClient, private globals: Globals) {
+  constructor (private httpClient: HttpClient, private globals: Globals, private cookieService: CookieService) {
   }
   private getObservable(url): Observable<any> {
-    return this.httpClient.get(url, Globals.authHeader());
+    return this.httpClient.get(url, Globals.authHeader(this.cookieService));
   }
   private postObservable(url , body): Observable<any> {
-    return this.httpClient.post(url , body, Globals.authHeader());
+    return this.httpClient.post(url , body, Globals.authHeader(this.cookieService));
   }
 
   getRecipe(id): Observable<any> {
@@ -24,12 +25,12 @@ export class RecipeService {
 
   updateRating(rating, id) {
     const url = this.baseUrl + '/ratings/' + id;
-    return this.httpClient.put(url, {'value': rating}, Globals.authHeader());
+    return this.httpClient.put(url, {'value': rating}, Globals.authHeader(this.cookieService));
   }
   addRecipe(recipe): Observable<any> {
     const recipeString = JSON.stringify(recipe);
     const url = this.baseUrl + '/recipe';
-    return this.httpClient.post(url, recipeString, Globals.authHeader());
+    return this.httpClient.post(url, recipeString, Globals.authHeader(this.cookieService));
   }
   getRandomWeek(week, year): Observable<any[]> {
    const url = this.baseUrl + '/menu/' + year + '/' + week;

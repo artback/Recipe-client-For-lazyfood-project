@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Globals} from '../../Injectable/globals';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../Services/user.service';
@@ -31,9 +31,6 @@ export class EditProfileComponent implements OnInit {
   }
   ngOnInit() {
     this.createForm();
-    if (!this.globals.isLoggedIn) {
-      this.router.navigate(['']);
-    }
     this.userService.getUserData().subscribe((user) => {
       this.img = user.img;
       delete user.img;

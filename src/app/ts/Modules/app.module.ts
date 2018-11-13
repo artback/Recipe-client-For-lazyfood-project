@@ -12,7 +12,6 @@ import {UserService} from '../Services/user.service';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
-import {Cookie} from 'ng2-cookies';
 import {MaterialModule} from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StarRatingModule } from 'angular-star-rating';
@@ -22,6 +21,7 @@ import {WeeklistComponent} from '../Components/WeekList/weeklist.component';
 import { DragulaModule } from 'ng2-dragula';
 import * as moment from 'moment/moment';
 import {AppComponent} from '../Components/app/app.component';
+import { CookieService } from 'ngx-cookie-service';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'addrecipe', component: AddrecipeComponent},
@@ -51,7 +51,7 @@ const appRoutes: Routes = [
     DragulaModule.forRoot()
   ],
   providers: [
-   HttpClientModule, RecipeService, Globals, UserService
+   HttpClientModule, RecipeService, Globals, UserService, CookieService
   ],
   bootstrap: [
    AppComponent, HeaderComponent
@@ -60,10 +60,6 @@ const appRoutes: Routes = [
 export class AppModule {
   constructor(public globals: Globals) {
    moment.locale('sv');
-   if (Cookie.get('access_token')) {
-     this.globals.user = Cookie.get('username');
-     this.globals.isLoggedIn = true;
-   }
   }
 
 }

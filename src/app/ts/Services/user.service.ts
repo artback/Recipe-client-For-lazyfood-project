@@ -2,15 +2,16 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Globals} from '../Injectable/globals';
 import {Observable} from 'rxjs';
+import {CookieService} from 'ngx-cookie-service';
 
 @Injectable()
 export class UserService {
   readonly baseUrl = this.globals.SERVERURL;
   private options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
-  constructor (private httpClient: HttpClient, private globals: Globals) {
+  constructor (private httpClient: HttpClient, private globals: Globals, private cookieService: CookieService) {
   }
   getObservable(url): Observable<any> {
-    return this.httpClient.get(url, Globals.authHeader());
+    return this.httpClient.get(url, Globals.authHeader(this.cookieService));
   }
   getUserData(): Observable<any> {
    const url = this.baseUrl + '/users/info/';
@@ -24,12 +25,12 @@ export class UserService {
       surname: user.surname,
       password: user.password
     };
-    return this.httpClient.post(url, data, Globals.authHeader());
+    return this.httpClient.post(url, data, Globals.authHeader(this.cookieService));
   }
 
   editUser(user): Observable<any> {
     const url = this.baseUrl + '/users/info';
-    return this.httpClient.post(url, user, Globals.authHeader());
+    return this.httpClient.post(url, user, Globals.authHeader(this.cookieService));
   }
   logIn(user): Observable<any> {
     const url = this.baseUrl + '/oauth/token';
