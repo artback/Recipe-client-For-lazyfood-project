@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Globals} from '../../Injectable/globals';
 import {Router} from '@angular/router';
-import {UserService} from '../../Services/user.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
+import {LoginService, UserService} from '../../Services';
+import {FormGroup} from '@angular/forms';
+import {profileForm} from '../../Models/profileForm';
+import {CookieService} from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-header',
@@ -12,6 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class HeaderComponent implements OnInit {
+  private Globals = Globals;
   private register = false;
   private usernameCheck: boolean ;
   private username: String;
@@ -19,49 +22,26 @@ export class HeaderComponent implements OnInit {
   get Name() {
     return this.profileForm.get('name');
   }
-
   get adress() {
     return this.profileForm.get('adress') as FormGroup;
   }
+
   ngOnInit() {
-    this.usernameCheck =  this.cookieService.check('username');
+    this.profileForm = profileForm;
+    this.usernameCheck = this.cookieService.check('username');
     if (this.usernameCheck) {
-     this.username = this.cookieService.get('username');
+      this.username = this.cookieService.get('username');
     }
-    this.createForm();
+
   }
 
-  createForm(): void {
-    const adress = this.fb.group({
-      address: '',
-      co: '',
-      state: '',
-      city: '',
-      postalcode: '',
-    });
-    this.profileForm = this.fb.group({
-      username: [''],
-      password: [''],
-      surname: ['', [
-        Validators.required,
-        Validators.minLength(this.globals.NAMELENGTH)
-      ]],
-      forename: ['', [
-        Validators.required,
-        Validators.minLength(this.globals.NAMELENGTH)
-      ]],
-      adress: adress
-    });
-  }
 
-  constructor(private userService: UserService, public globals: Globals,
-              private router: Router, private fb: FormBuilder, private cookieService: CookieService) {}
+  constructor(private userService: UserService, private loginService: LoginService, private router: Router, private cookieService: CookieService) {}
 
   logout(): void {
     this.router.navigate(['']);
     this.usernameCheck = false;
-    this.cookieService.delete('username');
-    this.cookieService.delete('access_token');
+    this.loginService.logout();
   }
 
   createAccount(modal): void {
@@ -75,12 +55,10 @@ export class HeaderComponent implements OnInit {
 
   logIn(modal): void {
     const user = this.profileForm.value;
-    this.userService.logIn(user).subscribe((res) => {
+    this.loginService.logIn(user).subscribe((res) => {
       this.usernameCheck = true;
-      this.cookieService.set('access_token', res.access_token);
-      this.cookieService.set('username', user.username );
-      modal.hide();
-      this.profileForm.reset();
+      this.username = this.cookieService.get('username');
+      this.close(modal);
     }, (error) => {
       if (error.status === 403) {
         this.register = true;
@@ -88,11 +66,12 @@ export class HeaderComponent implements OnInit {
         alert('Sorry, Password invalid');
         this.profileForm.patchValue({'password': ''});
       } else {
+        alert('Unknown error');
         console.log(error);
+        this.close(modal);
       }
     });
   }
-
   private close(modal): void {
     this.profileForm.reset();
     this.register = false;

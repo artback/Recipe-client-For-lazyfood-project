@@ -10,7 +10,7 @@
      </ul>
      <ul class="nav navbar-right" >
        <li class="hvr-underline-from-center" ><a *ngIf="!usernameCheck" (click)="modal.show()">LOGIN/REGISTER &ensp;</a></li>
-       <li class="hvr-underline-from-center"  *ngIf="usernameCheck" routerLink="editprofile"><a>{{ username | uppercase}}</a></li>
+       <li class="hvr-underline-from-center"  *ngIf="usernameCheck" routerLink="profile"><a>{{ username | uppercase}}</a></li>
        <li class="hvr-underline-from-center" ><a *ngIf="usernameCheck" (click)="logout()">LOGOUT</a></li>
      </ul>
    </div>
@@ -32,24 +32,32 @@
      <form *ngIf="register" [formGroup]="profileForm" novalidate>
        <div id="userprofile">
          <label>Username</label>
-         <input class="form-control" formControlName="username"  type="text" ><br/>
+         <label>
+           <input class="form-control" formControlName="username"  type="text" >
+         </label><br/>
          <label>Password</label>
-         <input class="form-control" formControlName="password" type="password"><br/>
+         <label>
+           <input class="form-control" formControlName="password" type="password">
+         </label><br/>
          <table class="example-full-width" cellspacing="0"><tr>
            <td>
              <label>First name</label>
-             <input class="form-control" formControlName="forename" >
+             <label>
+               <input class="form-control" formControlName="forename" >
+             </label>
            </td>
            <td>
              <label>last name</label>
-             <input class="form-control" formControlName="surname" >
+             <label>
+               <input class="form-control" formControlName="surname" >
+             </label>
            </td>
          </tr></table>
        </div>
      </form>
    </div>
    <div class="app-modal-footer">
-     <button type="button" class="btn btn-default" (click)="close(modal)">Close</button>
+     <button type="button" class="btn btn-default" (click)="close(modal)" >Close</button>
      <button *ngIf="!register" type="button" class="btn btn-default" (click)="register = true">Register</button>
      <button *ngIf="!register" type="button" (click)="logIn(modal)" class="btn btn-primary">Login</button>
      <button [disabled]="profileForm.invalid" *ngIf="register" type="button" (click)="createAccount(modal)" class="btn btn-primary">Submit</button>

@@ -20,10 +20,10 @@
         <input matInput formControlName="surname" placeholder="Last Name">
       </mat-form-field></td>
     </tr></table>
-    <div formArrayName="adress">
+    <div formArrayName="address">
     <p>
       <mat-form-field style="width:18em" class="example-full-width">
-        <input formControlName="address" matInput placeholder="Adress">
+        <input formControlName="address" matInput placeholder="Addresss">
       </mat-form-field>
     </p>
 
@@ -35,7 +35,7 @@
         <input formControlName="state" matInput placeholder="State">
       </mat-form-field></td>
       <td><mat-form-field class="example-full-width">
-        <input formControlName="postalcode" matInput #postalCode maxlength="5" placeholder="Postal Code" re>
+        <input formControlName="postalcode" matInput #postalCode maxlength="5" placeholder="Postal Code" >
         <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
       </mat-form-field></td>
     </tr></table>
