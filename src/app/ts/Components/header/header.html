@@ -3,10 +3,7 @@
     <img src="../../../../assets/images/FirstLogo.png" alt="Logotype" height="50" width="50" routerLink="">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-      <li class="hvr-underline-from-center" *ngIf="!router.url.includes('/menu')&& usernameCheck" [routerLink]="['/menu', Globals.getYear(), Globals.getWeekNumber()]"><a>WEEK LIST</a></li>
-      <!--
-      <li class="hvr-underline-from-center" *ngIf="!router.url.endsWith('addrecipe')&& globals.isLoggedIn" routerLink="addrecipe"><a>ADD RECIPE</a></li>
-      -->
+      <li class="hvr-underline-from-center" *ngIf="!router.url.includes('/menu')&& usernameCheck" [routerLink]="['/menu', globals.getYear(), globals.getWeekNumber()]"><a>WEEK LIST</a></li>
      </ul>
      <ul class="nav navbar-right" >
        <li class="hvr-underline-from-center" ><a *ngIf="!usernameCheck" (click)="modal.show()">LOGIN/REGISTER &ensp;</a></li>

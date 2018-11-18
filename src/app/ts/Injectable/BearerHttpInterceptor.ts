@@ -20,14 +20,9 @@ export class BearerHttpInterceptor implements HttpInterceptor {
     return req.clone({ setHeaders: { Authorization: 'Bearer ' + token }});
   }
 
-  /*
-      This method is only here so the example works.
-      Do not include in your code, just use 'req' instead of 'this.getNewRequest(req)'.
-  */
 
   static logoutUser() {
     // Route to the login page (implementation up to you)
-
     return observableThrowError('');
   }
 

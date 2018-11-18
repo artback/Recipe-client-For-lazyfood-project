@@ -45,6 +45,6 @@ export class EditProfileComponent implements OnInit {
     // tslint:disable-next-line
     let user = this.profileForm.value;
     user.img = this.img;
-    this.userService.createUser(user).subscribe();
+    this.userService.editUser(user).subscribe();
   }
 }

@@ -10,7 +10,7 @@ import {
   EditProfileComponent,
   RecipeListItemComponent, WeeklistComponent
 } from '../Components';
-import {LoginService, RecipeService, UserService} from '../Services';
+import {LoginService, RecipeService, UserService, WeekListService, RatingService} from '../Services';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -42,7 +42,7 @@ import { routing } from './app.routing';
     DragulaModule.forRoot()
   ],
   providers: [
-   HttpClientModule, RecipeService, Globals, UserService, CookieService, LoginService,
+   HttpClientModule, RecipeService, Globals, UserService, CookieService, LoginService, WeekListService, RatingService,
     { provide: HTTP_INTERCEPTORS, useClass: BearerHttpInterceptor, multi: true },
   ],
   bootstrap: [

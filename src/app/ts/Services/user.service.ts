@@ -19,5 +19,8 @@ export class UserService {
     };
     return this.httpClient.post(`${Globals.SERVERURL}/users/register`, myUser);
   }
+  editUser(user): Observable<any> {
+    return this.httpClient.post(`${Globals.SERVERURL}/users/info`, user);
+  }
 
 }

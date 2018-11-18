@@ -36,7 +36,10 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  constructor(private userService: UserService, private loginService: LoginService, private router: Router, private cookieService: CookieService) {}
+  constructor(private userService: UserService, private loginService: LoginService, private router: Router,
+              private cookieService: CookieService,
+              private globals: Globals
+  ) {}
 
   logout(): void {
     this.router.navigate(['']);

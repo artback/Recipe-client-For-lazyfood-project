@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RecipeService} from '../../Services/recipe.service';
 import {Globals} from '../../Injectable/globals';
+import {RatingService} from '../../Services';
 
 @Component({
   selector: 'app-recipelistitem',
@@ -19,14 +19,14 @@ export class RecipeListItemComponent implements OnInit {
   };
   ngOnInit() {
     this.id =  this.recipe.uri.substr(this.recipe.uri.lastIndexOf('_') + 1);
-    this.recipeService.getRating(this.id).subscribe((ret) => {this.value = ret.value || 1; }, () => {});
+    this.ratingService.getRating(this.id).subscribe((ret) => {this.value = ret.value || 1; }, () => {});
   }
 
-  constructor(public recipeService: RecipeService, public globals: Globals) {}
+  constructor(private ratingService: RatingService, public globals: Globals) {}
 
 
   onRatingChange(event) {
-    this.recipeService.updateRating(event.newRating, this.id).subscribe();
+    this.ratingService.updateRating(event.newRating, this.id).subscribe();
   }
 
 }
