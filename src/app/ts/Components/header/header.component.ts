@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Globals} from '../../Injectable/globals';
-import {Router} from '@angular/router';
 import {LoginService, UserService} from '../../Services';
 import {FormGroup} from '@angular/forms';
 import {profileForm} from '../../Models/profileForm';
-import {CookieService} from 'ngx-cookie-service';
-
+import {Router} from '@angular/router';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-header',
@@ -14,36 +12,32 @@ import {CookieService} from 'ngx-cookie-service';
 })
 
 export class HeaderComponent implements OnInit {
-  private Globals = Globals;
   private register = false;
-  private usernameCheck: boolean ;
-  private username: String;
   profileForm: FormGroup;
+  login = this.loginService;
   get Name() {
     return this.profileForm.get('name');
-  }
-  get adress() {
-    return this.profileForm.get('adress') as FormGroup;
   }
 
   ngOnInit() {
     this.profileForm = profileForm;
-    this.usernameCheck = this.cookieService.check('username');
-    if (this.usernameCheck) {
-      this.username = this.cookieService.get('username');
-    }
 
+  }
+  getYear(): number  {
+    return moment().add(2, 'days').year();
+  }
+  getWeekNumber(): number  {
+    return moment().add(2, 'days').week();
   }
 
 
-  constructor(private userService: UserService, private loginService: LoginService, private router: Router,
-              private cookieService: CookieService,
-              private globals: Globals
+  constructor(
+    private userService: UserService,
+    private loginService: LoginService,
+    private router: Router
   ) {}
 
   logout(): void {
-    this.router.navigate(['']);
-    this.usernameCheck = false;
     this.loginService.logout();
   }
 
@@ -58,9 +52,7 @@ export class HeaderComponent implements OnInit {
 
   logIn(modal): void {
     const user = this.profileForm.value;
-    this.loginService.logIn(user).subscribe((res) => {
-      this.usernameCheck = true;
-      this.username = this.cookieService.get('username');
+    this.loginService.logIn(user).subscribe(() => {
       this.close(modal);
     }, (error) => {
       if (error.status === 403) {

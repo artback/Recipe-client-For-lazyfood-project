@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Globals} from '../../Injectable/globals';
 import {RatingService} from '../../Services';
 
 @Component({
@@ -22,7 +21,7 @@ export class RecipeListItemComponent implements OnInit {
     this.ratingService.getRating(this.id).subscribe((ret) => {this.value = ret.value || 1; }, () => {});
   }
 
-  constructor(private ratingService: RatingService, public globals: Globals) {}
+  constructor(private ratingService: RatingService) {}
 
 
   onRatingChange(event) {

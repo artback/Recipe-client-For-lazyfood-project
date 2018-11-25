@@ -3,12 +3,12 @@
     <img src="../../../../assets/images/FirstLogo.png" alt="Logotype" height="50" width="50" routerLink="">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-      <li class="hvr-underline-from-center" *ngIf="!router.url.includes('/menu')&& usernameCheck" [routerLink]="['/menu', globals.getYear(), globals.getWeekNumber()]"><a>WEEK LIST</a></li>
+      <li class="hvr-underline-from-center" *ngIf="!router.url.includes('/menu')&& login.isLoggedIn()" [routerLink]="['/menu', this.getYear(), this.getWeekNumber()]"><a>WEEK LIST</a></li>
      </ul>
      <ul class="nav navbar-right" >
-       <li class="hvr-underline-from-center" ><a *ngIf="!usernameCheck" (click)="modal.show()">LOGIN/REGISTER &ensp;</a></li>
-       <li class="hvr-underline-from-center"  *ngIf="usernameCheck" routerLink="profile"><a>{{ username | uppercase}}</a></li>
-       <li class="hvr-underline-from-center" ><a *ngIf="usernameCheck" (click)="logout()">LOGOUT</a></li>
+       <li class="hvr-underline-from-center" ><a *ngIf="!login.isLoggedIn()" (click)="modal.show()">LOGIN/REGISTER &ensp;</a></li>
+       <li class="hvr-underline-from-center"  *ngIf="login.isLoggedIn()" routerLink="profile"><a>{{ login.getUserName() | uppercase}}</a></li>
+       <li class="hvr-underline-from-center" ><a *ngIf="login.isLoggedIn()" (click)="logout()">LOGOUT</a></li>
      </ul>
    </div>
  </nav>
@@ -20,34 +20,32 @@
    <div class="app-modal-body">
      <form *ngIf="!register" [formGroup]="profileForm">
        <div class="form-group-sm">
-         <label>Username</label>
-         <input class="form-control" formControlName="username"  type="text"><br/>
-         <label>Password</label>
-         <input class="form-control" formControlName="password" type="password"><br/>
+         <label>Username
+           <input class="form-control" formControlName="username"  type="text">
+           </label>
+         <label>Password
+           <input class="form-control" formControlName="password" type="password">
+           </label>
        </div>
      </form>
      <form *ngIf="register" [formGroup]="profileForm" novalidate>
        <div id="userprofile">
-         <label>Username</label>
-         <label>
+         <label>Username
            <input class="form-control" formControlName="username"  type="text" >
-         </label><br/>
-         <label>Password</label>
-         <label>
+           </label>
+         <label>Password
            <input class="form-control" formControlName="password" type="password">
-         </label><br/>
+           </label>
          <table class="example-full-width" cellspacing="0"><tr>
            <td>
-             <label>First name</label>
-             <label>
+             <label>First name
                <input class="form-control" formControlName="forename" >
-             </label>
+               </label>
            </td>
            <td>
-             <label>last name</label>
-             <label>
+             <label>last name
                <input class="form-control" formControlName="surname" >
-             </label>
+               </label>
            </td>
          </tr></table>
        </div>

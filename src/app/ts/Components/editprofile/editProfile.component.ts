@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Globals} from '../../Injectable/globals';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../Services/user.service';
+import { FormGroup} from '@angular/forms';
+import {UserService} from '../../Services';
 import {Router} from '@angular/router';
-import {NumberValidator} from '../../Injectable/NumberValidator';
 import {profileForm} from '../../Models/profileForm';
 @Component({
   selector: 'app-profile',
@@ -39,7 +37,6 @@ export class EditProfileComponent implements OnInit {
     });
   }
   constructor(public userService: UserService,
-              public globals: Globals,
               public router: Router) {}
   editProfile() {
     // tslint:disable-next-line

@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Globals } from '../Injectable/globals';
 import { NgModule} from '@angular/core';
 import {
   ModalComponent,
@@ -42,7 +41,7 @@ import { routing } from './app.routing';
     DragulaModule.forRoot()
   ],
   providers: [
-   HttpClientModule, RecipeService, Globals, UserService, CookieService, LoginService, WeekListService, RatingService,
+   HttpClientModule, RecipeService, CookieService, LoginService, WeekListService, RatingService, UserService,
     { provide: HTTP_INTERCEPTORS, useClass: BearerHttpInterceptor, multi: true },
   ],
   bootstrap: [
@@ -51,7 +50,7 @@ import { routing } from './app.routing';
 })
 
 export class AppModule {
-  constructor(public globals: Globals) {
+  constructor() {
    moment.locale('sv');
   }
 

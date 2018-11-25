@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { share, map } from 'rxjs/operators';
 import {CookieService} from 'ngx-cookie-service';
-import {Globals} from './globals';
-
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,7 +20,7 @@ export class AuthService {
       'client_secret': 'EUoAHrX4v9FxHzhBu4kJ5YhyBkpU5f1PZguQETSxl5hGwM9Lg1mRjWqn97YB92OFYUnC6OlN+DZEZo1aR5IA=='
     });
 
-    return this.httpClient.post<any>(`${Globals.SERVERURL}/oauth/token`, data)
+    return this.httpClient.post<any>(`${environment.api}/oauth/token`, data)
       .pipe(
         share(), // <========== YOU HAVE TO SHARE THIS OBSERVABLE TO AVOID MULTIPLE REQUEST BEING SENT SIMULTANEOUSLY
         map(res => {
@@ -38,5 +37,4 @@ export class AuthService {
   getToken(): string {
     return this.cookieService.get('access_token');
   }
-
 }
