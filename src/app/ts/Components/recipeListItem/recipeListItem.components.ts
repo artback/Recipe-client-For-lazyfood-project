@@ -9,7 +9,7 @@ import {RatingService} from '../../Services';
 
 export class RecipeListItemComponent implements OnInit {
   @Input() recipe;
-  id: String;
+  id: string;
   value: number;
   options = {
   maxRating: 5,

@@ -1,17 +1,19 @@
-
 .mealBox{
     padding-top: 5vh;
+}
+.foodbase-pic{
+  width: 60%;
+  height: auto;
 }
 .form-inline{
   display: block;
   margin-left: 1em;
   margin-right: 1em;
 }
-
-body{
-    background-color: #ECECEC;
-    font-family: 'Comfortaa', cursive;
+.start{
+  background-image: url("../../../../assets/images/background.svg");
 }
+
 app-recipelistitem{
   position: relative;
   height: 100%;
@@ -29,11 +31,6 @@ app-recipelistitem{
   width: 0;
   background: transparent;
 }
-body{
-  background-color: #ECECEC;
-  font-family: 'Comfortaa', cursive;
-
-}
 .row{
   opacity: 0.8;
   height: 150px;
@@ -41,5 +38,4 @@ body{
   border-radius: 15px;
   margin-bottom: 1em;
 }
-
 

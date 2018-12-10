@@ -2,57 +2,13 @@
 @import url("../node_modules/font-awesome/css/font-awesome.css");
 @import url("../node_modules/bootstrap/dist/css/bootstrap.min.css");
 @import url("../node_modules/hover.css");
-
-.mealBox{
-  padding-top: 5vh;
-}
-
-body{
-  background-color: #ECECEC;
-  font-family: 'Comfortaa', cursive;
-  height: 100%;
-  width: 100%;
-}
-
 .author-text{
   color:#898989;
   font-style: italic;
 }
 
-.wrap{
-  padding-top: 175px;
+body,html{
+ height: 100%;
+  margin: 0;
+  padding: 0;
 }
-
-i{
-  float:right;
-}
-.modal-dialog{
-  width: 350px;
-  height: 300px;
-  margin:0 auto;
-  display:table;
-  position: absolute;
-  left: 0;
-  right:0;
-  top: 25%;
-  -webkit-transform:translateY(-50%);
-  -moz-transform:translateY(-50%);
-  -ms-transform:translateY(-50%);
-  -o-transform:translateY(-50%);
-  transform:translateY(-50%);
-}
-.start{
-  background-image: url("./assets/images/background.jpg");
-  height: 100vh;
-  width: 100%;
-  max-width: 100%;
-  background-size: 100% 100%;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-  padding-top: 70px;
-}
-
-
-
-
-
-body { margin: 0; }

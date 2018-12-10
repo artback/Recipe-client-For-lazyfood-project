@@ -3,7 +3,6 @@ import { NgModule} from '@angular/core';
 import {
   ModalComponent,
   HomeComponent,
-  HeaderComponent,
   RecipeComponent,
   AppComponent,
   EditProfileComponent,
@@ -20,12 +19,13 @@ import * as moment from 'moment/moment';
 import {BearerHttpInterceptor} from '../Injectable/BearerHttpInterceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { AlifeRatingStarModule } from 'alife-rating-star';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { routing } from './app.routing';
 
 @NgModule({
   declarations: [
     RecipeComponent,
-    HomeComponent, HeaderComponent,
+    HomeComponent,
     ModalComponent, EditProfileComponent,
     RecipeListItemComponent, WeeklistComponent, AppComponent
   ],
@@ -34,6 +34,7 @@ import { routing } from './app.routing';
     HttpClientModule,
     FormsModule,
     routing,
+    FlexLayoutModule,
     AlifeRatingStarModule,
     ReactiveFormsModule,
     MaterialModule,
@@ -45,7 +46,7 @@ import { routing } from './app.routing';
     { provide: HTTP_INTERCEPTORS, useClass: BearerHttpInterceptor, multi: true },
   ],
   bootstrap: [
-   AppComponent, HeaderComponent
+   AppComponent
   ]
 })
 

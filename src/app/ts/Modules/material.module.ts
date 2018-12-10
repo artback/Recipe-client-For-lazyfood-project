@@ -1,12 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
-import { HttpClientModule} from '@angular/common/http';
-import {MatInputModule} from '@angular/material';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatTableModule} from '@angular/material/table';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {
+  MatButtonModule,
+  MatDividerModule,
+  MatFormFieldModule, MatIconModule,
+  MatInputModule,
+  MatSelectModule,
+  MatTableModule,
+  MatListModule,
+  MatToolbarModule,
+  MatSidenavModule
+} from '@angular/material';
+import {HttpClientModule} from '@angular/common/http';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -14,6 +20,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
     MatSelectModule,
     MatDividerModule,
     MatTableModule,
@@ -21,7 +30,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   exports: [
     MatInputModule,
     MatFormFieldModule,
+    MatToolbarModule,
     MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    MatSidenavModule,
     MatSelectModule,
     MatDividerModule,
     MatTableModule,
