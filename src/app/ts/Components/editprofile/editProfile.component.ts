@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { FormGroup} from '@angular/forms';
 import {UserService} from '../../Services';
-import {Router} from '@angular/router';
-import {profileForm} from '../../Models/profileForm';
+import {profileForm} from '../../Models';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.html',
@@ -36,8 +35,7 @@ export class EditProfileComponent implements OnInit {
       this.profileForm.patchValue(user);
     });
   }
-  constructor(public userService: UserService,
-              public router: Router) {}
+  constructor(public userService: UserService) {}
   editProfile() {
     // tslint:disable-next-line
     let user = this.profileForm.value;

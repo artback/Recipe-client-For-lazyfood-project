@@ -41,18 +41,10 @@ table{
   margin-right: 1em;
 }
 
-body{
-  background-color: #ECECEC;
-  font-family: 'Comfortaa', cursive;
-}
 app-recipelistitem{
   position: relative;
   height: 100%;
   width: 100%;
-}
-
-.wrap{
-  padding-top: 175px;
 }
 #recipes{
   overflow: auto !important;
@@ -88,7 +80,7 @@ body{
 }
 #addButton {
   position: absolute;
-  bottom: 3em;
-  right: 3em;
+  bottom: 5em;
+  right: 2em;
   height: 60px; /* Height of the footer */
 }

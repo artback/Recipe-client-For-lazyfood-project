@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import * as moment from 'moment/moment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RecipeService, WeekListService} from '../../Services';
 import {DragulaService} from 'ng2-dragula';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-weeklist',
@@ -10,12 +11,12 @@ import {DragulaService} from 'ng2-dragula';
   styleUrls: ['./weekList.css']
 })
 
-export class WeeklistComponent implements OnInit {
-  submitted: boolean;
+export class WeeklistComponent implements OnInit{
+  submitted = false;
   week: number;
   year: number;
   weekDays;
-  weekRecipes;
+  weekRecipes: Observable<any>;
 
   constructor(private recipeService: RecipeService, private route: ActivatedRoute,
               public router: Router,
@@ -33,19 +34,14 @@ export class WeeklistComponent implements OnInit {
   }
 
   getRandomWeek() {
-    this.weekListService.getRandomWeek(this.week, this.year).subscribe((recipeIds) => {
-      if (recipeIds[0]) {
-        if (recipeIds[0].uri === undefined) {
-          this.recipeService.getRecipes(recipeIds).subscribe((recipes) => {
-            this.weekRecipes = recipes;
-            this.submitted = false;
-          });
-        } else {
-          this.submitted = true;
-          this.dragulaService.destroy('FOOD');
-        }
+    this.weekListService.getRandomWeek(this.week, this.year).subscribe((ret) => {
+      if (ret.final) {
+        this.dragulaService.cancel('weekRecipes');
+        this.submitted = true;
       } else {
+        this.submitted = false;
       }
+      this.weekRecipes = this.recipeService.getRecipes(ret.recipes);
     });
   }
 
@@ -53,9 +49,9 @@ export class WeeklistComponent implements OnInit {
     const date = moment().week(this.week).year(this.year);
     date.add(weeks, 'week');
     date.get('week');
-    this.router.navigate([`../menu/${date.get('year')}/${date.get('week')}`]);
     this.weekDays = this.setDatesInWeek();
     this.getRandomWeek();
+    this.router.navigate([`../menu/${date.get('year')}/${date.get('week')}`]);
   }
 
   setDatesInWeek() {
@@ -70,6 +66,7 @@ export class WeeklistComponent implements OnInit {
   }
 
   verifyWeekList() {
-    this.weekListService.saveWeekList(this.week, this.year, this.weekRecipes).subscribe();
+    const recipes = this.weekRecipes.map((recipe) => recipe.uri.split('_').slice(-1)[0]);
+    this.weekListService.saveWeekList(this.week, this.year, recipes).subscribe();
   }
 }

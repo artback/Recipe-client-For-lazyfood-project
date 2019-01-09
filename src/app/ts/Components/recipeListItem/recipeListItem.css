@@ -12,8 +12,9 @@
   width: 0;
   background: transparent;
 }
-.mealBox{
-  padding-top: 5vh;
+alife-rating-star{
+  margin-top: 0.5em;
+  float:right;
 }
 .recipetext{
   height: 100%;
@@ -35,16 +36,6 @@ body{
   right: 1%;
   height: 10%;
 }
-
-.author-text{
-  color:#898989;
-  font-style: italic;
-}
-
-.wrap{
-  padding-top: 175px;
-}
-
 
 i{
   float:right;

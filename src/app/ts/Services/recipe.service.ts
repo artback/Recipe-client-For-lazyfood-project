@@ -10,7 +10,7 @@ export class RecipeService {
   }
 
   getRecipe(id): Observable<any> {
-    const url = this.EDEMAMURL + '&r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23' + id;
+    const url = this.EDEMAMURL + '&r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_' + id;
     return this.httpClient.get(url);
   }
 
@@ -31,8 +31,8 @@ export class RecipeService {
   }
 
   getRecipes(recipeIds: any[]) {
-    let url = this.EDEMAMURL ;
-    recipeIds.map((id) => url += '&r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23' + id);
+    let url = this.EDEMAMURL;
+    recipeIds.map((id) => url += '&r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_' + id);
     return this.httpClient.get(url);
   }
 

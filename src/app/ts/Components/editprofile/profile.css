@@ -32,7 +32,7 @@
 }
 #addButton {
   position: absolute;
-  bottom: 3em;
+  bottom: 5em;
   right: 3em;
   height: 60px; /* Height of the footer */
 }

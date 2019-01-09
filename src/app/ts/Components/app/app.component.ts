@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginService, UserService} from '../../Services';
 import {Router} from '@angular/router';
 import {FormGroup} from '@angular/forms';
@@ -11,8 +11,7 @@ import * as moment from 'moment';
   styleUrls: ['./app.css']
 })
 
-export class AppComponent  {
-  title = 'lazy client';
+export class AppComponent  implements  OnInit {
   login = this.loginService;
   private register = false;
   profileForm: FormGroup;
@@ -35,8 +34,6 @@ export class AppComponent  {
   getWeekNumber(): number  {
     return moment().add(2, 'days').week();
   }
-
-
 
   logout(): void {
     this.loginService.logout();

@@ -7,11 +7,16 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderRes
   HttpProgressEvent, HttpResponse, HttpUserEvent, HttpErrorResponse } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
+import {LoginService} from '../Services';
 
 @Injectable()
 export class BearerHttpInterceptor implements HttpInterceptor {
 
-  constructor(private injector: Injector) {}
+  constructor(
+  private injector: Injector,
+  private loginService: LoginService,
+  private authService: AuthService
+  ) {}
 
   isRefreshingToken = false;
   tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
@@ -26,6 +31,15 @@ export class BearerHttpInterceptor implements HttpInterceptor {
     return observableThrowError('');
   }
 
+  static handle400Error(error) {
+    if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
+      // If we get a 400 and the error message is 'invalid_grant', the token is no longer valid so logout.
+      return BearerHttpInterceptor.logoutUser();
+    }
+
+    return observableThrowError(error);
+  }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent
     | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
     const authService = this.injector.get(AuthService);
@@ -35,7 +49,7 @@ export class BearerHttpInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse) {
           switch ((<HttpErrorResponse>error).status) {
             case 400:
-              return this.handle400Error(error);
+              return BearerHttpInterceptor.handle400Error(error);
             case 401:
               return this.handle401Error(req, next);
             default:
@@ -47,15 +61,6 @@ export class BearerHttpInterceptor implements HttpInterceptor {
       }));
   }
 
-  handle400Error(error) {
-    if (error && error.status === 400 && error.error && error.error.error === 'invalid_grant') {
-      // If we get a 400 and the error message is 'invalid_grant', the token is no longer valid so logout.
-      return BearerHttpInterceptor.logoutUser();
-    }
-
-    return observableThrowError(error);
-  }
-
   handle401Error(req: HttpRequest<any>, next: HttpHandler) {
     if (!this.isRefreshingToken) {
       this.isRefreshingToken = true;
@@ -63,10 +68,7 @@ export class BearerHttpInterceptor implements HttpInterceptor {
       // Reset here so that the following requests wait until the token
       // comes back from the refreshToken call.
       this.tokenSubject.next(null);
-
-      const authService = this.injector.get(AuthService);
-
-      return authService.refreshToken().pipe(
+      return this.authService.refreshToken().pipe(
         switchMap((newToken: string) => {
           if (newToken) {
             this.tokenSubject.next(newToken);

@@ -1,4 +1,4 @@
-<div class="profileForm">
+<div class="wrap">
   <form [formGroup]="profileForm" novalidate>
     <div id="top">
     <div id="photo">
@@ -45,10 +45,9 @@
     <div id="middle">
     <label>Billing</label>
     </div>
-    <div id="addButton" class="fieldBox">
-      <button *ngIf="profileForm.touched" [disabled]="profileForm.invalid" mat-raised-button  (click)="editProfile()"
-              type="submit" color="primary">Edit profile</button>
-    </div>
+      <button  id="addButton" *ngIf="profileForm.touched" [disabled]="profileForm.invalid" mat-raised-button  (click)="editProfile()"
+              type="submit" color="primary">Edit profile
+      </button>
   </form>
 </div>
 

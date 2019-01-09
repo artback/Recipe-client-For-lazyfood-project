@@ -1,4 +1,4 @@
-<div class="start">
+<div class="wrap">
   <table class="weektable">
     <div class="nav-buttons">
     <button class="leftbutton"  mat-fab (click)="navigate(-1)" type="submit" color="basic">&#8249;</button>
@@ -16,8 +16,8 @@
       <td *ngFor="let date of weekDays">{{date.format('Do MMMM')}}</td>
     </tr>
     <tr  dragula="FOOD"class="foodrow tablerow" [(dragulaModel)]="weekRecipes">
-      <th *ngFor="let recipe of weekRecipes">
-        <img [src]="recipe.image"/>
+      <th *ngFor="let recipe of weekRecipes | async">
+        <img [src]="recipe.image" alt=""/>
         <div class="bottom-left">{{recipe.label}}</div>
       </th>
     </tr>

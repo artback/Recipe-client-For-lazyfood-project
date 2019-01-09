@@ -11,6 +11,6 @@ getRandomWeek(week, year): Observable<any> {
 }
 
 saveWeekList(week, year, weekRecipes: any): Observable<any> {
-return this.httpClient.post(`${environment.api}/${year}/${week}`, weekRecipes);
+    return this.httpClient.put(`${environment.api}/menu/${year}/${week}`, weekRecipes);
 }
 }

@@ -2,25 +2,21 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {User} from '../Models';
+
 
 @Injectable()
 export class UserService {
   constructor (private httpClient: HttpClient) {
   }
-  getUserData(): Observable<any> {
-   return this.httpClient.get(`${environment.api}/users/info`);
+  getUserData(): Observable<User> {
+   return this.httpClient.get<User>(`${environment.api}/users/info`);
   }
-  createUser(user): Observable<any> {
-    const myUser = {
-      username: user.username,
-      forename: user.forename,
-      surname: user.surname,
-      password: user.password
-    };
-    return this.httpClient.post(`${environment.api}/users/register`, myUser);
+  createUser(user: User): Observable<void> {
+    return this.httpClient.post<void>(`${environment.api}/users/register`, user);
   }
-  editUser(user): Observable<any> {
-    return this.httpClient.post(`${environment.api}/users/info`, user);
+  editUser(user: User): Observable<void> {
+    return this.httpClient.post<void>(`${environment.api}/users/info`, user);
   }
 
 }

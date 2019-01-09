@@ -19,14 +19,12 @@ export class AuthService {
       'client_id': 'mOHeCT4JNVSszc7071uoGzIgdbBuYocIGYxtw4XfKjs=',
       'client_secret': 'EUoAHrX4v9FxHzhBu4kJ5YhyBkpU5f1PZguQETSxl5hGwM9Lg1mRjWqn97YB92OFYUnC6OlN+DZEZo1aR5IA=='
     });
-
     return this.httpClient.post<any>(`${environment.api}/oauth/token`, data)
       .pipe(
         share(), // <========== YOU HAVE TO SHARE THIS OBSERVABLE TO AVOID MULTIPLE REQUEST BEING SENT SIMULTANEOUSLY
         map(res => {
-          const token = res.headers.get('access_token');
-          const newRefreshToken = res.headers.get('refresh_token');
-
+          const token = res.get('access_token');
+          const newRefreshToken = res.get('refresh_token');
           // store the new tokens
           this.cookieService.set('refresh_token', newRefreshToken);
           this.cookieService.set('access_token', token);
