@@ -1,7 +1,7 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
-import * as moment from 'moment/moment';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RecipeService, WeekListService} from '../../Services';
+import * as moment from 'moment';
 import {DragulaService} from 'ng2-dragula';
 import {Observable} from 'rxjs';
 
@@ -11,7 +11,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./weekList.css']
 })
 
-export class WeeklistComponent implements OnInit{
+export class WeeklistComponent implements OnInit {
   submitted = false;
   week: number;
   year: number;
@@ -42,7 +42,7 @@ export class WeeklistComponent implements OnInit{
         this.submitted = false;
       }
       this.weekRecipes = this.recipeService.getRecipes(ret.recipes);
-    });
+    })/**/;
   }
 
   navigate(weeks) {

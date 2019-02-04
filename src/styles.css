@@ -2,8 +2,5 @@
 body,html{
   height: 100%;
   background-image: url("/assets/images/background.svg");
-}
-body{
   overflow: hidden;
 }
-
