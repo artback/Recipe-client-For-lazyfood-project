@@ -6,9 +6,14 @@ import {
   RecipeComponent,
   AppComponent,
   EditProfileComponent,
-  RecipeListItemComponent, WeeklistComponent
+  HeaderComponent,
+  HamburgerComponent,
+  HamburgerMenuComponent,
+  RecipeListItemComponent,
+  WeeklistComponent
 } from '../Components';
 import {LoginService, RecipeService, UserService, WeekListService, RatingService} from '../Services';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -24,14 +29,16 @@ import { routing } from './app.routing';
 
 @NgModule({
   declarations: [
-    RecipeComponent,
-    HomeComponent,
+    RecipeComponent, HomeComponent,
     ModalComponent, EditProfileComponent,
-    RecipeListItemComponent, WeeklistComponent, AppComponent
+    RecipeListItemComponent, WeeklistComponent,
+    AppComponent, HeaderComponent,
+    HamburgerComponent, HamburgerMenuComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    AmplifyAngularModule,
     FormsModule,
     routing,
     FlexLayoutModule,
@@ -42,7 +49,7 @@ import { routing } from './app.routing';
     DragulaModule.forRoot()
   ],
   providers: [
-   HttpClientModule, RecipeService, CookieService, LoginService, WeekListService, RatingService, UserService,
+   HttpClientModule, RecipeService, CookieService, LoginService, WeekListService, RatingService, UserService, AmplifyService,
     { provide: HTTP_INTERCEPTORS, useClass: BearerHttpInterceptor, multi: true },
   ],
   bootstrap: [

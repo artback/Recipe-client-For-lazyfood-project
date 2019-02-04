@@ -8,8 +8,6 @@ import {
   MatSelectModule,
   MatTableModule,
   MatListModule,
-  MatToolbarModule,
-  MatSidenavModule
 } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 
@@ -20,7 +18,6 @@ import {HttpClientModule} from '@angular/common/http';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatSidenavModule,
     MatListModule,
     MatIconModule,
     MatSelectModule,
@@ -30,11 +27,9 @@ import {HttpClientModule} from '@angular/common/http';
   exports: [
     MatInputModule,
     MatFormFieldModule,
-    MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatListModule,
-    MatSidenavModule,
     MatSelectModule,
     MatDividerModule,
     MatTableModule,

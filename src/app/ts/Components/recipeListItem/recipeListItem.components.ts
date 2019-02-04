@@ -18,7 +18,7 @@ export class RecipeListItemComponent implements OnInit {
   };
   ngOnInit() {
     this.id =  this.recipe.uri.substr(this.recipe.uri.lastIndexOf('_') + 1);
-    this.ratingService.getRating(this.id).subscribe((ret) => {this.value = ret.value || 1; }, () => {});
+    this.ratingService.getRating(this.id).subscribe((ret) => {this.value = ret.value || 1; });
   }
 
   constructor(private ratingService: RatingService) {}
