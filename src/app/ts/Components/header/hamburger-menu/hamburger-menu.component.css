@@ -1,0 +1,13 @@
+.navbar-item.is-tab.is-active {
+  border-bottom: 2px #fff;
+}
+
+.navbar-item.is-tab {
+  min-height: 2.7rem;
+}
+
+@media screen and (max-width: 768px) {
+  #menu-toggle:checked + .nav-menu {
+    display: block;
+  }
+}

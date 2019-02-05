@@ -1,0 +1,15 @@
+@media (max-width: 25rem) {
+  .navbar-item img {
+    max-height: 2rem;
+  }
+}
+.navbar-item__brand {
+  cursor: pointer;
+}
+
+.navbar-item__brand:hover {
+  filter: saturate(500%) invert(20%);
+}
+app-hamburger-menu{
+  width:100%;
+}
