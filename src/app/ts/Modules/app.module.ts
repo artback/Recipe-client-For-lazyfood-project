@@ -12,16 +12,14 @@ import {
   RecipeListItemComponent,
   WeeklistComponent
 } from '../Components';
-import {LoginService, RecipeService, UserService, WeekListService, RatingService} from '../Services';
-import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
+import {RecipeService, UserService, WeekListService, RatingService} from '../Services';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import {MaterialModule} from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragulaModule } from 'ng2-dragula';
 import * as moment from 'moment/moment';
-import {BearerHttpInterceptor} from '../Injectable/BearerHttpInterceptor';
 import { CookieService } from 'ngx-cookie-service';
 import { AlifeRatingStarModule } from 'alife-rating-star';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -38,7 +36,6 @@ import { routing } from './app.routing';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AmplifyAngularModule,
     FormsModule,
     routing,
     FlexLayoutModule,
@@ -49,8 +46,7 @@ import { routing } from './app.routing';
     DragulaModule.forRoot()
   ],
   providers: [
-   HttpClientModule, RecipeService, CookieService, LoginService, WeekListService, RatingService, UserService, AmplifyService,
-    { provide: HTTP_INTERCEPTORS, useClass: BearerHttpInterceptor, multi: true },
+   HttpClientModule, RecipeService, CookieService, WeekListService, RatingService, UserService
   ],
   bootstrap: [
    AppComponent

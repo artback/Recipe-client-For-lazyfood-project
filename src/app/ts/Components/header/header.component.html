@@ -7,12 +7,7 @@
   <a class="navbar-burger">
     <app-hamburger [isActive]="isActive"></app-hamburger>
   </a>
-  <app-hamburger-menu [isActive]="isActive" (clicked)="modal.show()"></app-hamburger-menu>
+  <app-hamburger-menu [isActive]="isActive" (clicked)="redirectToLogin()"></app-hamburger-menu>
 </nav>
 
-<app-modal #modal>
-  <div class="app-modal-body">
-  <amplify-authenticator></amplify-authenticator>
-  </div>
-</app-modal>
 

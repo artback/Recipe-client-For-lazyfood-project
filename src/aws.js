@@ -1,3 +1,4 @@
+
 export const config= {
     "Auth": {
       "identityPoolId": "us-east-2:ef3f6bcd-b291-4ff9-9198-0ee6e430f309",

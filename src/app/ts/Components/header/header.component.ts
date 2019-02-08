@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import Amplify from 'aws-amplify';
 
 @Component({
   selector: 'app-header',
@@ -6,12 +7,24 @@ import { Component, HostListener, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
+  constructor() { }
   isActive = false;
+
+  redirectToLogin() {
+    const config = Amplify.Auth.configure();
+    const {
+      domain,
+      redirectSignIn,
+      responseType
+    } = config.oauth;
+    const clientId = config.userPoolWebClientId;
+    const url = 'https://' + domain + '/login?redirect_uri=' + redirectSignIn + '&response_type=' + responseType + '&client_id=' + clientId;
+    document.location.assign(url);
+  }
   @HostListener('click') click() {
     this.isActive = !this.isActive;
   }
-
-  constructor() { }
 
   ngOnInit() {
   }
