@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener} from '@angular/core';
 import Amplify from 'aws-amplify';
 
 @Component({
@@ -6,7 +6,7 @@ import Amplify from 'aws-amplify';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   constructor() { }
   isActive = false;
@@ -26,6 +26,4 @@ export class HeaderComponent implements OnInit {
     this.isActive = !this.isActive;
   }
 
-  ngOnInit() {
-  }
 }
