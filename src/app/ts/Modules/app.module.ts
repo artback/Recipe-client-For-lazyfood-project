@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
 import {
-  ModalComponent,
   HomeComponent,
   RecipeComponent,
   AppComponent,
@@ -27,7 +26,6 @@ import { routing } from './app.routing';
 @NgModule({
   declarations: [
     RecipeComponent, HomeComponent,
-    ModalComponent,
     RecipeListItemComponent, WeeklistComponent,
     AppComponent, HeaderComponent,
     HamburgerComponent, HamburgerMenuComponent
