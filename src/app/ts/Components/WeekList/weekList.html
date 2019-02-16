@@ -1,7 +1,7 @@
 <div class="start">
 <div id="nav-buttons">
-  <button id="leftButton" (click)="navigate(-1)" type="submit" >&#8249;</button>
-  <button id="rightButton" (click)="navigate(1)" type="submit" >&#8250;</button>
+  <button id="leftButton" (click)="navigate(-1)" >&#8249;</button>
+  <button id="rightButton" (click)="navigate(1)"  >&#8250;</button>
 </div>
 <table id="weekTable" >
   <tr class="tableRow">
@@ -14,13 +14,11 @@
     <td>Sunday</td>
   <tr id="dateRow" class="tableRow">
     <td *ngFor="let date of weekDays">{{date.format('Do MMMM')}}</td>
-  </tr>
   <tr  id="foodRow" class="tableRow" >
     <td *ngFor="let recipe of weekRecipes | async">
       <img [src]="recipe.image" alt=""/>
       <div class="bottom-left">{{recipe.label}}</div>
     </td>
-  </tr>
 </table>
 <span (click)="verifyWeekList()" class="button is-success" *ngIf="!submitted" id="addButton">
 Save changes

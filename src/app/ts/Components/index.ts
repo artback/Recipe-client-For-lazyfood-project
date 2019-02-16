@@ -1,5 +1,4 @@
 export * from './home/home.component';
-export * from './modal/modal.component';
 export * from './header/header.component';
 export * from './header/hamburger/hamburger.component';
 export * from './header/hamburger-menu/hamburger-menu.component';
