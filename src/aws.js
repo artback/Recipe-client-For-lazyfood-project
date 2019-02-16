@@ -1,4 +1,3 @@
-
 export const config= {
     "Auth": {
       "identityPoolId": "us-east-2:ef3f6bcd-b291-4ff9-9198-0ee6e430f309",
@@ -12,5 +11,8 @@ export const config= {
       "mandatorySignIn": false,
 
       "authenticationFlowType": "USER_PASSWORD_AUTH"
-    }
-  };
+    },
+  'aws_appsync_graphqlEndpoint': 'https://retuqsjuyrb55g3mex5kin3ddu.appsync-api.us-east-2.amazonaws.com/graphql',
+  'aws_appsync_region': 'us-east-2',
+  'aws_appsync_authenticationType': 'AMAZON_COGNITO_USER_POOLS',
+};
