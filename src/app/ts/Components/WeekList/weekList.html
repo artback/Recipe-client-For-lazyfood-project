@@ -15,7 +15,7 @@
   <tr id="dateRow" class="tableRow">
     <td *ngFor="let date of weekDays">{{date.format('Do MMMM')}}</td>
   </tr>
-  <tr dragula="FOOD" class="foodrow tablerow" [(dragulaModel)]="weekRecipes">
+  <tr  id="foodRow" class="tableRow" >
     <td *ngFor="let recipe of weekRecipes | async">
       <img [src]="recipe.image" alt=""/>
       <div class="bottom-left">{{recipe.label}}</div>

@@ -17,10 +17,12 @@ img{
 #dateRow{
   height: 4em;
 }
+td{
+  text-align: center;
+}
 #weekTable{
   background-color: #3d3d3d;
   color: whitesmoke;
-  text-align: center;
   width: 100% !important;
   max-width: 100%;
 }
