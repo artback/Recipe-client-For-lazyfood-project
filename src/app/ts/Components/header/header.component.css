@@ -3,6 +3,9 @@
     max-height: 2rem;
   }
 }
+app-weeklist{
+  height: 100%;
+}
 .navbar-item__brand {
   cursor: pointer;
 }

@@ -14,6 +14,7 @@ import {
 } from '../Components';
 import {RecipeService, UserService, WeekListService, RatingService} from '../Services';
 import { FormsModule } from '@angular/forms';
+import { AmplifyService } from 'aws-amplify-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import {MaterialModule} from './material.module';
@@ -46,7 +47,7 @@ import { routing } from './app.routing';
     DragulaModule.forRoot()
   ],
   providers: [
-   HttpClientModule, RecipeService, CookieService, WeekListService, RatingService, UserService
+   HttpClientModule, RecipeService, CookieService, WeekListService, RatingService, UserService, AmplifyService
   ],
   bootstrap: [
    AppComponent
