@@ -10,17 +10,14 @@ import {
   RecipeListItemComponent,
   WeeklistComponent
 } from '../Components';
-import {RecipeService, UserService, WeekListService, RatingService} from '../Services';
+import {RecipeService, WeekListService, RatingService} from '../Services';
 import { FormsModule } from '@angular/forms';
 import { AmplifyService } from 'aws-amplify-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DragulaModule } from 'ng2-dragula';
 import * as moment from 'moment/moment';
-import { CookieService } from 'ngx-cookie-service';
 import { AlifeRatingStarModule } from 'alife-rating-star';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { routing } from './app.routing';
 
 @NgModule({
@@ -35,14 +32,12 @@ import { routing } from './app.routing';
     HttpClientModule,
     FormsModule,
     routing,
-    FlexLayoutModule,
     AlifeRatingStarModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    DragulaModule.forRoot()
   ],
   providers: [
-   HttpClientModule, RecipeService, CookieService, WeekListService, RatingService, UserService, AmplifyService
+   HttpClientModule, RecipeService, WeekListService, RatingService, AmplifyService
   ],
   bootstrap: [
    AppComponent

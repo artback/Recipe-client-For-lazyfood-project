@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {RecipeService} from '../../Services';
-import 'rxjs-compat/add/operator/debounceTime';
-import 'rxjs-compat/add/operator/distinctUntilChanged';
-import 'rxjs-compat/add/operator/map';
 import {Observable} from 'rxjs';
 import {debounceTime, switchMap} from 'rxjs/internal/operators';
 import {FormControl} from '@angular/forms';
@@ -16,8 +13,7 @@ import {FormControl} from '@angular/forms';
 export class HomeComponent implements  OnInit {
   private recipes: Observable<any[]>;
   private search: FormControl;
-  constructor(public recipeService: RecipeService) {
-  }
+  constructor(public recipeService: RecipeService) {}
   ngOnInit() {
     this.search = new FormControl();
     this.recipes = this.search.valueChanges.pipe(

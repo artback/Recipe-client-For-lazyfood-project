@@ -1,4 +1,4 @@
-@import url("../node_modules/bulma/css/bulma.css");
+@import url("../node_modules/bulma/css/bulma.min.css");
 body,html{
   height: 100%;
   background-image: url("/assets/images/background.svg");

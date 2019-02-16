@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RecipeService, WeekListService} from '../../Services';
 import * as moment from 'moment';
-import {DragulaService} from 'ng2-dragula';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -20,8 +19,7 @@ export class WeeklistComponent implements OnInit {
 
   constructor(private recipeService: RecipeService, private route: ActivatedRoute,
               public router: Router,
-              private weekListService: WeekListService,
-              private dragulaService: DragulaService) {
+              private weekListService: WeekListService) {
     this.route.params.subscribe(res => {
       this.week = res.week;
       this.year = res.year;
@@ -35,14 +33,9 @@ export class WeeklistComponent implements OnInit {
 
   getRandomWeek() {
     this.weekListService.getRandomWeek(this.week, this.year).subscribe((ret) => {
-      if (ret.final) {
-        this.dragulaService.cancel('weekRecipes');
-        this.submitted = true;
-      } else {
-        this.submitted = false;
-      }
+      this.submitted = ret.final;
       this.weekRecipes = this.recipeService.getRecipes(ret.recipes);
-    })/**/;
+    });
   }
 
   navigate(weeks) {
