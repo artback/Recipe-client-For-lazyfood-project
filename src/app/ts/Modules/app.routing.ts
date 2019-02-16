@@ -5,9 +5,8 @@ import {RouterModule, Routes} from '@angular/router';
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
+  { path: '**', component: HomeComponent},
   { path: 'recipe/:id',    component: RecipeComponent},
   { path: 'menu/:year/:week',    component: WeeklistComponent},
-  { path: '**', component: HomeComponent}
 ];
-export const routing = RouterModule.forRoot(appRoutes);
+export const Routing = RouterModule.forRoot(appRoutes);

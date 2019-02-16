@@ -18,7 +18,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as moment from 'moment/moment';
 import { AlifeRatingStarModule } from 'alife-rating-star';
-import { routing } from './app.routing';
+import { Routing } from './app.routing';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { routing } from './app.routing';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    routing,
+    Routing,
     AlifeRatingStarModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

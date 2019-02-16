@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {RecipeService, WeekListService} from '../../Services';
 import * as moment from 'moment';
 import {Observable} from 'rxjs';
+import 'rxjs-compat/add/operator/map';
 
 @Component({
   selector: 'app-weeklist',
