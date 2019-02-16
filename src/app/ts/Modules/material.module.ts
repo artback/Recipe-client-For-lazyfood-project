@@ -34,7 +34,5 @@ import {HttpClientModule} from '@angular/common/http';
     MatDividerModule,
     MatTableModule,
   ],
-  bootstrap: [
-  ]
 })
 export class MaterialModule { }

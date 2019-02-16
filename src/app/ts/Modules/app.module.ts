@@ -5,7 +5,6 @@ import {
   HomeComponent,
   RecipeComponent,
   AppComponent,
-  EditProfileComponent,
   HeaderComponent,
   HamburgerComponent,
   HamburgerMenuComponent,
@@ -17,7 +16,6 @@ import { FormsModule } from '@angular/forms';
 import { AmplifyService } from 'aws-amplify-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
-import {MaterialModule} from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragulaModule } from 'ng2-dragula';
 import * as moment from 'moment/moment';
@@ -29,7 +27,7 @@ import { routing } from './app.routing';
 @NgModule({
   declarations: [
     RecipeComponent, HomeComponent,
-    ModalComponent, EditProfileComponent,
+    ModalComponent,
     RecipeListItemComponent, WeeklistComponent,
     AppComponent, HeaderComponent,
     HamburgerComponent, HamburgerMenuComponent
@@ -42,7 +40,6 @@ import { routing } from './app.routing';
     FlexLayoutModule,
     AlifeRatingStarModule,
     ReactiveFormsModule,
-    MaterialModule,
     BrowserAnimationsModule,
     DragulaModule.forRoot()
   ],
