@@ -1,0 +1,10 @@
+# this is an auto generated file. This will be overwritten
+query GetRating($recipe_id: String!) {
+  getRating(recipe_id: $recipe_id) {
+    value
+    updated
+  }
+}
+query GetMenu($year_week: String!) {
+  getMenu(year_week: $year_week)
+}

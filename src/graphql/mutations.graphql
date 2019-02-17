@@ -1,0 +1,16 @@
+# this is an auto generated file. This will be overwritten
+mutation UpdateRating($recipe_id: String!) {
+  updateRating(recipe_id: $recipe_id) {
+    value
+    updated
+  }
+}
+mutation DeleteRating($recipe_id: String!) {
+  deleteRating(recipe_id: $recipe_id) {
+    value
+    updated
+  }
+}
+mutation UpdateMenu($year_week: String!, $menu: [String!]!) {
+  updateMenu(year_week: $year_week, menu: $menu)
+}
