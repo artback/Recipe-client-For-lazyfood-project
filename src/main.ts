@@ -5,7 +5,6 @@ import { config } from './aws';
 
 import { AppModule } from './app/ts/Modules/app.module';
 import { environment } from './environments/environment';
-Amplify.configure(config);
 const oauth = {
   // Domain name
   domain : 'lazyfood.auth.us-east-2.amazoncognito.com',
@@ -29,6 +28,7 @@ const oauth = {
     AdvancedSecurityDataCollectionFlag : true
   }
 };
+Amplify.configure(config);
 Auth.configure({oauth: oauth});
 if (environment.production) {
   enableProdMode();

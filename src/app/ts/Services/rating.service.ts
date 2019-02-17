@@ -1,19 +1,15 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
-import { Value} from '../Models';
-
+import {APIService} from '../../API.service';
 
 @Injectable()
 export class RatingService {
-  constructor (private httpClient: HttpClient) {}
+  constructor (private apiService: APIService) {}
 
-  updateRating(rating: number, id: string) {
-    return this.httpClient.put(`${environment.api}/ratings/${id}`, {'value': rating});
+  async updateRating(rating: number, id: string) {
+    this.apiService.UpdateRating(id);
   }
-  getRating(id: string): Observable<Value> {
-    return this.httpClient.get<Value>(`${environment.api}/ratings/${id}`);
+  async getRating(recipe_id: string) {
+    this.apiService.GetRating(recipe_id);
   }
 
 }
