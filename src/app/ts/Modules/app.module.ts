@@ -37,7 +37,7 @@ import { Routing } from './app.routing';
     BrowserAnimationsModule,
   ],
   providers: [
-   HttpClientModule, RecipeService, WeekListService, RatingService, AmplifyService
+  RecipeService, WeekListService, RatingService, AmplifyService
   ],
   bootstrap: [
    AppComponent

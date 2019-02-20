@@ -30,10 +30,10 @@
   <div class="navbar-end">
     <div class="navbar-item">
       <div class="buttons">
-        <a *ngIf="!signedIn" (click)="sendClickSignal('login')" class="button is-primary">
+        <a *ngIf="!signedIn" (click)="login()" class="button is-primary">
           Sign in
         </a>
-        <a *ngIf="signedIn" (click)="sendClickSignal('LogOut')" class="button is-primary">
+        <a *ngIf="signedIn" (click)="logout()" class="button is-primary">
           Log Out
         </a>
       </div>

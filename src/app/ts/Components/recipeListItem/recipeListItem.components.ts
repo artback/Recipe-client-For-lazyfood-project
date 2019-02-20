@@ -18,14 +18,14 @@ export class RecipeListItemComponent implements OnInit {
   };
   ngOnInit() {
     this.id =  this.recipe.uri.substr(this.recipe.uri.lastIndexOf('_') + 1);
-    this.ratingService.getRating(this.id).subscribe((ret) => {this.value = ret.value || 1; });
+    this.ratingService.getRating(this.id);
   }
 
   constructor(private ratingService: RatingService) {}
 
 
   onRatingChange(event) {
-    this.ratingService.updateRating(event.newRating, this.id).subscribe();
+    this.ratingService.updateRating(event.newRating, this.id);
   }
 
 }

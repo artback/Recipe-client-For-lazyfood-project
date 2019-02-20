@@ -18,7 +18,7 @@ export class HomeComponent implements  OnInit {
     this.search = new FormControl();
     this.recipes = this.search.valueChanges.pipe(
       debounceTime(400),
-      switchMap(term => this.recipeService.getRecipesSuggestions(term)),
+      switchMap(this.recipeService.searchRecipes),
     );
   }
 }
