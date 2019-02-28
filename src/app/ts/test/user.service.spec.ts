@@ -1,12 +1,21 @@
-import { addProviders, inject } from '@angular/core/testing';
-import { UserService } from '../Services/user.service';
+// @ts-ignore
+import { TestBed, inject } from '@angular/core/testing';
+import { RecipeService} from '../Services';
+import { HttpClientModule} from '@angular/common/http';
 
-describe('UserServiceTest', () => {
+// @ts-ignore
+describe('recipe service test', () => {
   beforeEach(() => {
-    addProviders([UserService]);
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      providers: [RecipeService, HttpClientModule]
+    });
   });
 
-  it('#isLoggedIn should return false after creation', inject([UserService], (service: UserService) => {
-    expect(service.isLoggedIn()).toBeFalsy();
+  // @ts-ignore
+  it('recipe search should return result', inject([RecipeService], async (service: RecipeService) => {
+    const pizza = await service.searchRecipes('pizza');
+    // @ts-ignore
+    expect(pizza.q).toBe('pizza');
   }));
 });

@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {RecipeService, WeekListService} from '../../Services';
 import * as moment from 'moment';
 import {Observable} from 'rxjs';
-import 'rxjs-compat/add/operator/map';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-weeklist',
@@ -60,7 +60,9 @@ export class WeeklistComponent implements OnInit {
   }
 
   verifyWeekList() {
-    const recipes = this.weekRecipes.map((recipe) => recipe.uri.split('_').slice(-1)[0]);
+    const recipes = this.weekRecipes.pipe(
+      map((recipe) => recipe.uri.split('_').slice(-1)[0])
+    );
     this.weekListService.saveWeekList(this.week, this.year, recipes).subscribe();
   }
 }

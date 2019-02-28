@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable} from 'rxjs';
 const EDEMAMURL = 'https://api.edamam.com/search?app_id=7bcc7b18&app_key=6bf94f4c82184663f1a9e0f5ee962982';
 @Injectable()
 export class RecipeService {
   constructor (private httpClient: HttpClient) {}
 
-  searchRecipes = (query: String): Observable<any[]> =>  {
-    return this.httpClient.get<any[]>(EDEMAMURL + '&q=' + query );
+  searchRecipes = (query: String) =>  {
+    return this.httpClient.get<any[]>(`${EDEMAMURL}&q=${query}` ).toPromise();
   }
 
   getRecipes(recipeIds: any[]) {
