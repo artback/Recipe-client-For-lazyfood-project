@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RecipeService} from '../../Services';
-import {Observable} from 'rxjs';
-import {debounceTime, distinctUntilChanged, filter, switchMap, tap} from 'rxjs/internal/operators';
+import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/internal/operators';
 import {FormControl} from '@angular/forms';
 
 @Component({
@@ -11,18 +10,22 @@ import {FormControl} from '@angular/forms';
 })
 
 export class HomeComponent implements  OnInit {
-  private recipes: Observable<any[]>;
+  recipes: any[];
   private search: FormControl;
   constructor(
     public recipeService: RecipeService) {}
   ngOnInit() {
     this.search = new FormControl();
-    this.recipes = this.search.valueChanges.pipe(
+    this.search.valueChanges.pipe(
       debounceTime(400),
       filter(preventEmpty => preventEmpty),
       distinctUntilChanged(),
       switchMap(this.recipeService.searchRecipes),
-      tap(query => console.log(`About to make an API call with query: ${query}`)),
-    );
+      // @ts-ignore
+      map((recipes) => recipes.hits),
+      map((recipe) => recipe.map(rec => rec.recipe)),
+    ).subscribe(recipe => {
+      this.recipes = recipe;
+    });
   }
 }

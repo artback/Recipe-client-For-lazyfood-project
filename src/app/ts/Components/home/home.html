@@ -6,7 +6,7 @@
         </form>
     </div>
   <div class="container" id="recipes">
-    <div  class="row" *ngFor="let recipe of recipes | async" >
+    <div  class="row" *ngFor="let recipe of recipes" >
       <app-recipelistitem [recipe]="recipe"></app-recipelistitem>
     </div>
   </div>
