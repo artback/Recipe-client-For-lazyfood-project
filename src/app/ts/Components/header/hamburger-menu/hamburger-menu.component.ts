@@ -27,8 +27,8 @@ export class HamburgerMenuComponent implements  OnInit {
   }
 
   ngOnInit(): void {
-    this.amplifyService.authStateChange$.subscribe(() => {
-      this.signedIn = !this.signedIn;
+    this.amplifyService.authStateChange$.subscribe((authState) => {
+      this.signedIn = authState.state.match(/^(signedIn|signIn|cognitoHostedUI)$/) != null;
     });
   }
 
