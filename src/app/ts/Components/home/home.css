@@ -1,41 +1,8 @@
-.mealBox{
-    padding-top: 5vh;
-}
-.foodbase-pic{
-  width: 40%;
-  padding-bottom: 2em;
-  padding-top: 3em;
-  height: auto;
-}
-.form-inline{
-  display: block;
-  margin-left: 1em;
-  margin-right: 1em;
-}
-.start{
-  height: 100%;
-}
-.text-center{
-  text-align: center;
-}
-app-recipelistitem{
-  position: relative;
-  height: 100%;
+.home{
+  height:100%;
   width: 100%;
+  overflow: auto;
 }
-#recipes{
-  overflow: auto !important;
-  height: 54%;
+.recipes{
+  margin: 2em;
 }
-#recipes::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
-}
-.row{
-  opacity: 0.8;
-  height: 150px;
-  background-color: #ECECEC;
-  border-radius: 15px;
-  margin-bottom: 1em;
-}
-

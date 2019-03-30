@@ -1,10 +1,16 @@
 # this is an auto generated file. This will be overwritten
-query GetRating($recipe_id: String!) {
-  getRating(recipe_id: $recipe_id) {
+query Rating($recipe_id: String!) {
+  rating(recipe_id: $recipe_id) {
     value
     updated
   }
 }
-query GetMenu($year_week: String!) {
-  getMenu(year_week: $year_week)
+query Ratings($recipe_ids: [String]) {
+  ratings(recipe_ids: $recipe_ids) {
+    value
+    updated
+  }
+}
+query Menu($year_week: String!) {
+  menu(year_week: $year_week)
 }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RatingService} from '../../Services';
+import {APIService} from '../../../API.service';
 
 @Component({
   selector: 'app-recipelistitem',
@@ -9,23 +9,28 @@ import {RatingService} from '../../Services';
 
 export class RecipeListItemComponent implements OnInit {
   @Input() recipe;
-  id: string;
   value: number;
   options = {
   maxRating: 5,
   readOnly: false,
   resetAllowed: false
   };
+  private id: string;
   ngOnInit() {
     this.id =  this.recipe.uri.substr(this.recipe.uri.lastIndexOf('_') + 1);
-    this.ratingService.getRating(this.id);
+    this.apiService.Rating(this.id).then((data) =>{
+      console.log(data.value);
+      this.value = data.value;
+    });
   }
 
-  constructor(private ratingService: RatingService) {}
+  constructor(
+    private apiService: APIService
+  ) {}
 
 
   onRatingChange(event) {
-    this.ratingService.updateRating(event.newRating, this.id);
+    this.apiService.UpdateRating(this.id, event.newRating);
   }
 
 }

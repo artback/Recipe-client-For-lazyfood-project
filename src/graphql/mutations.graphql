@@ -1,6 +1,6 @@
 # this is an auto generated file. This will be overwritten
-mutation UpdateRating($recipe_id: String!) {
-  updateRating(recipe_id: $recipe_id) {
+mutation UpdateRating($recipe_id: String!, $rating: Int!) {
+  updateRating(recipe_id: $recipe_id, rating: $rating) {
     value
     updated
   }

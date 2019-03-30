@@ -1,14 +1,16 @@
-<div class="start">
-   <div class="form text-center">
-        <img class="foodbase-pic" src="../../../../assets/images/lazy.svg" alt="logotext">
-        <form class="form-inline">
-                <input  type="search" class="form-control" size="50" placeholder="Search for food here..." [formControl]="search">
-        </form>
-    </div>
-  <div class="container" id="recipes">
-    <div  class="row" *ngFor="let recipe of recipes" >
-      <app-recipelistitem [recipe]="recipe"></app-recipelistitem>
+<div class="home">
+  <div class="level">
+    <div class="level-item">
+      <img class="" src="../../../../assets/images/lazy.svg" alt="logotext">
     </div>
   </div>
+  <div class="level">
+    <form class="level-item ">
+      <input type="search" class="form-control" size="50" placeholder="Search for food here..." [formControl]="search">
+    </form>
+  </div>
+  <div class="row columns is-multiline recipes">
+      <app-recipelistitem *ngFor="let recipe of recipes"
+                          class="column is-one-fifth" [recipe]="recipe"></app-recipelistitem>
+  </div>
 </div>
-

@@ -1,5 +1,4 @@
 import { Component} from '@angular/core';
-import {RecipeService} from '../../Services';
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.html',
@@ -7,8 +6,6 @@ import {RecipeService} from '../../Services';
 })
 
 export class RecipeComponent {
-  constructor(public recipeService: RecipeService) {
-  }
- getIngredients(): void {
+  constructor() {
   }
 }

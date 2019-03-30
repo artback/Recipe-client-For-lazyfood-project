@@ -1,43 +1,17 @@
-#name{
-  float:left;
+.card.large {
+  height: 600px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: initial;
+  border-radius: 5px;
 }
-#author{
-  float:right;
+.card {
+  overflow:hidden;
 }
-#recipes{
-  overflow: auto !important;
-  height: 54%;
+.image{
+ min-width: 100%;
 }
-#recipes::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
+.footer {
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
 }
-alife-rating-star{
-  margin-top: 0.5em;
-  float:right;
-}
-.recipetext{
-  height: 100%;
-}
-body{
-  background-color: #ECECEC;
-  font-family: 'Comfortaa', cursive;
-
-}
-.recipeimg{
-  float: left;
-  border-radius: 15px 0 0 15px;
-  width: 20%;
-  height: 100%;
-}
-.footer{
-  position: absolute;
-  bottom: 10%;
-  right: 1%;
-  height: 10%;
-}
-
-i{
-  float:right;
-}
-

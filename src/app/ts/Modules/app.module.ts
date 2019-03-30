@@ -10,7 +10,7 @@ import {
   RecipeListItemComponent,
   WeeklistComponent
 } from '../Components';
-import {RecipeService, WeekListService, RatingService} from '../Services';
+import {RecipeService, WeekListService} from '../Services';
 import { FormsModule } from '@angular/forms';
 import { AmplifyService } from 'aws-amplify-angular';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -37,7 +37,7 @@ import { Routing } from './app.routing';
     BrowserAnimationsModule,
   ],
   providers: [
-  RecipeService, WeekListService, RatingService, AmplifyService, HttpClientModule
+  RecipeService, WeekListService, AmplifyService, HttpClientModule
   ],
   bootstrap: [
    AppComponent

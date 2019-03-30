@@ -10,6 +10,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
+    "codegen" :"",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "ng lint",
