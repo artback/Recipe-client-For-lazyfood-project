@@ -5,8 +5,8 @@ query Rating($recipe_id: String!) {
     updated
   }
 }
-query Ratings($recipe_ids: [String]) {
-  ratings(recipe_ids: $recipe_ids) {
+query BatchGetRatings($recipe_ids: [String!]!) {
+  batchGetRatings(recipe_ids: $recipe_ids) {
     value
     updated
   }

@@ -9,7 +9,7 @@ import {APIService} from '../../../API.service';
 
 export class RecipeListItemComponent implements OnInit {
   @Input() recipe;
-  value: number;
+  @Input() rating;
   options = {
   maxRating: 5,
   readOnly: false,
@@ -18,10 +18,6 @@ export class RecipeListItemComponent implements OnInit {
   private id: string;
   ngOnInit() {
     this.id =  this.recipe.uri.substr(this.recipe.uri.lastIndexOf('_') + 1);
-    this.apiService.Rating(this.id).then((data) =>{
-      console.log(data.value);
-      this.value = data.value;
-    });
   }
 
   constructor(

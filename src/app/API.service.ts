@@ -27,7 +27,7 @@ export type RatingQuery = {
   updated: string | null;
 };
 
-export type RatingsQuery = {
+export type BatchGetRatingsQuery = {
   __typename: string;
   value: number;
   updated: string | null;
@@ -109,22 +109,23 @@ export class APIService {
     )) as any;
     return <RatingQuery>response.data.rating;
   }
-  async Ratings(recipe_ids?: Array<string | null>): Promise<RatingsQuery> {
-    const statement = `query Ratings($recipe_ids: [String]) {
-        ratings(recipe_ids: $recipe_ids) {
+  async BatchGetRatings(
+    recipe_ids: Array<string>
+  ): Promise<BatchGetRatingsQuery> {
+    const statement = `query BatchGetRatings($recipe_ids: [String!]!) {
+        batchGetRatings(recipe_ids: $recipe_ids) {
           __typename
           value
           updated
         }
       }`;
-    const gqlAPIServiceArguments: any = {};
-    if (recipe_ids) {
-      gqlAPIServiceArguments.recipe_ids = recipe_ids;
-    }
+    const gqlAPIServiceArguments: any = {
+      recipe_ids
+    };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <RatingsQuery>response.data.ratings;
+    return <BatchGetRatingsQuery>response.data.batchGetRatings;
   }
   async Menu(year_week: string): Promise<MenuQuery> {
     const statement = `query Menu($year_week: String!) {

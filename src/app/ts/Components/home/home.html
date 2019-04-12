@@ -5,12 +5,12 @@
     </div>
   </div>
   <div class="level">
-    <form class="level-item ">
-      <input type="search" class="form-control" size="50" placeholder="Search for food here..." [formControl]="search">
+    <form class="level-item field">
+      <input type="search" class="control " size="50" placeholder="Search for food here..." [formControl]="search">
     </form>
   </div>
   <div class="row columns is-multiline recipes">
-      <app-recipelistitem *ngFor="let recipe of recipes"
-                          class="column is-one-fifth" [recipe]="recipe"></app-recipelistitem>
+      <app-recipelistitem *ngFor="let recipe of recipes; let i = index"
+                          class="column is-one-fifth" [recipe]="recipe" [rating]="ratings[i]" ></app-recipelistitem>
   </div>
 </div>

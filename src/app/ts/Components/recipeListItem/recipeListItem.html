@@ -1,9 +1,9 @@
-<div class="card">
+<div class="card box">
   <div class="card-image">
     <img class="image " *ngIf="recipe.image" [src]="recipe.image" style="pointer-events: none" alt="Image"/>
   </div>
   <header class="card-header">
-    <h1 class="title is-4"><b>{{recipe.label}}</b></h1>
+    <h1 class="is-7"><b>{{recipe.label}}</b></h1>
     <a href="#" class="card-header-icon" aria-label="more options">
       <span class="icon">
         <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -19,6 +19,6 @@
   </div>
   <footer class="card-footer">
     <alife-rating-star class="card-footer-item" [options]="options" (onRatingChanged)="onRatingChange($event)"
-                       [(rating)]="value"></alife-rating-star>
+                       [(rating)]="rating.value"></alife-rating-star>
   </footer>
 </div>
