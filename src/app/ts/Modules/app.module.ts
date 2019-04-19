@@ -8,7 +8,7 @@ import {
   HamburgerComponent,
   HamburgerMenuComponent,
   RecipeListItemComponent,
-  WeeklistComponent
+  WeeklistComponent, CreatemyweekComponent
 } from '../Components';
 import {RecipeService, WeekListService} from '../Services';
 import { FormsModule } from '@angular/forms';
@@ -24,7 +24,7 @@ import { Routing } from './app.routing';
   declarations: [
     RecipeComponent, HomeComponent,
     RecipeListItemComponent, WeeklistComponent,
-    AppComponent, HeaderComponent,
+    AppComponent, HeaderComponent, CreatemyweekComponent,
     HamburgerComponent, HamburgerMenuComponent
   ],
   imports: [

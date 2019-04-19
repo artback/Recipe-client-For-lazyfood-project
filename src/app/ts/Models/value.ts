@@ -1,4 +1,4 @@
-export class Rating{
+export class ff{
   value: number;
   created: number;
 }

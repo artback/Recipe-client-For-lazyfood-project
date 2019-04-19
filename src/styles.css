@@ -1,4 +1,5 @@
 @import url("../node_modules/bulma/css/bulma.min.css");
+@import url("../node_modules/ionicons/dist/css/ionicons.css");
 html,body{
   height: 100%;
   width: 100%;
@@ -17,4 +18,9 @@ html,body{
   position:absolute;
   z-index: -1;
   width:100%;
+}
+.fullheight{
+  height:100%;
+  width: 100%;
+  overflow: auto;
 }

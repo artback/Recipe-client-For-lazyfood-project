@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RecipeService} from '../../Services';
 import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/internal/operators';
 import {FormControl} from '@angular/forms';
-import {APIService} from '../../../API.service';
-import {Rating} from '../../Models';
+import {APIService, BatchGetRatingsQuery, RatingQuery} from '../../../API.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +12,7 @@ import {Rating} from '../../Models';
 
 export class HomeComponent implements  OnInit {
   recipes: any[];
-  ratings: Rating[];
+  ratings: BatchGetRatingsQuery;
   private search: FormControl;
   constructor(
     public recipeService: RecipeService,
@@ -31,7 +30,7 @@ export class HomeComponent implements  OnInit {
       map((recipe) => recipe.map(rec => rec.recipe)),
     ).subscribe(recipes => {
       const recipes_ids = recipes.map(recipe => recipe.uri.substr(recipe.uri.lastIndexOf('_') + 1));
-      this.apiService.BatchGetRatings(recipes_ids).then(ratings => {
+      this.apiService.BatchGetRatings(recipes_ids).then(ratings  => {
         this.ratings = ratings;
         this.recipes = recipes;
       });

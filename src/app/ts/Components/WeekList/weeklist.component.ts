@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {RecipeService, WeekListService} from '../../Services';
 import * as moment from 'moment';
-import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Component({
@@ -15,8 +14,9 @@ export class WeeklistComponent implements OnInit {
   submitted = false;
   week: number;
   year: number;
-  weekDays;
-  weekRecipes: Observable<any>;
+  weekDates;
+  weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  weekRecipes: any;
 
   constructor(private recipeService: RecipeService, private route: ActivatedRoute,
               public router: Router,
@@ -28,8 +28,20 @@ export class WeeklistComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.weekDays = this.setDatesInWeek();
-    this.getRandomWeek();
+    this.weekDates = this.setDatesInWeek();
+    this.getFakedRandonWeek();
+    // this.getRandomWeek();
+  }
+  getFakedRandonWeek() {
+    this.submitted = false;
+    this.recipeService.searchRecipes('pizza').then((res) => {
+      // @ts-ignore
+      this.weekRecipes = res.hits.map(recipe => recipe.recipe ).slice(0, 7);
+      this.weekRecipes = this.weekRecipes.map((recipe) => {
+        recipe.servings = 4;
+        return recipe;
+      });
+    });
   }
 
   getRandomWeek() {
@@ -61,7 +73,8 @@ export class WeeklistComponent implements OnInit {
 
   verifyWeekList() {
     const recipes = this.weekRecipes.pipe(
-      map((recipe) => recipe.uri.split('_').slice(-1)[0])
+      // @ts-ignore
+      map(recipe => recipe.uri.split('_').slice(-1)[0])
     );
     this.weekListService.saveWeekList(this.week, this.year, recipes).subscribe();
   }
