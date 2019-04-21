@@ -54,8 +54,7 @@ export class WeeklistComponent implements OnInit {
   navigate(weeks) {
     const date = moment().week(this.week).year(this.year);
     date.add(weeks, 'week');
-    date.get('week');
-    this.weekDays = this.setDatesInWeek();
+    this.weekDates = this.setDatesInWeek();
     this.getRandomWeek();
     this.router.navigate([`../menu/${date.get('year')}/${date.get('week')}`]);
   }

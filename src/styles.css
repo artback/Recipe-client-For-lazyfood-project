@@ -1,5 +1,5 @@
-@import url("../node_modules/bulma/css/bulma.min.css");
-@import url("../node_modules/ionicons/dist/css/ionicons.css");
+@import "../node_modules/bulma/css/bulma.min.css";
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
 html,body{
   height: 100%;
   width: 100%;

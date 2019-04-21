@@ -1,10 +1,9 @@
-.level{
-  display: flex;
-  align-items: center;
-
-}
 .is-margin{
   margin: 0.5em;
+}
+.recipes{
+ max-width: 100%;
+ width: 100%;
 }
 #addButton {
   position: absolute;
