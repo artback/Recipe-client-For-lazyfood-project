@@ -19,9 +19,21 @@ html,body{
   z-index: -1;
   width:100%;
 }
+.shadow {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
 .fullheight{
   height:100%;
   width: 100%;
   max-width: 100%;
   overflow: auto;
+}
+.is-primary{
+  background-color: #800080!important;
+}
+.is-success{
+  background-color: #E000E0!important;
+}
+.navbar-item.active {
+  border-bottom: 3px solid currentColor;
 }

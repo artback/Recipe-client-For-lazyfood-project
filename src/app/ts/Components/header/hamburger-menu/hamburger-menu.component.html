@@ -1,6 +1,8 @@
 <div class="navbar-menu" [ngClass]="{'is-active': isActive}">
   <div class="navbar-start">
-    <a class="navbar-item" [routerLink]="['/menu', getYear(), getWeekNumber()]" >
+    <a class="navbar-item" [routerLink]="['/menu', getYear(), getWeekNumber()]"
+       routerLinkActive="active"
+    >
       Menus
     </a>
     <a class="navbar-item">
