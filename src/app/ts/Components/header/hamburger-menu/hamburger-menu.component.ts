@@ -38,10 +38,4 @@ export class HamburgerMenuComponent implements  OnInit {
   private login() {
     HamburgerMenuComponent.redirectToLogin();
   }
-  getWeekNumber(): number  {
-    return moment().add(2, 'days').week();
-  }
-  getYear(): number  {
-    return moment().add(2, 'days').year();
-  }
 }
