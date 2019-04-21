@@ -6,5 +6,4 @@ export * from './recipe/recipe.component';
 export * from './recipeListItem/recipeListItem.component';
 export * from './app/app.component';
 export * from './WeekList/weeklist.component';
-export * from './CreateMyWeek/createmyweek.component';
 

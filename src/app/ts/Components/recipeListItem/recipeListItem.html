@@ -2,21 +2,12 @@
   <div class="card-image">
     <img class="image " *ngIf="recipe.image" [src]="recipe.image" style="pointer-events: none" alt="Image"/>
   </div>
-  <header class="card-header">
-    <h1 class="is-7"><b>{{recipe.label}}</b></h1>
-    <a href="#" class="card-header-icon" aria-label="more options">
-      <span class="icon">
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
-      </span>
-    </a>
-  </header>
-  <div class="card-content">
+    <h1 class="has-text-centered onelinetext"><b>{{recipe.label}}</b></h1>
     <div class="content">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
       <br>
-      <i class="is-size-7">{{recipe.source}}</i>
+      <i class="is-size-7 ">{{recipe.source}}</i>
     </div>
-  </div>
   <footer class="card-footer">
     <alife-rating-star class="card-footer-item" [options]="options" (onRatingChanged)="onRatingChange($event)"
                        [(rating)]="rating.value"></alife-rating-star>

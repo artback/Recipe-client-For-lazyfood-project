@@ -3,13 +3,8 @@
   align-items: center;
 
 }
-table{
-  background-color: transparent!important;
-}
-.text{
- width: 20ch;
- height: 10ch;
- text-align: center!important;
+.is-margin{
+  margin: 0.5em;
 }
 #addButton {
   position: absolute;

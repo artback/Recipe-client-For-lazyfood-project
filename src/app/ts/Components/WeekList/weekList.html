@@ -1,33 +1,21 @@
-<div class="fullheight">
   <div class="level ">
     <span class="box" (click)="navigate(-1)" ><p class="ion-md-arrow-back"></p></span>
     <span class="box" (click)="navigate(1)"><p class="ion-md-arrow-forward"></p></span>
   </div>
-<table class="table is-fullwidth" >
-  <tr >
-    <td class="is-dark has-text-centered " *ngFor="let day of weekDays">
+<div class="columns is-gapless" >
+    <div class=" has-text-centered column" *ngFor="let day of weekDays; let i = index">
+      <div class="days has-background-black has-text-white">
       {{day}}
-    </td>
-  <tr>
-    <td class="has-text-centered has-text-white" *ngFor="let date of weekDates">{{date.format('Do MMMM')}}</td>
-  <tr>
-    <td *ngFor="let recipe of weekRecipes ">
-      <div class="box ">
-          <figure class="image is-rounded">
-            <img *ngIf="recipe.image" [src]="recipe.image" style="pointer-events: none" alt="Image"/>
-          </figure>
-          <h1 class="is-7 has-text-centered text ">{{recipe.label}}</h1>
-        <div class="columns is-centered">
-              <div class="column is-three-fifths">
-              <q  class=" button ion-md-arrow-back" (click)="recipe.servings = recipe.servings-1"></q>
-               <div class="button ">{{recipe.servings}}</div>
-              <q class=" button ion-md-arrow-forward" (click)="recipe.servings = recipe.servings+1"></q>`
-              </div>
-          </div>
-        </div>
-    </td>
-</table>
-<span (click)="verifyWeekList()" class="button is-success is-rounded" *ngIf="!submitted" id="addButton">
+      </div>
+      <div class="has-text-centered has-text-white" >{{weekDates[i].format('Do MMMM')}}</div>
+      <div class="is-margin">
+      <app-recipelistitem [recipe]="weekRecipes[i]"  [rating]="0"></app-recipelistitem>
+       </div>
+    </div>
+  <span (click)="verifyWeekList()" class="button is-success is-rounded" *ngIf="!submitted" id="addButton">
 Save changes
 </span>
 </div>
+
+
+

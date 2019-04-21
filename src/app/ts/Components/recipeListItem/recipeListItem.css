@@ -7,6 +7,12 @@
 .card {
   overflow:hidden;
 }
+.onelinetext{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  height:80px;
+}
 .image{
  min-width: 100%;
 }
