@@ -1,6 +1,4 @@
-import {HomeComponent} from '../Components';
-import {WeeklistComponent} from '../Components';
-import {RecipeComponent} from '../Components';
+import {WeeklistComponent, RecipeComponent, HomeComponent, ProfileComponent} from '../Components';
 import {RouterModule, Routes} from '@angular/router';
 import * as moment from 'moment/moment';
 
@@ -14,6 +12,7 @@ const getYear = () => {
 const appRoutes: Routes = [
   { path: 'recipe/:id',    component: RecipeComponent},
   { path: 'menu/:year/:week',    component: WeeklistComponent},
+  { path: 'profile',    component:  ProfileComponent},
   { path: 'menu',    redirectTo: `menu/${getYear()}/${getWeekNumber()}`},
   { path: '**', component: HomeComponent},
 ];

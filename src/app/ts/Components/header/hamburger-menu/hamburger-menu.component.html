@@ -31,6 +31,10 @@
   </div>
 
   <div class="navbar-end">
+      <a class="navbar-item" [routerLink]="['/profile']"
+         routerLinkActive="active"
+         href="/profile"
+      >{{usersName}}</a>
     <div class="navbar-item">
       <div class="buttons">
         <a *ngIf="!signedIn" (click)="login()" class="button is-primary">

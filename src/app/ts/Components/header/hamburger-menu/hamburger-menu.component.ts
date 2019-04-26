@@ -12,6 +12,8 @@ import {AmplifyService} from 'aws-amplify-angular';
 export class HamburgerMenuComponent implements  OnInit {
   @Input() isActive;
   signedIn = false;
+  user: any;
+  private usersName: string;
   constructor(private amplifyService: AmplifyService) {
   }
   private static redirectToLogin() {
@@ -29,6 +31,8 @@ export class HamburgerMenuComponent implements  OnInit {
   ngOnInit(): void {
     this.amplifyService.authStateChange$.subscribe((authState) => {
       this.signedIn = authState.state.match(/^(signedIn|signIn|cognitoHostedUI)$/) != null;
+      this.user = authState.user;
+      this.usersName =  `${this.user.attributes.given_name} ${this.user.attributes.family_name}`;
     });
   }
 

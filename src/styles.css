@@ -26,6 +26,23 @@ html,body{
   overflow: auto;
   height: 100%;
 }
+.myLogo{
+  font-size: 11em;
+  color: floralwhite;
+  font-family: Carosello;
+  text-shadow: 3px 3px 5px black;
+}
+.myMiniLogo{
+  color: floralwhite;
+  text-align: center;
+  font-size: 1.5em;
+  font-family: Carosello;
+  text-shadow: 1px 1px 1px black;
+}
+@font-face {
+  font-family: Carosello;
+  src: url(./assets/font/Carosello.otf);
+}
 .is-primary{
   background-color: #800080!important;
 }

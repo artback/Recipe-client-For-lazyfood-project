@@ -1,7 +1,6 @@
-@media (max-width: 25rem) {
-  .navbar-item img {
-    max-height: 2rem;
-  }
+.round{
+  border-radius: 50%;
+  background: #800080;
 }
 app-weeklist{
   height: 100%;
