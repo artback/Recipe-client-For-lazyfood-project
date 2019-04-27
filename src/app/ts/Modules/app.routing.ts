@@ -14,6 +14,7 @@ const appRoutes: Routes = [
   { path: 'menu/:year/:week',    component: WeeklistComponent},
   { path: 'profile',    component:  ProfileComponent},
   { path: 'menu',    redirectTo: `menu/${getYear()}/${getWeekNumber()}`},
-  { path: '**', component: HomeComponent},
+  { path: 'home', component: HomeComponent},
+  { path: '**',    redirectTo: 'home'}
 ];
 export const Routing = RouterModule.forRoot(appRoutes);

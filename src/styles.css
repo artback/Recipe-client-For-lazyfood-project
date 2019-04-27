@@ -6,6 +6,22 @@ html,body{
   max-height: 100%;
   overflow: hidden;
 }
+a{
+  color: white;
+}
+.scroll{
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.margin-2{
+  margin: 2em;
+}
+.margin-side-2{
+  margin-right: 2em;
+  margin-left: 2em;
+}
 .background{
   height: 100%;
   background-image: url("/assets/images/background.svg");
@@ -36,12 +52,27 @@ html,body{
   color: floralwhite;
   text-align: center;
   font-size: 1.5em;
+  height: 1.5em;
+  width:  1.5em;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
   font-family: Carosello;
   text-shadow: 1px 1px 1px black;
 }
 @font-face {
   font-family: Carosello;
   src: url(./assets/font/Carosello.otf);
+}
+@font-face {
+  font-family: Merinda-regular;
+  src: url(./assets/font/Merienda-Regular.ttf);
+}
+@font-face {
+  font-family: Merinda-bold;
+  src: url(./assets/font/Merienda-Bold.ttf);
+}
+.merinda{
+ font-family: Merinda-regular;
 }
 .is-primary{
   background-color: #800080!important;
