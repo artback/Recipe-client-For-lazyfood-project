@@ -1,7 +1,27 @@
-<div class="fullheight">
-  <div class="container">
-    <span class=" has-text-white has-text-centered is-size-6 is-overlay merinda margin-2">
+<div class="fullheight container">
+    <h1 class=" has-text-white has-text-centered is-size-6  merinda margin-2">
       Define yourself. Never give anyone any chance to define you by their definitions.
-    </span>
-  </div>
+    </h1>
+
+    <div class="columns is-centered">
+      <div class="column is-half ">
+        <div class="field">
+        <p class="has-text-white">Din budget</p>
+        <form oninput="x.value=parseInt(a.value)">
+          <input class="slider is-fullwidth" type="range" id="a" value="1500" max="5000">
+          <div class="button is-static is-rounded">
+          <output  name="x" for="a b">1500</output>Kr i månaden
+            </div>
+        </form>
+          </div>
+        <div class="columns">
+        <app-tags-input class="column merinda is-full"[(tags)]="tags"></app-tags-input>
+          </div>
+      </div>
+    </div>
+
+
 </div>
+<span (click)="verifyWeekList()" class="button shadow is-success is-rounded right-absolute">
+Save changes
+</span>

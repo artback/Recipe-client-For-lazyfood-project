@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as moment from 'moment/moment';
 import { AlifeRatingStarModule } from 'alife-rating-star';
 import { Routing } from './app.routing';
+import {TagsInputModule} from '../Components/tags-input/tags-input.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { Routing } from './app.routing';
   imports: [
     BrowserModule,
     HttpClientModule,
+    TagsInputModule,
     FormsModule,
     Routing,
     AlifeRatingStarModule,

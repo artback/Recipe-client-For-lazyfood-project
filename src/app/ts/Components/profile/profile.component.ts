@@ -14,6 +14,8 @@ export class ProfileComponent implements  OnInit {
   recipes: any[];
   ratings: BatchGetRatingsQuery;
   private search: FormControl;
+  worth: number;
+  tags: string[] = ['Vegan'];
   constructor(
     public recipeService: RecipeService,
     private apiService: APIService
@@ -35,5 +37,9 @@ export class ProfileComponent implements  OnInit {
         this.recipes = recipes;
       });
     });
+  }
+
+  inputSlide(value) {
+    this.worth = value;
   }
 }

@@ -31,6 +31,8 @@
     "aws-amplify": "^1.1.19",
     "aws-amplify-angular": "^2.1.6",
     "bulma": "^0.7.4",
+    "bulma-slider": "^2.0.0",
+    "bulma-tagsinput": "^2.0.0",
     "core-js": "^2.6.5",
     "font-awesome": "^4.7.0",
     "moment": "^2.24.0",

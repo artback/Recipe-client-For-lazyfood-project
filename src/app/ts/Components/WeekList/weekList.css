@@ -5,9 +5,3 @@
  max-width: 100%;
  width: 100%;
 }
-#addButton {
-  position: absolute;
-  bottom: 5em;
-  right: 2em;
-  height: 60px; /* Height of the footer */
-}

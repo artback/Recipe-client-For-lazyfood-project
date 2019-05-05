@@ -7,4 +7,5 @@ export * from './recipeListItem/recipeListItem.component';
 export * from './app/app.component';
 export * from './WeekList/weeklist.component';
 export * from './profile/profile.component';
+export * from './tags-input/tags-input.component';
 

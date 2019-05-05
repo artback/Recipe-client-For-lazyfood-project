@@ -1,0 +1,18 @@
+<label role="none" class="wrapper">
+      <div class="tags">
+			<span *ngFor="let tag of tags" class="tag is-primary" >
+					{{ tag }}
+        <button class="delete is-small" (click)="removeTag( tag )" ></button>
+			</span>
+    </div>
+
+
+  <input
+    type="text"
+    #name
+    placeholder="Add diet..."
+    (keydown.enter)="addTag( name.value ) ; name.value = '' ;"
+    class="merinda input"
+  />
+
+</label>
