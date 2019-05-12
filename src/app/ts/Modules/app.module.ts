@@ -9,7 +9,7 @@ import {
   HamburgerMenuComponent,
   RecipeListItemComponent,
   WeeklistComponent,
-  ProfileComponent
+  ProfileComponent, FriendsComponent
 } from '../Components';
 import {RecipeService, WeekListService} from '../Services';
 import { FormsModule } from '@angular/forms';
@@ -28,7 +28,7 @@ import {TagsInputModule} from '../Components/tags-input/tags-input.module';
     RecipeListItemComponent, WeeklistComponent,
     AppComponent, HeaderComponent,
     HamburgerComponent, HamburgerMenuComponent,
-    ProfileComponent
+    ProfileComponent, FriendsComponent
   ],
   imports: [
     BrowserModule,
