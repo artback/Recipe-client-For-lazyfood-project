@@ -1,41 +1,5 @@
 <div class="scroll">
-<div class="level is-flex margin-side-2">
-  <span class="icon level-item has-text-white" (click)="navigate(-1)">
-    <a class=" fa fa-arrow-left fa-3x "></a>
-  </span>
-  <span class="has-text-white is-size-3 is-bold "><b> Week {{week}}</b></span>
-  <span class="icon level-item has-text-white margin-2" (click)="navigate(1)">
-    <a class=" fa fa-arrow-right fa-3x"></a>
-  </span>
-</div>
-<div class="columns is-gapless is-desktop">
-  <div class=" has-text-centered column" *ngFor="let day of weekDays; let i = index">
-    <h1 class="shadow has-background-black is-size-3 has-text-white">
-      <b>{{day}}</b>
-    </h1>
-    <div class="has-text-centered has-text-white">{{weekDates[i].format('Do MMMM')}}</div>
-    <div class="is-margin">
-      <app-recipelistitem class="shadow" [recipe]="weekRecipes[i] " [rating]="0"></app-recipelistitem>
-      <div class="field has-addons has-addons-centered">
-        <div class="level">
-            <span class="level-item" (click)="weekRecipes[i].servings = weekRecipes[i].servings-1">
-              <div class="fa fa-3x fa-minus-circle is-large"></div>
-            </span>
-          <span class="fa-stack fa-3x level-item">
-              <i class="fa fa-circle fa-stack-2x"></i>
-              <strong class="fa-stack-1x calendar-text has-text-white">{{weekRecipes[i].servings}}</strong>
-        </span>
-          <span class="level-item " (click)="weekRecipes[i].servings = weekRecipes[i].servings+1">
-                  <div class="fa fa-3x fa-plus-circle is-large"></div>
-        </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <span (click)="verifyWeekList()" class="button shadow is-success is-rounded right-absolute" *ngIf="!submitted">
-Save changes
-</span>
-</div>
+
 </div>
 
 

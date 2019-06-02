@@ -11,7 +11,7 @@ import {
   WeeklistComponent,
   ProfileComponent, FriendsComponent
 } from '../Components';
-import {RecipeService, WeekListService} from '../Services';
+import {RecipeService} from '../Services';
 import { FormsModule } from '@angular/forms';
 import { AmplifyService } from 'aws-amplify-angular';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -41,7 +41,7 @@ import {TagsInputModule} from '../Components/tags-input/tags-input.module';
     BrowserAnimationsModule,
   ],
   providers: [
-  RecipeService, WeekListService, AmplifyService, HttpClientModule
+  RecipeService, AmplifyService, HttpClientModule
   ],
   bootstrap: [
    AppComponent
