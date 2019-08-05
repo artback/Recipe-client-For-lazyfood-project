@@ -26,7 +26,7 @@ export class RecipeListItemComponent implements OnInit {
 
 
   onRatingChange(event) {
-    this.apiService.UpdateRating(this.id, event.newRating);
+    this.apiService.UpdateRating(event.newRating, this.id);
   }
 
 }

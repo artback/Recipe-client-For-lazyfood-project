@@ -28,15 +28,15 @@ const oauth = {
   }
 };
 Amplify.configure({
-  'aws_appsync_graphqlEndpoint': 'https://retuqsjuyrb55g3mex5kin3ddu.appsync-api.us-east-2.amazonaws.com/graphql',
+  'aws_appsync_graphqlEndpoint': 'https://g6w4tpmwu5fbhgfbiaaewi7dnq.appsync-api.us-east-2.amazonaws.com/graphql',
   'aws_appsync_region': 'us-east-2',
   'aws_appsync_authenticationType': 'AMAZON_COGNITO_USER_POOLS',
   Auth: {
-    identityPoolId: 'us-east-2:ef3f6bcd-b291-4ff9-9198-0ee6e430f309',
+    identityPoolId: 'us-east-2:e4fd4830-57be-4130-875d-6dda3a109bb9',
     region: 'us-east-2',
     identityPoolRegion: 'us-east-2',
-    userPoolId: 'us-east-2_6pGXvPblY',
-    userPoolWebClientId: '1f7hepu7a71e8jkrq0et56le22',
+    userPoolId: 'us-east-2_gMopcL7k3',
+    userPoolWebClientId: '3op9dsnsb6rcp9a5n7nnhqi1es',
     authenticationFlowType: 'USER_SRP_AUTH',
     oauth: oauth
   },

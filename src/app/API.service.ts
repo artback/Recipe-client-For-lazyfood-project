@@ -5,68 +5,79 @@ import API, { graphqlOperation } from "@aws-amplify/api";
 import { GraphQLResult } from "@aws-amplify/api/lib/types";
 import * as Observable from "zen-observable";
 
-export type UpdateRatingMutation = {
-  __typename: string;
-  value: number;
-  updated: string | null;
-};
-
 export type DeleteRatingMutation = {
   __typename: string;
-  value: number;
   updated: string | null;
+  value: number;
 };
 
 export type UpdateMenuMutation = {
   updateMenu: Array<string>;
 };
 
-export type RatingQuery = {
+export type UpdateRatingMutation = {
   __typename: string;
-  value: number;
   updated: string | null;
+  value: number;
 };
 
 export type BatchGetRatingsQuery = {
   __typename: string;
-  value: number;
   updated: string | null;
+  value: number;
 };
 
-export type MenuQuery = {
-  menu: Array<string | null> | null;
+export type GetMenuQuery = {
+  __typename: string;
+  updated: string | null;
+  value: number;
+};
+
+export type GetRatingQuery = {
+  __typename: string;
+  updated: string | null;
+  value: number;
+};
+
+export type BatchGetRecipesQuery = {
+  __typename: string;
+  label: string | null;
+  image: string | null;
+  source: string | null;
+  url: string | null;
+  yield: number | null;
+  dietLabels: Array<string | null> | null;
+  healthLabels: Array<string | null> | null;
+  cautions: Array<string | null> | null;
+  ingredientLines: Array<string | null> | null;
+  ingredients: Array<string | null> | null;
+  calories: number | null;
+  totalWeight: number | null;
+  totalTime: number | null;
+  totalNutritens: Array<{
+    __typename: "Nutritents";
+    label: string | null;
+    quantity: number | null;
+    unit: string | null;
+  } | null> | null;
+  totalDialy: Array<{
+    __typename: "Nutritents";
+    label: string | null;
+    quantity: number | null;
+    unit: string | null;
+  } | null> | null;
 };
 
 @Injectable({
   providedIn: "root"
 })
 export class APIService {
-  async UpdateRating(
-    recipe_id: string,
-    rating: number
-  ): Promise<UpdateRatingMutation> {
-    const statement = `mutation UpdateRating($recipe_id: String!, $rating: Int!) {
-        updateRating(recipe_id: $recipe_id, rating: $rating) {
-          __typename
-          value
-          updated
-        }
-      }`;
-    const gqlAPIServiceArguments: any = {
-      recipe_id,
-      rating
-    };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <UpdateRatingMutation>response.data.updateRating;
-  }
   async DeleteRating(recipe_id: string): Promise<DeleteRatingMutation> {
     const statement = `mutation DeleteRating($recipe_id: String!) {
         deleteRating(recipe_id: $recipe_id) {
           __typename
-          value
           updated
+          value
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -78,27 +89,82 @@ export class APIService {
     return <DeleteRatingMutation>response.data.deleteRating;
   }
   async UpdateMenu(
-    year_week: string,
-    menu: Array<string>
+    menu: Array<string>,
+    year_week: string
   ): Promise<UpdateMenuMutation> {
-    const statement = `mutation UpdateMenu($year_week: String!, $menu: [String!]!) {
-        updateMenu(year_week: $year_week, menu: $menu)
+    const statement = `mutation UpdateMenu($menu: [String!]!, $year_week: String!) {
+        updateMenu(menu: $menu, year_week: $year_week)
       }`;
     const gqlAPIServiceArguments: any = {
-      year_week,
-      menu
+      menu,
+      year_week
     };
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <UpdateMenuMutation>response.data;
   }
-  async Rating(recipe_id: string): Promise<RatingQuery> {
-    const statement = `query Rating($recipe_id: String!) {
-        rating(recipe_id: $recipe_id) {
+  async UpdateRating(
+    rating: number,
+    recipe_id: string
+  ): Promise<UpdateRatingMutation> {
+    const statement = `mutation UpdateRating($rating: Int!, $recipe_id: String!) {
+        updateRating(rating: $rating, recipe_id: $recipe_id) {
           __typename
-          value
           updated
+          value
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      rating,
+      recipe_id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdateRatingMutation>response.data.updateRating;
+  }
+  async BatchGetRatings(
+    recipe_ids?: Array<string | null>
+  ): Promise<BatchGetRatingsQuery> {
+    const statement = `query BatchGetRatings($recipe_ids: [String]) {
+        batchGetRatings(recipe_ids: $recipe_ids) {
+          __typename
+          updated
+          value
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (recipe_ids) {
+      gqlAPIServiceArguments.recipe_ids = recipe_ids;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <BatchGetRatingsQuery>response.data.batchGetRatings;
+  }
+  async GetMenu(year_week: string): Promise<GetMenuQuery> {
+    const statement = `query GetMenu($year_week: String!) {
+        getMenu(year_week: $year_week) {
+          __typename
+          updated
+          value
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      year_week
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetMenuQuery>response.data.getMenu;
+  }
+  async GetRating(recipe_id: string): Promise<GetRatingQuery> {
+    const statement = `query GetRating($recipe_id: String!) {
+        getRating(recipe_id: $recipe_id) {
+          __typename
+          updated
+          value
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -107,36 +173,46 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <RatingQuery>response.data.rating;
+    return <GetRatingQuery>response.data.getRating;
   }
-  async BatchGetRatings(
-    recipe_ids: Array<string>
-  ): Promise<BatchGetRatingsQuery> {
-    const statement = `query BatchGetRatings($recipe_ids: [String!]!) {
-        batchGetRatings(recipe_ids: $recipe_ids) {
+  async BatchGetRecipes(query?: string): Promise<BatchGetRecipesQuery> {
+    const statement = `query BatchGetRecipes($query: String) {
+        batchGetRecipes(query: $query) {
           __typename
-          value
-          updated
+          label
+          image
+          source
+          url
+          yield
+          dietLabels
+          healthLabels
+          cautions
+          ingredientLines
+          ingredients
+          calories
+          totalWeight
+          totalTime
+          totalNutritens {
+            __typename
+            label
+            quantity
+            unit
+          }
+          totalDialy {
+            __typename
+            label
+            quantity
+            unit
+          }
         }
       }`;
-    const gqlAPIServiceArguments: any = {
-      recipe_ids
-    };
+    const gqlAPIServiceArguments: any = {};
+    if (query) {
+      gqlAPIServiceArguments.query = query;
+    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <BatchGetRatingsQuery>response.data.batchGetRatings;
-  }
-  async Menu(year_week: string): Promise<MenuQuery> {
-    const statement = `query Menu($year_week: String!) {
-        menu(year_week: $year_week)
-      }`;
-    const gqlAPIServiceArguments: any = {
-      year_week
-    };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
-    return <MenuQuery>response.data;
+    return <BatchGetRecipesQuery>response.data.batchGetRecipes;
   }
 }

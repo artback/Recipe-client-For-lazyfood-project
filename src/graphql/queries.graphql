@@ -1,16 +1,46 @@
 # this is an auto generated file. This will be overwritten
-query Rating($recipe_id: String!) {
-  rating(recipe_id: $recipe_id) {
-    value
-    updated
-  }
-}
-query BatchGetRatings($recipe_ids: [String!]!) {
+query BatchGetRatings($recipe_ids: [String]) {
   batchGetRatings(recipe_ids: $recipe_ids) {
-    value
     updated
+    value
   }
 }
-query Menu($year_week: String!) {
-  menu(year_week: $year_week)
+query GetMenu($year_week: String!) {
+  getMenu(year_week: $year_week) {
+    updated
+    value
+  }
+}
+query GetRating($recipe_id: String!) {
+  getRating(recipe_id: $recipe_id) {
+    updated
+    value
+  }
+}
+query BatchGetRecipes($query: String) {
+  batchGetRecipes(query: $query) {
+    label
+    image
+    source
+    url
+    yield
+    dietLabels
+    healthLabels
+    cautions
+    ingredientLines
+    ingredients
+    calories
+    totalWeight
+    totalTime
+    totalNutritens {
+      label
+      quantity
+      unit
+    }
+    totalDialy {
+      label
+      quantity
+      unit
+    }
+  }
 }

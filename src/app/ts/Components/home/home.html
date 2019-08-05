@@ -11,6 +11,6 @@
   </div>
   <div class="row columns is-multiline recipes">
       <app-recipelistitem *ngFor="let recipe of recipes; let i = index"
-                          class="column is-one-fifth" [recipe]="recipe" [rating]="ratings[i]" ></app-recipelistitem>
+                          class="column is-one-fifth" [recipe]="recipe" [rating]="ratings[i] ? ratings[i] : 0" ></app-recipelistitem>
   </div>
 </div>
