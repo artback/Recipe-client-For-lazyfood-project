@@ -19,6 +19,7 @@ query GetRating($recipe_id: String!) {
 }
 query BatchGetRecipes($query: String) {
   batchGetRecipes(query: $query) {
+    uri
     label
     image
     source
@@ -41,6 +42,40 @@ query BatchGetRecipes($query: String) {
       label
       quantity
       unit
+    }
+  }
+}
+query BatchGetRecipesWithRating($query: String) {
+  batchGetRecipesWithRating(query: $query) {
+    recipe {
+      uri
+      label
+      image
+      source
+      url
+      yield
+      dietLabels
+      healthLabels
+      cautions
+      ingredientLines
+      ingredients
+      calories
+      totalWeight
+      totalTime
+      totalNutritens {
+        label
+        quantity
+        unit
+      }
+      totalDialy {
+        label
+        quantity
+        unit
+      }
+    }
+    rating {
+      updated
+      value
     }
   }
 }

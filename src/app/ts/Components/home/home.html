@@ -6,11 +6,16 @@
   </div>
   <div class="level">
     <form class="level-item field">
-      <input type="search" class="control merinda" size="50" placeholder="Search for food here..." [formControl]="search">
+      <input type="search" class="control merinda" size="50" placeholder="Search for food here..."
+             [formControl]="search">
     </form>
   </div>
-  <div class="row columns is-multiline recipes">
-      <app-recipelistitem *ngFor="let recipe of recipes; let i = index"
-                          class="column is-one-fifth" [recipe]="recipe" [rating]="ratings[i] ? ratings[i] : 0" ></app-recipelistitem>
+  <div class="row columns is-4 is-multiline recipes">
+    <div *ngFor="let recipe of recipes; let i = index">
+      <app-recipelistitem class="column is-two-thirds is-centered"
+                          [recipe]="recipe"
+                          (ratingChange)="onRatingChange($event)"
+                          [rating]="ratings[i]"></app-recipelistitem>
+    </div>
   </div>
 </div>

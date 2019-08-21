@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {APIService} from '../../../API.service';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {APIService, BatchGetRatingsQuery, BatchGetRecipesQuery} from '../../../API.service';
+import {Rating} from '../../../../Types/recipe';
 
 @Component({
   selector: 'app-recipelistitem',
@@ -7,17 +8,18 @@ import {APIService} from '../../../API.service';
   styleUrls: ['./recipeListItem.css']
 })
 
-export class RecipeListItemComponent implements OnInit {
-  @Input() recipe;
-  @Input() rating;
+export class RecipeListItemComponent implements  OnChanges {
+  @Input() recipe: BatchGetRecipesQuery;
+  @Input() rating: BatchGetRatingsQuery;
+  @Output() ratingChange = new EventEmitter<{rating: number, uri: string}>();
   options = {
   maxRating: 5,
   readOnly: false,
   resetAllowed: false
   };
-  private id: string;
-  ngOnInit() {
-    this.id =  this.recipe.uri.substr(this.recipe.uri.lastIndexOf('_') + 1);
+  ngOnChanges() {
+    // Looks bad but works
+    this.rating  = this.rating !== null ? this.rating : {__typename: 'rating', value: 0, updated: '20191115'};
   }
 
   constructor(
@@ -26,7 +28,7 @@ export class RecipeListItemComponent implements OnInit {
 
 
   onRatingChange(event) {
-    this.apiService.UpdateRating(event.newRating, this.id);
+      this.ratingChange.emit({rating: event.newRating, uri: this.recipe.uri.substr(this.recipe.uri.lastIndexOf('_') + 1)});
   }
 
 }

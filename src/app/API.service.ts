@@ -41,6 +41,7 @@ export type GetRatingQuery = {
 
 export type BatchGetRecipesQuery = {
   __typename: string;
+  uri: string | null;
   label: string | null;
   image: string | null;
   source: string | null;
@@ -66,6 +67,44 @@ export type BatchGetRecipesQuery = {
     quantity: number | null;
     unit: string | null;
   } | null> | null;
+};
+
+export type BatchGetRecipesWithRatingQuery = {
+  __typename: string;
+  recipe: {
+    __typename: "Recipe";
+    uri: string | null;
+    label: string | null;
+    image: string | null;
+    source: string | null;
+    url: string | null;
+    yield: number | null;
+    dietLabels: Array<string | null> | null;
+    healthLabels: Array<string | null> | null;
+    cautions: Array<string | null> | null;
+    ingredientLines: Array<string | null> | null;
+    ingredients: Array<string | null> | null;
+    calories: number | null;
+    totalWeight: number | null;
+    totalTime: number | null;
+    totalNutritens: Array<{
+      __typename: "Nutritents";
+      label: string | null;
+      quantity: number | null;
+      unit: string | null;
+    } | null> | null;
+    totalDialy: Array<{
+      __typename: "Nutritents";
+      label: string | null;
+      quantity: number | null;
+      unit: string | null;
+    } | null> | null;
+  } | null;
+  rating: {
+    __typename: "Rating";
+    updated: string | null;
+    value: number;
+  } | null;
 };
 
 @Injectable({
@@ -179,6 +218,7 @@ export class APIService {
     const statement = `query BatchGetRecipes($query: String) {
         batchGetRecipes(query: $query) {
           __typename
+          uri
           label
           image
           source
@@ -214,5 +254,58 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <BatchGetRecipesQuery>response.data.batchGetRecipes;
+  }
+  async BatchGetRecipesWithRating(
+    query?: string
+  ): Promise<BatchGetRecipesWithRatingQuery> {
+    const statement = `query BatchGetRecipesWithRating($query: String) {
+        batchGetRecipesWithRating(query: $query) {
+          __typename
+          recipe {
+            __typename
+            uri
+            label
+            image
+            source
+            url
+            yield
+            dietLabels
+            healthLabels
+            cautions
+            ingredientLines
+            ingredients
+            calories
+            totalWeight
+            totalTime
+            totalNutritens {
+              __typename
+              label
+              quantity
+              unit
+            }
+            totalDialy {
+              __typename
+              label
+              quantity
+              unit
+            }
+          }
+          rating {
+            __typename
+            updated
+            value
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (query) {
+      gqlAPIServiceArguments.query = query;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <BatchGetRecipesWithRatingQuery>(
+      response.data.batchGetRecipesWithRating
+    );
   }
 }

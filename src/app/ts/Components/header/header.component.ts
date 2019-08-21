@@ -35,7 +35,6 @@ export class HeaderComponent implements  OnInit {
   ngOnInit(): void {
     this.amplifyService.authStateChange$.subscribe(authState => {
       this.signedIn = authState.state.match(/^(signedIn|signIn|cognitoHostedUI)$/) != null;
-      console.log(authState);
       this.user = authState.user;
       this.userName =  `${this.user.attributes.given_name} ${this.user.attributes.family_name}`;
     });

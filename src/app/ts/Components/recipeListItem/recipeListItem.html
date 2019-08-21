@@ -9,7 +9,7 @@
       <i class="is-size-7 ">{{recipe.source}}</i>
     </div>
   <footer class="card-footer">
-    <alife-rating-star class="card-footer-item" [options]="options" (onRatingChanged)="onRatingChange($event)"
-                       [(rating)]="rating.value"></alife-rating-star>
+    <alife-rating-star *ngIf=rating class="card-footer-item" [options]="options" (onRatingChanged)="onRatingChange($event)"
+                       [(rating)]=rating.value></alife-rating-star>
   </footer>
 </div>

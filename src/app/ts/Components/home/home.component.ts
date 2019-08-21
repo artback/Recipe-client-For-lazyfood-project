@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {debounceTime, distinctUntilChanged, filter,  switchMap} from 'rxjs/internal/operators';
 import {FormControl} from '@angular/forms';
-import {APIService, BatchGetRatingsQuery, BatchGetRecipesQuery} from '../../../API.service';
+import {APIService, BatchGetRatingsQuery, BatchGetRecipesQuery, BatchGetRecipesWithRatingQuery} from '../../../API.service';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +10,8 @@ import {APIService, BatchGetRatingsQuery, BatchGetRecipesQuery} from '../../../A
 })
 
 export class HomeComponent implements  OnInit {
-  recipes: BatchGetRecipesQuery;
-  ratings: BatchGetRatingsQuery;
+  recipes: BatchGetRecipesQuery[];
+  ratings: BatchGetRatingsQuery[];
   private search: FormControl;
   constructor(
     private apiService: APIService
@@ -24,11 +24,15 @@ export class HomeComponent implements  OnInit {
       distinctUntilChanged(),
       switchMap(this.apiService.BatchGetRecipes),
     ).subscribe(recipes => {
-      //const recipes_ids = recipes.map(recipe => recipe.uri.substr(recipe.uri.lastIndexOf('_') + 1));
-      this.recipes = recipes;
-      // this.apiService.BatchGetRatings(recipes_ids).then(ratings  => {
-      //   this.ratings = ratings;
-      // });
+      this.apiService.BatchGetRatings(
+        (recipes as unknown as BatchGetRecipesQuery[]).map(recipe => recipe.uri)
+      ).then(ratings => {
+        this.ratings = (ratings as unknown as BatchGetRatingsQuery[]);
+        this.recipes = (recipes as unknown as BatchGetRecipesQuery[]);
+      });
     });
+  }
+  onRatingChange(event: {rating: number, uri: string}) {
+    this.apiService.UpdateRating(event.rating, event.uri);
   }
 }
