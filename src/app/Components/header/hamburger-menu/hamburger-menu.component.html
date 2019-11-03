@@ -36,7 +36,7 @@
   </div>
 
   <div class="navbar-end">
-      <a class="navbar-item" [routerLink]="['/profile']"
+      <a *ngIf="signedIn" class="navbar-item" [routerLink]="['/profile']"
          routerLinkActive="active"
          href="/profile"
       >{{userName}}</a>

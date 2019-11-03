@@ -8,8 +8,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "generate": "amplify codegen ",
+    "start": "ng serve --ssl true --ssl-key /node_modules/browser-sync/lib/server/certs/server.key --ssl-cert /node_modules/browser-sync/lib/server/certs/server.crt",
     "build": "ng build --prod",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -28,8 +27,8 @@
     "@angular/platform-browser-dynamic": "^8.0.2",
     "@angular/router": "^8.0.2",
     "alife-rating-star": "0.0.1",
-    "aws-amplify": "^1.1.29",
-    "aws-amplify-angular": "^3.0.4",
+    "apollo-angular": "^1.8.0",
+    "browser-sync": "^2.26.7",
     "bulma": "^0.7.5",
     "bulma-slider": "^2.0.0",
     "bulma-tagsinput": "^2.0.0",
@@ -37,7 +36,13 @@
     "font-awesome": "^4.7.0",
     "moment": "^2.24.0",
     "rxjs": "^6.5.2",
-    "zone.js": "^0.9.1"
+    "zone.js": "^0.9.1",
+    "apollo-angular-link-http": "^1.9.0",
+    "apollo-link": "^1.2.11",
+    "apollo-client": "^2.6.0",
+    "apollo-cache-inmemory": "^1.6.0",
+    "graphql-tag": "^2.10.0",
+    "graphql": "^14.5.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.800.3",

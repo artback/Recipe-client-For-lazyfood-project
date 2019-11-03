@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {APIService, BatchGetRatingsQuery, BatchGetRecipesQuery} from '../../../API.service';
-import {Rating} from '../../../../Types/recipe';
 
 @Component({
   selector: 'app-recipelistitem',
@@ -9,8 +7,8 @@ import {Rating} from '../../../../Types/recipe';
 })
 
 export class RecipeListItemComponent implements  OnChanges {
-  @Input() recipe: BatchGetRecipesQuery;
-  @Input() rating: BatchGetRatingsQuery;
+  @Input() recipe: any;
+  @Input() rating: any;
   @Output() ratingChange = new EventEmitter<{rating: number, uri: string}>();
   options = {
   maxRating: 5,
@@ -21,10 +19,6 @@ export class RecipeListItemComponent implements  OnChanges {
     // Looks bad but works
     this.rating  = this.rating !== null ? this.rating : {__typename: 'rating', value: 0, updated: '20191115'};
   }
-
-  constructor(
-    private apiService: APIService
-  ) {}
 
 
   onRatingChange(event) {

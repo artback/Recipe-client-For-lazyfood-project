@@ -2,9 +2,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": { "*": ["types/*"] },
-    "baseUrl": ".",
-    "paths": { "*": ["types/*"] },
+    "paths": {
+      "*": [
+        "types/*"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -16,12 +18,19 @@
       "node_modules/@types"
     ],
     "plugins": [
-      { "name": "tslint-language-service"}
+      {
+        "name": "tslint-language-service"
+      }
     ],
     "lib": [
       "es2017",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ]
   },
-  "include": ["node_modules/angular-bootstrap-md/**/*.ts",  "src/**/*.ts","node_modules/angular2-indexeddb/angular2-indexeddb.js"]
+  "include": [
+    "node_modules/angular-bootstrap-md/**/*.ts",
+    "src/**/*.ts",
+    "node_modules/angular2-indexeddb/angular2-indexeddb.js"
+  ]
 }

@@ -82,7 +82,7 @@ export class TagsInputCoreComponent {
 	// I filter the given tag out of the given tags collection.
 	private filterOut( tags: Tags, tag: Tag ): Tags {
 
-		let filteredTags = tags.filter(
+		const filteredTags = tags.filter(
 			( currentTag ) => {
 
 				return( currentTag !== tag );

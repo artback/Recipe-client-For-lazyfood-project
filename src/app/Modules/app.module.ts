@@ -12,7 +12,6 @@ import {
   ProfileComponent, FriendsComponent
 } from '../Components';
 import { FormsModule } from '@angular/forms';
-import { AmplifyService } from 'aws-amplify-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +19,7 @@ import * as moment from 'moment/moment';
 import { AlifeRatingStarModule } from 'alife-rating-star';
 import { Routing } from './app.routing';
 import {TagsInputModule} from '../Components/tags-input/tags-input.module';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -38,9 +38,10 @@ import {TagsInputModule} from '../Components/tags-input/tags-input.module';
     AlifeRatingStarModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    GraphQLModule,
   ],
   providers: [
-  AmplifyService, HttpClientModule
+  HttpClientModule
   ],
   bootstrap: [
    AppComponent

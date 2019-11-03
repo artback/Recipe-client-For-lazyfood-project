@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
-import {APIService, BatchGetRecipesQuery} from '../../../API.service';
 @Component({
   selector: 'app-weeklist',
   templateUrl: './weekList.html',
@@ -14,7 +13,6 @@ export class WeeklistComponent implements OnInit {
   weekDates;
   private weekRecipes: Promise<any>;
   constructor(private route: ActivatedRoute,
-              private apiService: APIService,
               public router: Router) {
     this.route.params.subscribe(res => {
       this.week = res.week;
@@ -24,10 +22,6 @@ export class WeeklistComponent implements OnInit {
 
   ngOnInit() {
     this.weekDates = this.setDatesInWeek();
-    this.weekRecipes = this.getRandomWeek();
-  }
-  getRandomWeek() {
-    return this.apiService.GetMenu('' + this.week + this.year);
   }
 
   navigate(weeks) {
