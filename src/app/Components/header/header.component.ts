@@ -8,7 +8,6 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 })
 export class HeaderComponent implements  OnInit {
   isActive = false;
-  user: any;
   userName: string;
   signedIn: boolean;
 
@@ -22,15 +21,24 @@ export class HeaderComponent implements  OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      console.log(params);
       if (params['id']) {
-        localStorage.setItem('_uid', params['id']);
-        localStorage.setItem('_username', params['name']);
+        localStorage.setItem('uid', params['id']);
+        localStorage.setItem('username', params['name']);
+        localStorage.setItem('token', decodeURI(params['token']));
         this.router.navigateByUrl('/', {replaceUrl: true});
+      }
+      const name = localStorage.getItem('username');
+      if (name) {
+        this.userName = name;
+        this.signedIn = true;
       }
     });
   }
   private logout() {
+    window.localStorage.removeItem('uid');
+    window.localStorage.removeItem('username');
+    window.localStorage.removeItem('token');
+    this.signedIn = false;
   }
   private login() {
     location.assign('https://www.localhost:3000/authorization/facebook');

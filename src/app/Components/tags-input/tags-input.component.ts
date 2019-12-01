@@ -1,9 +1,7 @@
-
 // Import the core angular services.
-import { Component } from '@angular/core';
-
+import {Component} from '@angular/core';
 // Import the application components and services.
-import { TagsInputCoreComponent } from './tags-input-core.component';
+import {TagsInputCoreComponent} from './tags-input-core.component';
 
 
 @Component({

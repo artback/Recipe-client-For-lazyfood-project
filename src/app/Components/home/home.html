@@ -12,7 +12,7 @@
   </div>
   <div class="row columns is-4 is-multiline recipes">
     <div *ngFor="let recipe of recipes; let i = index">
-      <app-recipelistitem class="column is-two-thirds is-centered"
+      <app-recipelistitem class="column is-centered"
                           [recipe]="recipe"
                           (ratingChange)="onRatingChange($event)"
                           [rating]="ratings[i]"></app-recipelistitem>

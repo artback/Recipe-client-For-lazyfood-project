@@ -1,7 +1,5 @@
-
 // Import the core angular services.
-import { Component } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //

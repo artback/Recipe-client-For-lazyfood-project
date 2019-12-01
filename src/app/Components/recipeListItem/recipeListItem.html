@@ -2,14 +2,10 @@
   <div class="card-image">
     <img class="image " *ngIf="recipe.image" [src]="recipe.image" style="pointer-events: none" alt="Image"/>
   </div>
-    <h1 class="has-text-centered onelinetext"><b>{{recipe.label}}</b></h1>
-    <div class="content">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-      <br>
+    <h1 class="has-text-centered onelinetext"><b>{{recipe.title}}</b></h1>
       <i class="is-size-7 ">{{recipe.source}}</i>
-    </div>
   <footer class="card-footer">
-    <alife-rating-star *ngIf=rating class="card-footer-item" [options]="options" (onRatingChanged)="onRatingChange($event)"
+    <alife-rating-star  class="card-footer-item" [options]="options" (onRatingChanged)="onRatingChange($event)"
                        [(rating)]=rating.value></alife-rating-star>
   </footer>
 </div>

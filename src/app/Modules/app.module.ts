@@ -11,8 +11,7 @@ import {
   WeeklistComponent,
   ProfileComponent, FriendsComponent
 } from '../Components';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as moment from 'moment/moment';
